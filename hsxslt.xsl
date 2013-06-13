@@ -61,7 +61,15 @@
     <p class="poetic-line"><xsl:apply-templates /></p>
   </xsl:template>
 
+  <!-- This template outputs the text content of poetic lines. -->
   <xsl:template match="tei:l/text()">
+    <xsl:value-of select="." />
+  </xsl:template>
+
+  <!-- This template outputs the text content of head elements -->
+  <!-- that are children of lgs; mostly the titles of individual -->
+  <!-- poems, but also some other stuff. -->
+  <xsl:template match="tei:lg/tei:head/text()">
     <xsl:value-of select="." />
   </xsl:template>
 
