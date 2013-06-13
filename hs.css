@@ -1,0 +1,43 @@
+#container {
+    margin: 0 auto;
+    width: 70%;
+    background: #fff;
+}
+
+
+html {
+    font-size: 1.7em;
+}
+
+p {
+    padding: 0;
+    margin:  0;
+}
+
+
+.poem {
+    margin-top: 2em;
+    border-top: solid gray 1px;
+
+}
+
+.linegroup {
+   padding: 0.5em;
+}
+
+.indent1 {
+    text-indent: 1em;
+}
+
+.indent2 {
+    text-indent: 2em;
+}
+
+.indent3 {
+    text-indent: 3em;
+}
+
+.indent4 {
+    text-indent: 4em;
+}
+

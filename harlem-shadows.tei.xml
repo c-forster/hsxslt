@@ -910,8 +910,8 @@
 
 	   <pb n="6"/>
 	   <lg type="poem" xml:id="america">
-	     <head>
-	       <title rend="caps">America</title>
+	     <head rend="caps">
+	       America
 	       <note>This poem appears as <ref target="#ThreeSonnets-America"><title level="a">"America"</title></ref> with two other sonnets in <ref target="#ThreeSonnets"><title level="a">"Three Sonnets"</title></ref> (<title level="j">The Literary Digest</title>, <date when="1922-10-28">October 28, 1922.</date>
 	       </note>
 	     </head>
@@ -1111,7 +1111,7 @@
 	     <l>This is no daytime dream, there's something in it,</l>
 	     <l>Oh<app>
 	     <lem wit="#HS" />
-	     <rdg wit="#ThreeSonnets-HomeThoughts">,</rdg> </app>something's happening there this very minute!</l>
+	     <rdg wit="#ThreeSonnets-HomeThoughts">,</rdg></app> something's happening there this very minute!</l>
 	   </lg>
 
 	   <pb n="12" />

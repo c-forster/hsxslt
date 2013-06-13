@@ -16,8 +16,18 @@
 <!-- Create HTML header from teiHeader -->
   <xsl:template match="tei:teiHeader">
     <head>
+      <link rel="stylesheet" href="hs.css" />
     <xsl:apply-templates />
     </head>
+  </xsl:template>
+
+<!-- This rule creates a container div for formatting HTML  -->
+<!-- Applying it to tei:body works; applying it to tei:text -->
+<!-- does not. I don't know WHY!?!?!?! -->
+  <xsl:template match="tei:body">
+    <div id="container">
+      <xsl:apply-templates />
+    </div>
   </xsl:template>
 
 <!-- use titleStmt title for HTML document title -->
@@ -39,12 +49,6 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="tei:lg[@type='poem']/tei:title">
-    <h2>
-      <xsl:apply-templates />
-    </h2>
-  </xsl:template>
-
   <xsl:template match="tei:lg[@type='poem']/tei:lg">
     <div class="linegroup">
       <xsl:apply-templates />
@@ -58,7 +62,16 @@
   </xsl:template>
 
   <xsl:template match="tei:l">
-    <p class="poetic-line"><xsl:apply-templates /></p>
+    <xsl:element name="p">
+      <xsl:attribute name="class">
+	poetic-line
+	<xsl:for-each select="@*">
+	  <xsl:value-of select="." />
+	</xsl:for-each>
+      </xsl:attribute>
+
+      <xsl:apply-templates />
+    </xsl:element>
   </xsl:template>
 
   <!-- This template outputs the text content of poetic lines. -->
