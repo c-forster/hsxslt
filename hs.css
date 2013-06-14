@@ -57,18 +57,27 @@ p {
 }
 
 .indent1 {
-    text-indent: 1em;
+/*    text-indent: 1em; */
+    margin-left: 1em;
 }
 
 .indent2 {
-    text-indent: 2em;
+/*    text-indent: 2em; */
+    margin-left: 2em;
 }
 
 .indent3 {
-    text-indent: 3em;
+/*    text-indent: 3em; */
+    margin-left: 3em;
 }
 
 .indent4 {
-    text-indent: 4em;
+/*    text-indent: 4em;*/
+    margin-left: 3em; 
 }
 
+.lineNo {
+    color: #d0d0d0; 
+    margin-right: 1em;
+/*    padding-right: 2em; */
+}
