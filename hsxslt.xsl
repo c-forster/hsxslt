@@ -56,11 +56,11 @@
   </xsl:template>
 
   <xsl:template match="tei:lg[@type='poem']/tei:head">
-    <h3>
+    <xsl:element name="h3">
       <xsl:apply-templates />
-    </h3>
+    </xsl:element>
   </xsl:template>
-
+  
   <xsl:template match="tei:l">
     <xsl:element name="p">
       <xsl:attribute name="class">
@@ -81,21 +81,62 @@
 
   <!-- This template outputs the text content of head elements -->
   <!-- that are children of lgs; mostly the titles of individual -->
-  <!-- poems, but also some other stuff. -->
-  <xsl:template match="tei:lg/tei:head/text()">
-    <xsl:value-of select="." />
+  <!-- poems, but also some other stuff.  -->
+<!--  <xsl:template match="tei:lg/tei:head/text()"> -->
+<!--    <xsl:apply-templates /> -->
+<!--    <xsl:value-of select="." /> 
   </xsl:template>
-
+-->
   <!-- The Following Rule Will Output The Content of the lemma within any -->
   <!-- textual apparatus, ignoring the other readings. -->
   <xsl:template match="tei:app">
-    <xsl:value-of select="tei:lem" />
+    <xsl:apply-templates />
   </xsl:template>
 
+  <xsl:template match="tei:lem">
+    <xsl:element name="span">
+      <xsl:attribute name="class">lemma</xsl:attribute>
+      <xsl:value-of select="." />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="tei:rdg">
+    <xsl:element name="span">
+      <xsl:attribute name="class">reading</xsl:attribute>
+      <xsl:value-of select="." />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="tei:note">
+    <div class="note">
+      <xsl:apply-templates />
+    </div>
+  </xsl:template>
+
+<!--  <xsl:template match="@rend">
+    <xsl:apply-templates />
+  </xsl:template>
+-->
+<!-- Span level Templates -->
+<!-- This template matches journal and monograph titles -->
+  <xsl:template match="tei:title[@level='j']|tei:title[@level='m']">
+    <span class='title'><xsl:apply-templates /></span>
+  </xsl:template>
+
+<!--  <xsl:template match="//*[@rend='caps']">
+    <span class="caps">
+      <xsl:apply-templates />
+    </span>
+  </xsl:template>
+-->
 <!-- This is a dummy rule to override the default; this means, rather than  -->
 <!--  vomitting everything, only material matched to templates above will, in -->
 <!-- fact appear. - csf 6/12/13  -->
-<xsl:template match="text()|@*">
+<!-- <xsl:template match="text()|@*"> 
+</xsl:template>  -->
+
+<!-- An empty template to silence the output of all front matter -->
+<xsl:template match="tei:front">
 </xsl:template>
   
 </xsl:stylesheet>

@@ -912,10 +912,11 @@
 	   <lg type="poem" xml:id="america">
 	     <head rend="caps">
 	       America
-	       <note>This poem appears as <ref target="#ThreeSonnets-America"><title level="a">"America"</title></ref> with two other sonnets in <ref target="#ThreeSonnets"><title level="a">"Three Sonnets"</title></ref> (<title level="j">The Literary Digest</title>, <date when="1922-10-28">October 28, 1922.</date>
-	       </note>
+	       <note>This poem appears as <ref target="#ThreeSonnets-America"><title level="a">"America"</title></ref> with two other sonnets in <ref target="#ThreeSonnets"><title level="a">"Three Sonnets"</title></ref> (<title level="j">The Literary Digest</title>), <date when="1922-10-28">October 28, 1922.</date>
+	     </note>
+	     
 	     </head>
-
+     
 	     <l><app>
 	       <lem wit="#HS">Although</lem>
 	       <rdg wit="#ThreeSonnets-America">Altho</rdg>
@@ -941,8 +942,8 @@
 	   <lg type="poem" xml:id="alfonso-dressing-to-wait-at-table">
 	     <head>
 		 <app>
-		   <lem wit="#HS"><title rend="caps">Alfonso, Dressing to Wait at Table</title></lem>
-		   <rdg wit="#Cambridge-Alfonso #SINH-alfonso"><title>Alfonso, Dressing to Wait at Table, Sings</title></rdg>
+		   <lem wit="#HS" rend="caps">Alfonso, Dressing to Wait at Table</lem>
+		   <rdg wit="#Cambridge-Alfonso #SINH-alfonso">Alfonso, Dressing to Wait at Table, Sings</rdg>
 		 </app>
 		 <note>This poem also appears in <ref target="#Cambridge-Alfonso"><title level="j">Cambridge Magazine</title> (<date when="1920">1920</date>)</ref> and <ref target="#SINH-Alfonso"><title level="m">Spring in New Hampshire</title></ref>.
 		 </note>

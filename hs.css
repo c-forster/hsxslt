@@ -1,6 +1,6 @@
 #container {
     margin: 0 auto;
-    width: 70%;
+    width: 60%;
     background: #fff;
 }
 
@@ -21,8 +21,39 @@ p {
 
 }
 
+.note {
+    width	: 10em;
+    padding     : 1em;
+    margin      : 3em;
+/*    background	: #ccc; */
+    float	: left; 
+    margin-left: -15em;
+/*    border-right: solid gray 1px; */
+    font-size   : 0.5em;
+    font-weight : normal;
+    text-transform: none;
+    font-family: sans-serif;
+}
+
 .linegroup {
    padding: 0.5em;
+}
+
+.lemma {
+    color: red;
+}
+
+.reading {
+    color: green;
+}
+
+.title {
+    font-style: italic;
+}
+
+.caps {
+    text-transform: uppercase;
+    
 }
 
 .indent1 {
