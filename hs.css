@@ -22,29 +22,32 @@ p {
 }
 
 .note {
-    width	: 10em;
-    padding     : 1em;
-    margin      : 3em;
+    width		: 10em;
+    padding		: 1em;
+    margin		: 3em;
 /*    background	: #ccc; */
-    float	: left; 
-    margin-left: -15em;
-/*    border-right: solid gray 1px; */
-    font-size   : 0.5em;
-    font-weight : normal;
-    text-transform: none;
-    font-family: sans-serif;
+    float		: left; 
+    margin-left		: -15em;
+/*    border-right	: solid gray 1px; */
+    font-size		: 0.5em;
+    font-weight		: normal;
+    text-transform	: none;
+    font-family		: sans-serif;
 }
 
 .linegroup {
    padding: 0.5em;
 }
 
+
 .lemma {
     color: red;
 }
 
 .reading {
-    color: green;
+    text-decoration: none;
+    font-size: 0.5em;
+    float: right;
 }
 
 .title {

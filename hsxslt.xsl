@@ -110,14 +110,18 @@
   <xsl:template match="tei:lem">
     <xsl:element name="span">
       <xsl:attribute name="class">lemma</xsl:attribute>
-      <xsl:value-of select="." />
+<!--      <xsl:value-of select="." /> -->
+      <xsl:apply-templates />
     </xsl:element>
   </xsl:template>
 
   <xsl:template match="tei:rdg">
-    <xsl:element name="span">
+<!--    <xsl:element name="span"> -->
+    <xsl:element name="div">
       <xsl:attribute name="class">reading</xsl:attribute>
-      <xsl:value-of select="." />
+<!--      <xsl:value-of select="." /> -->
+      <xsl:value-of select="../tei:lem" />]
+      <xsl:apply-templates />
     </xsl:element>
   </xsl:template>
 
