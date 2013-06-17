@@ -7,6 +7,8 @@
   <xsl:output method="html" media-type="text/html; charset=UTF-8" doctype-public="html" 
         indent="yes" encoding="utf-8" omit-xml-declaration="yes"/>
 
+  <xsl:key name="witnessTitles" match="//tei:witness" use="@xml:id" />
+
   <xsl:template match="tei:TEI">
     <html>
     <xsl:apply-templates />
@@ -101,8 +103,6 @@
 <!--    <xsl:value-of select="." /> 
   </xsl:template>
 -->
-  <!-- The Following Rule Will Output The Content of the lemma within any -->
-  <!-- textual apparatus, ignoring the other readings. -->
   <xsl:template match="tei:app">
     <xsl:apply-templates />
   </xsl:template>
@@ -111,6 +111,10 @@
     <xsl:element name="span">
       <xsl:attribute name="class">lemma</xsl:attribute>
 <!--      <xsl:value-of select="." /> -->
+     <!-- We test for an empty lemma for those cases, usually puncutation   -->
+     <!-- where something has been simply added. We use this to indicate    -->
+     <!-- where in the text. -->
+      <xsl:if test="not(* or text())"><span class="empty-lemma">&#160;</span></xsl:if>
       <xsl:apply-templates />
     </xsl:element>
   </xsl:template>
@@ -121,7 +125,9 @@
       <xsl:attribute name="class">reading</xsl:attribute>
 <!--      <xsl:value-of select="." /> -->
       <xsl:value-of select="../tei:lem" />]
-      <xsl:apply-templates />
+      <xsl:apply-templates /> (
+      <!-- <xsl:apply-templates select="key('witnessTitles',substring-after(@wit,'#'))" />)-->
+      <xsl:value-of select="substring-before(@wit,'-')" />)
     </xsl:element>
   </xsl:template>
 
@@ -129,6 +135,14 @@
     <div class="note">
       <xsl:apply-templates />
     </div>
+  </xsl:template>
+
+<!-- Probably the ugliest bit of this code. Creates a sort of ad-hoc -->
+<!-- sigla, not for each *witness*, but for each major work. This    -->
+<!-- adhoc sigla in turn is used in the textual apparatus, to avoid  -->
+<!-- having to output the full title / bibl. -->
+  <xsl:template match="tei:ref">
+    <xsl:apply-templates /> (<span class="sigla"><xsl:value-of select="substring-before(@target,'-')" /></span>)
   </xsl:template>
 
 <!--  <xsl:template match="@rend">
@@ -140,6 +154,7 @@
   <xsl:template match="tei:title[@level='j']|tei:title[@level='m']">
     <span class='title'><xsl:apply-templates /></span>
   </xsl:template>
+
 
 <!--  <xsl:template match="//*[@rend='caps']">
     <span class="caps">

@@ -6,7 +6,7 @@
 
 
 html {
-    font-size: 1.7em;
+    font-size: 1.3em;
 }
 
 p {
@@ -46,8 +46,12 @@ p {
 
 .reading {
     text-decoration: none;
-    font-size: 0.5em;
+    font-size: 0.7em; 
+    vertical-align: middle;
+    color: #a0a0a0; 
     float: right;
+    clear: right; 
+
 }
 
 .title {
@@ -80,12 +84,19 @@ p {
 }
 
 .lineNo {
-
     float: left;
     color: #d0d0d0; 
     text-align: left;
     padding-right: 1em; 
     text-align: right; 
     min-width: 3em;  
+}
 
+.sigla {
+    color: blue;
+    text-decoration: italic;
+}
+
+.empty-lemma {
+   background-color: red;
 }
