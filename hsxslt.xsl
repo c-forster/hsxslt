@@ -77,13 +77,7 @@
       </span>
 
 <!-- This span contains the poetic line itself -->
-      <xsl:element name="span">
-	<xsl:attribute name="class">
-	  poetic-line
-	  <xsl:for-each select="@*">
-	    <xsl:value-of select="." />
-	  </xsl:for-each>
-	</xsl:attribute>
+      <xsl:element name="span"> <xsl:attribute name="class">poetic-line <xsl:for-each select="@*"> <xsl:value-of select="." /> </xsl:for-each> </xsl:attribute>
 	<xsl:apply-templates />
       </xsl:element>
 <!-- Here ends the template which grabs the poetic line itself -->
@@ -155,6 +149,16 @@
     <span class='title'><xsl:apply-templates /></span>
   </xsl:template>
 
+<!-- Templates for convert TEI lists into HTML lists -->
+  <xsl:template match="tei:list">
+    <ul>
+      <xsl:apply-templates />
+    </ul>
+  </xsl:template>
+
+  <xsl:template match="tei:item">
+    <li><xsl:apply-templates /></li>
+  </xsl:template>
 
 <!--  <xsl:template match="//*[@rend='caps']">
     <span class="caps">

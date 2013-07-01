@@ -12,11 +12,13 @@ html {
 p {
     padding: 0;
     margin:  0;
+    text-indent: -3em;
     clear: right;
 }
 
 
 .poem {
+    padding-left: 7em;
     margin-top: 2em;
     border-top: solid gray 1px;
     clear: both;
@@ -28,12 +30,16 @@ p {
     margin		: 3em;
 /*    background	: #ccc; */
     float		: left; 
-    margin-left		: -15em;
+    margin-left		: -25em;
 /*    border-right	: solid gray 1px; */
     font-size		: 0.5em;
     font-weight		: normal;
     text-transform	: none;
     font-family		: sans-serif;
+}
+
+.note ul {
+    padding: 0;
 }
 
 .linegroup {
@@ -95,6 +101,7 @@ p {
     padding-right: 1em; 
     text-align: right; 
     min-width: 3em;  
+    margin-left: -7em;
 }
 
 .sigla {
