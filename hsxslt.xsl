@@ -46,9 +46,11 @@
   </xsl:template>
 
   <xsl:template match="tei:lg[@type='poem']">
-    <div class="poem">
+    <xsl:element name="div">
+      <xsl:attribute name="class">poem</xsl:attribute>
+      <xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
       <xsl:apply-templates />
-    </div>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template match="tei:lg[@type='poem']/tei:lg">
@@ -172,8 +174,81 @@
 <!-- <xsl:template match="text()|@*"> 
 </xsl:template>  -->
 
-<!-- An empty template to silence the output of all front matter -->
+<!-- Front Matter Template -->
 <xsl:template match="tei:front">
+  <xsl:apply-templates />
 </xsl:template>
-  
+
+<!-- Table of Contents Templates -->
+<xsl:template match="tei:div[@type='contents']">
+  <div id="tableOfContents">
+    <xsl:apply-templates />
+  </div>
+</xsl:template>
+
+<!--
+<xsl:template match="tei:div[@type='contents']//tei:ref">
+  <xsl:element name="a"><xsl:attribute name="href"><xsl:value-of select="@target" /></xsl:attribute><xsl:apply-templates /></xsl:element>
+</xsl:template>
+-->
+<xsl:template match="tei:div[@type='contents']//tei:item">
+  <li><xsl:element name="a"><xsl:attribute name="href"><xsl:value-of select="tei:ref/@target" />
+</xsl:attribute><xsl:apply-templates /></xsl:element></li>
+</xsl:template>
+
+<xsl:template match="tei:div[@type='contents']//tei:ref">
+</xsl:template>
+
+
+<!-- Introduction -->
+<xsl:template match="tei:div[@type='introduction']|tei:div[@type='preface']">
+  <div class="prose">
+    <xsl:apply-templates />
+  </div>
+</xsl:template>
+
+<xsl:template match="tei:head">
+  <h3><xsl:apply-templates /></h3>
+</xsl:template>
+
+<xsl:template match="tei:p">
+  <p><xsl:apply-templates /></p>
+</xsl:template>
+
+<xsl:template match="tei:signed">
+  <p class="signature"><xsl:apply-templates /></p>
+</xsl:template>
+
+
+<!-- Title -->
+<xsl:template match="tei:titlePage">
+  <div id="titlePage">
+    <xsl:apply-templates />
+  </div>
+</xsl:template>
+
+<xsl:template match="tei:titlePart[@type='main']">
+  <h2><xsl:apply-templates /></h2>
+</xsl:template>
+
+<xsl:template match="tei:titlePart[@type='sub']">
+  <h3><xsl:apply-templates /></h3>
+</xsl:template>
+
+<xsl:template match="tei:titlePart[@type='desc']">
+  <h4><xsl:apply-templates /></h4>
+</xsl:template>
+
+<!-- Front matter -->
+<xsl:template match="tei:div[@type='frontmatter']">
+  <div id="frontmatter"><xsl:apply-templates /></div>
+</xsl:template>
+
+<!-- Elements with rend='italics' -->
+<xsl:template match="tei:*[@rend='italics']"><em><xsl:apply-templates /></em></xsl:template>
+
+<!-- Line breaks marked in TEI. -->
+<xsl:template match="tei:lb"><br /></xsl:template>
+
 </xsl:stylesheet>
+

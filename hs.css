@@ -7,6 +7,7 @@
 
 html {
     font-size: 1.3em;
+    color: #423F37;
 }
 
 p {
@@ -24,6 +25,10 @@ p {
     clear: both;
 }
 
+.poem h3 {
+    text-indent: -2em;
+}
+
 .note {
     width		: 10em;
     padding		: 1em;
@@ -36,6 +41,7 @@ p {
     font-weight		: normal;
     text-transform	: none;
     font-family		: sans-serif;
+    text-indent         : 0em;
 }
 
 .note ul {
@@ -60,8 +66,10 @@ p {
     clear: right;  */
     padding-left: 10em;
     float: right;
-    clear: right;
+/*    clear: right; */
 
+    width: 15em;
+    text-indent: 0em;
 
 }
 
@@ -111,4 +119,69 @@ p {
 
 .empty-lemma {
    background-color: red;
+}
+
+/* Styles for prose blocks follow */
+div.prose {
+    margin: 0 auto;
+    width: 40%;
+    background: #fff;
+}
+
+div.prose h3 {
+    font-variant: small-caps;
+    text-align: center;
+}
+
+div.prose p {
+    text-indent: 0em;
+    font-size: 1.2em;
+    line-height: 1.4em;
+    text-align: justify;
+}
+
+div.prose p + p {
+    text-indent: 3em;
+}
+
+div.prose .signature {
+    right: 0em;
+    text-align: right;
+}
+
+/* Styles for title material */
+#titlePage {
+    margin: 0 auto;
+    width: 60%;
+    text-align: center;
+    padding: 4em;
+}
+
+#frontmatter p, #titlePage p {
+    text-indent: 0em;
+}
+
+#frontmatter {
+    font-size: 0.8em;
+    color: #838b8b;
+    width: 40%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 4em;
+}
+
+/* Styles for Table of Contents */
+#tableOfContents {
+    margin: 0 auto;
+    width: 40%;
+    text-align: left;
+    padding: 4em;
+}
+
+#tableOfContents li {
+    list-style:none;
+}
+
+#tableOfContents a {
+    text-decoration: none;
 }
