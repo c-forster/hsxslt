@@ -32,11 +32,13 @@
 		     <title level="a">Spring in New Hampshire</title> in <ref target="#SINH">Springtime in New Hampshire</ref>, pg. 9.
 		   </bibl>
 		 </witness>
+
 		 <witness xml:id="SINH-alfonso">
 		   <bibl>
 		     <title>Alfonso, Dressing to Wait at Table, Sings</title> in <ref target="#SINH">Springtime in New Hampshire</ref>, pg. 13
 		   </bibl>
 		 </witness>
+
 		 <witness xml:id="SINH-tropics">
 		   <bibl>
 		     <title>The Tropics in New York</title> in <ref target="#SINH">Springtime in New Hampshire</ref>, pg. 26
@@ -180,13 +182,6 @@
 	       <bibl><title level="a">Outcast</title> in <ref target="#ThreeSonnets"><title level="j">The Literary Digest</title></ref></bibl>
 	     </witness>
 		 
-
-		 <witness xml:id="SINH-alfonso">
-		   <bibl>
-		     <title>Alfonso, Dressing to Wait at Table, Sings</title> in <ref target="#SINH">Springtime in New Hampshire</ref>, pg. 13
-		   </bibl>
-		 </witness>
-
 	     <witness xml:id="CambridgeMagazine">
 	       <bibl>
 		 <title level="j">Cambridge Magazine</title>. <date when="1920">Summer, 1920</date>. <biblScope>pg. 55-59.</biblScope>
@@ -248,12 +243,6 @@
 	     <witness xml:id="CambridgeMagazine-RestInPeace">
 	       <bibl>
 		 <title level="a">Rest in Peace</title> in <ref target="#CambridgeMagazine">Cambridge Magazine</ref> (1920), pg. 57.
-	       </bibl>
-	     </witness>
-
-	     <witness xml:id="CambridgeMagazine-MemoryOfJune">
-	       <bibl>
-		 <title level="a">A Memory of June</title> in <ref target="#CambridgeMagazine">Cambridge Magazine</ref> (1920), pg. 57.
 	       </bibl>
 	     </witness>
 
@@ -362,6 +351,22 @@
 		     <biblScope>20</biblScope>
 		   </imprint>
 		 </monogr>
+	       </biblStruct>
+	     </witness>
+
+	     <witness xml:id="Liberator-a-memory">
+	       <biblStruct>
+		 <analytic>
+		   <author>Claude McKay</author>
+		 <title>A Memory of June</title>
+		 </analytic>
+	       <monogr>
+		 <title level="j">The Liberator</title>
+		 <imprint>
+		   <date when="1921-08">(August, 1921):</date>
+		   <biblScope>10</biblScope>
+		 </imprint>
+	       </monogr>
 	       </biblStruct>
 	     </witness>
 
@@ -732,6 +737,87 @@
 	       </monogr>
 	       </biblStruct>
 	     </witness>
+
+	     <witness xml:id="Liberator-to-one">
+	       <biblStruct>
+		 <analytic>
+		   <author>Claude McKay</author>
+		   <title>To One Coming North</title>
+		 </analytic>
+	       <monogr>
+		 <title level="j">The Liberator</title>
+		 <imprint>
+		   <date when="1921-08">(August, 1921):</date>
+		   <biblScope>11</biblScope>
+		 </imprint>
+	       </monogr>
+	       </biblStruct>
+	     </witness>
+
+	     <witness xml:id="Liberator-tropics">
+	       <biblStruct>
+		 <analytic>
+		   <author>Claude McKay</author>
+		   <title>The Tropics in New York</title>
+		 </analytic>
+	       <monogr>
+		 <title level="j">The Liberator</title>
+		 <imprint>
+		   <date when="1920-05">(May, 1920):</date>
+		   <biblScope>48</biblScope>
+		 </imprint>
+	       </monogr>
+	       </biblStruct>
+	     </witness>
+
+	     <witness xml:id="Liberator-white">
+	       <biblStruct>
+		 <analytic>
+		   <author>Claude McKay</author>
+		   <title>The White City</title>
+		 </analytic>
+	       <monogr>
+		 <title level="j">The Liberator</title>
+		 <imprint>
+		   <date when="1921-10">(October, 1921):</date>
+		   <biblScope>7</biblScope>
+		 </imprint>
+	       </monogr>
+	       </biblStruct>
+	     </witness>
+
+	     <witness xml:id="Pearsons-harlem">
+	       <biblStruct>
+		 <analytic>
+		   <author>Claude McKay</author>
+		   <title>Harlem Shadows</title>
+		 </analytic>
+	       <monogr>
+		 <title level="j">Pearson's Magazine</title>
+		 <imprint>
+		   <date when="1918-09">(September, 1918):</date>
+		   <biblScope>276</biblScope>
+		 </imprint>
+	       </monogr>
+	       </biblStruct>
+	     </witness>
+
+	     <witness xml:id="SevenArts-harlem">
+	       <biblStruct>
+		 <analytic>
+		   <author>Claude McKay</author>
+		   <title>The Harlem Dancer</title>
+		 </analytic>
+	       <monogr>
+		 <title level="j">The Seven Arts</title>
+		 <imprint>
+		   <date when="1917-10">(October, 1917):</date>
+		   <biblScope>742</biblScope>
+		 </imprint>
+	       </monogr>
+	       </biblStruct>
+	     </witness>
+
 
 	     
 	   </listWit>
@@ -1240,7 +1326,7 @@
 		<l>Far from this foreign Easter damp and chilly</l>
 		<l rend="indent1">My soul steals to a pear-shaped plot of ground,</l>
 		<l>Where gleamed the lilac-tinted Easter lily</l>
-		<l rend="indent1">Soft-scented in the air for yards around;</l>
+		<l rend="indent1">Soft-scented in the air for yards<note type="editorial" resp="cf">A length, measuring three feet.</note> around;</l>
 	      </lg>
 	      <lg type="stanza">
 		<l>Alone, without a hint of guardian leaf!</l>
@@ -1264,7 +1350,13 @@
 
 	   <pb n="4" />
 	   <lg type="poem" xml:id="to-one-coming-north">
-	     <head rend="caps">To One Coming North</head>
+	     <head rend="caps">
+	       To One Coming North
+
+	       <note type="textual" resp="cf">
+		 This poem also appears in <ref target="#Liberator-to-one"><title level="j">The Liberator</title></ref> <date when="1921-08">(August, 1921)</date>.
+	       </note>
+	     </head>
 
 	     <lg type="stanza">
 	       <l>At first you'll joy to see the playful snow,</l>
@@ -1272,6 +1364,7 @@
 	       <l>Or waters of the hills that softly flow</l>
 	       <l rend="indent1">Gracefully falling down a shining stair.</l> 
 	     </lg>
+
 	     <lg>
 	       <l>And when the fields and streets are covered white</l>
 	       <l rend="indent1">And the wind-worried void is chilly, raw,</l>
@@ -1281,7 +1374,10 @@
 
 	     <lg type="stanza">
 	       <l>Like me you'll long for home, where birds' glad song</l>
-	       <l rend="indent1">Means flowering lanes and leas and spaces dry, </l>
+	       <l rend="indent1">Means <app>
+	         <lem wit="#HS">flowering</lem>
+		 <rdg wit="#Liberator-to-one">flower-filled</rdg>
+	       </app> lanes and leas and spaces dry,</l>
 	       <l>And tender thoughts and feelings fine and strong,</l>
 	       <l rend="indent1">Beneath a vivid silver-flecked blue sky.</l>
 	     </lg>
@@ -1289,8 +1385,8 @@
 	     <pb n="5"/>
 
 	     <lg type="stanza">
-	       <l>But oh! more than the changeless southern isles,</l>
-	       <l rend="indent1">When Spring has shed upon the earth her  charm, </l>
+	       <l>But oh! more than the changeless <app><lem wit="#HS">s</lem><rdg wit="#Liberator-to-one">S</rdg></app>outhern isles,</l>
+	       <l rend="indent1">When Spring has shed upon the earth her charm,</l>
 	       <l>You'll love the Northland wreathed in golden smiles</l>
 	       <l rend="indent1">By the miraculous sun turned glad and warm.</l>
 	     </lg>
@@ -1385,18 +1481,23 @@
 
 	   <pb n="8" />
 	   <lg type="poem" xml:id="the-tropics-in-new-york">
-	     <head>
-	       <app>
-		 <lem wit="#HS" rend="caps">The Tropics in New York</lem>
-		 <rdg wit="#SINH-tropics #CambridgeMagazine-TropicsInNewYork">The Tropics in New York</rdg>
-	       </app>
-	     <note type="textual" resp="cf">
-	       This poem also appeared in <ref target="#SINH-tropics"><title level="m">Spring in New Hampshire</title></ref> and <ref target="#CambridgeMagazine-TropicsInNewYork"><title level="j">Cambridge Magazine</title></ref>.
-	     </note>
+	     <head rend="caps">
+	       The Tropics in New York
+	
+	       <note type="textual" resp="cf">
+		 This poem also appeared in:
+		 <list>
+		   <item><ref target="#SINH-tropics"><title level="m">Spring in New Hampshire</title></ref></item>
+		   <item><ref target="#CambridgeMagazine-TropicsInNewYork"><title level="j">Cambridge Magazine</title></ref>.</item>
+		   <item><ref target="#Liberator-tropics"><title level="j">The Liberator</title></ref> <date when="1920-05">(May, 1920).</date></item>
+		 </list>
+
+		 In its appearance in <ref target="#Liberator-tropics"><title level="j">The Liberator</title></ref>, this poem did not feature any line indentation.
+	       </note>
 	     </head>
 
 	     <lg type="stanza">
-	       <l>Bananas ripe and green<app><lem wit="#HS">,</lem><rdg wit="#SINH-tropics #CambridgeMagazine-TropicsInNewYork" /></app> and ginger-root,</l>
+	       <l>Bananas ripe and green<app><lem wit="#HS #Liberator-tropics">,</lem><rdg wit="#SINH-tropics #CambridgeMagazine-TropicsInNewYork" /></app> and ginger-root,</l>
 	       <l rend="indent1">Cocoa in pods and alligator pears,</l>
 	       <l>And tangerines and mangoes and grape fruit,</l>
 	       <l rend="indent1">Fit for the highest prize at parish fairs,</l>
@@ -1404,19 +1505,47 @@
 
 	     <lg type="stanza">
 	       <l>Set in the window, bringing memories</l>
-	       <l rend="indent1">Of fruit-trees laden by low-singing rills,</l>
-	       <l>And dewy dawns<app><lem wit="#HS">,</lem><rdg wit="#SINH-tropics #CambridgeMagazine-TropicsInNewYork" /></app> and mystical blue skies</l>
+	       <l rend="indent1">Of <app>
+	         <lem wit="#HS #CambridgeMagazine-TropicsInNewYork #SINH-tropics">fruit-trees</lem>
+		 <rdg wit="#Liberator-tropics">fruit trees</rdg>
+	       </app> laden<app><lem wit="#HS #CambridgeMagazine-TropicsInNewYork #SINH-tropics" /><rdg wit="#Liberator-tropics">,</rdg></app> by low-singing <app>
+	         <lem wit="#HS #CambridgeMagazine-TropicsInNewYork #SINH-tropics">rills</lem>
+		 <rdg wit="#Liberator-tropics"><sic>sills</sic></rdg>
+	       </app>,</l>
+	       <l>And dewy dawns<app><lem wit="#HS">,</lem><rdg wit="#SINH-tropics #CambridgeMagazine-TropicsInNewYork #Liberator-tropics" /></app> and mystical blue skies</l>
 	       <l rend="indent1">In benediction over nun-like hills.</l>
 	     </lg>
 
 	     <lg type="stanza">
-	       <l><app>
-		 <lem wit="#HS">My</lem>
-		 <rdg wit="#SINH-tropics #CambridgeMagazine-TropicsInNewYork">Mine</rdg>
-		 </app> eyes grew dim<app><lem wit="#HS">,</lem></app> and I could no more gaze<app><lem wit="#HS">;</lem><rdg wit="#SINH-tropics">,</rdg></app></l>
-	       <l rend="indent1">A wave of longing through my body swept,</l>
-	       <l>And, hungry for the old, familiar ways,</l>
-	       <l rend="indent1">I turned aside and bowed my head and wept.</l>
+	       <l>
+		 <app>
+		   <lem wit="#HS #SINH-tropics #CambridgeMagazine-TropicsInNewYork">
+		     <app>
+		       <lem wit="#HS">My</lem>
+		       <rdg wit="#SINH-tropics #CambridgeMagazine-TropicsInNewYork">Mine</rdg>
+		     </app> eyes grew dim<app><lem wit="#HS">,</lem></app> and I could no more gaze<app><lem wit="#HS">;</lem><rdg wit="#SINH-tropics">,</rdg></app>
+		   </lem>
+		   <rdg wit="#Liberator-tropics">A wave of longing overwhelmed my soul,</rdg>
+		 </app>
+	       </l>
+	       <l rend="indent1">
+	         <app>
+		   <lem wit="#HS #SINH-tropics #CambridgeMagazine-TropicsInNewYork">A wave of longing through my body swept,</lem>
+		   <rdg wit="#Liberator-tropics">My heart grew faint ceasing its furious throbbing;</rdg>
+		 </app>
+	       </l>
+	       <l>
+		 <app>
+		   <lem wit="#HS #SINH-tropics #CambridgeMagazine-TropicsInNewYork">And, hungry for the old, familiar ways,</lem>
+		   <rdg wit="#Liberator-tropics">And in the thronged street, losing self-control,</rdg>
+		 </app>
+	       </l>
+	       <l rend="indent1">
+		 <app>
+		   <lem wit="#HS CambridgeMagazine-TropicsInNewYork #SINH-tropics">I turned aside and bowed my head and wept.</lem>
+		   <rdg wit="#Liberator-tropics">Like a child lost and lone, I fell to <choice><sic>subbing</sic><corr resp="cf">sobbing</corr></choice>.</rdg>
+		 </app>
+	       </l>
 	     </lg>
 	   </lg>
 
@@ -1855,14 +1984,17 @@
 
 	   <pb n ="22"/>
 	   <lg type="poem" xml:id="harlem-shadows">
-	     <head>
-	       
-	       <title>
-		 <app>
-		   <lem wit="#HS" rend="caps">Harlem Shadows</lem>
-		   <rdg wit="#SINH-harlem-shadows">Harlem Shadows</rdg>
-		 </app>
-	       </title>
+	     <head rend="caps">
+	       Harlem Shadows
+
+	       <note type="textual" resp="cf">
+		 <list>
+		   <item><ref target="#Pearsons-harlem"><title level="j">Pearson's Magazine</title></ref> <date when="1918-09">(September, 1918)</date>.</item>
+		   <item><ref target="#SINH-harlem-shadows"><title level="m">Spring in New Hampshire</title></ref> <date when="1920">(1920)</date>.</item>
+		 </list>
+
+	       In <title level="j">Pearson's Magazine</title>, this poem (along with "To the White Fiends," "The Conqueror," "The Park in Spring," and "Is it Worth While?") was prefaced by a statement by McKay, <ref target="#Pearsons-claude"><title level="a">"Claude <choice><sic>MacKay</sic><corr resp="cf">McKay</corr></choice> Describes His Own Life: A Negro Poet</title></ref>.
+	       </note>
 	     </head>
 
 	     <lg type="stanza">
@@ -1871,15 +2003,15 @@
 	       <l>Its veil. I see the shapes of girls who pass</l>
 	       <l rend="indent1"><app>
 		 <lem wit="#HC">To bend and barter at desire's call.</lem>
-		 <rdg wit="#SINH-harlem-shadows">Eager to heed desire's insistent call:</rdg>
+		 <rdg wit="#Pearsons-harlem #SINH-harlem-shadows">Eager to heed desire's insistent call:</rdg>
 	       </app></l>
-	       <l>Ah, little dark girls<app><rdg wit="#SINH-harlem-shadows">,</rdg></app> who in slippered feet</l>
-	       <l>Go prowling through the night from street to street<app><lem wit="#HC">!</lem><rdg wit="#SINH-harlem-shadows">.</rdg></app></l>
+	       <l>Ah, little dark girls<app><rdg wit="#Pearsons-harlem SINH-harlem-shadows">,</rdg></app> who in slippered feet</l>
+	       <l>Go prowling through the night from street to street<app><lem wit="#HC">!</lem><rdg wit="#Pearsons-harlem #SINH-harlem-shadows">.</rdg></app></l>
 	     </lg>
 
 	     <lg type="stanza">
 	       <l>Through the long night until the silver break</l>
-	       <l rend="indent1">Of day the little gray feet know no rest<app><lem wit="#HC">;</lem><rdg wit="#SINH-harlem-shadows">,</rdg></app></l>
+	       <l rend="indent1">Of day the little gray feet know no rest<app><lem wit="#HC">;</lem><rdg wit="#Pearsons-harlem #SINH-harlem-shadows">,</rdg></app></l>
 	       <l>Through the lone night until the last snow-flake</l>
 	       <l rend="indent1">Has dropped from heaven upon the earth's white breast,</l>
 	       <l>The dusky, half-clad girls of tired feet</l>
@@ -1889,10 +2021,10 @@
 	     <lg type="stanza">
 	       <l>Ah, stern harsh world, that in the wretched way</l>
 	       <l rend="indent1">Of poverty, <app>
-	       <lem wit="#HC">dishonor</lem>
+	       <lem wit="#HC #Pearsons-harlem">dishonor</lem>
 	       <rdg wit="#SINH-harlem-shadows">dishonour</rdg>
-	       </app> and disgrace,</l>
-	       <l>Has pushed the timid little feet of clay<app><lem wit="#HC">,</lem><rdg wit="#SINH-harlem-shadows">.</rdg></app></l>
+	       </app> and disgrace<app><lem wit="#HC #SINH-harlem-shadows">,</lem><rdg wit="#Pearsons-harlem" /></app></l>
+	       <l>Has pushed the timid little feet of clay<app><lem wit="#HC #Pearsons-harlem">,</lem><rdg wit="#SINH-harlem-shadows">.</rdg></app></l>
 	       <l rend="indent1">The sacred brown feet of my fallen race!</l>
 	       <l>Ah, heart of me, the weary, weary feet</l>
 	       <l>In Harlem wandering from street to street.</l>
@@ -1902,19 +2034,28 @@
 	   <pb n="23" />
 	   
 	   <lg type="poem" xml:id="the-white-city">
-	     <head rend="caps">The White City</head>
+	     <head rend="caps">
+	       The White City
+	       
+	       <note type="textual" resp="cf">This poem also appears in <ref target="#Liberator-white"><title level="j">The Liberator</title></ref> <date when="1921-10">(October, 1921)</date>.</note>
+	     </head>
 
 	     <l>I will not toy with it nor bend an inch.</l>
 	     <l>Deep in the secret chambers of my heart</l>
-	     <l>I muse my life-long hate, and without flinch</l>
+	     <l>I muse my life-long hate<app><lem wit="#HS">,</lem><rdg wit="#Liberator-white" /></app> and without flinch<app><lem wit="#HS" /><rdg wit="#Liberator-white">,</rdg></app></l>
 	     <l>I bear it nobly as I live my part.</l>
 	     <l>My being would be a skeleton, a shell,</l>
 	     <l>If this dark Passion that fills my every mood,</l>
 	     <l>And makes my heaven in the white world's hell,</l>
 	     <l>Did not forever feed me vital blood.</l>
-	     <l>I see the mighty city through a mist—</l>
+	     <l>I see the mighty city through a mist<app><lem wit="#HS">—</lem><rdg wit="#Liberator-white">.</rdg></app></l>
 	     <l>The strident trains that speed the goaded mass,</l>
-	     <l>The poles and spires and towers vapor-kissed,</l>
+	     <l>The poles and <app>
+	       <lem wit="#HS">spires and towers</lem>
+	       <rdg wit="#Liberator-white">twoers and spires</rdg>
+	     </app> <app>
+	     <lem wit="#HS">vapor</lem>
+	     <rdg wit="#Liberator-white">vapour</rdg></app>-kissed,</l>
 	     <l>The fortressed port through which the great ships pass,</l>
 	     <l>The tides, the wharves, the dens I contemplate,</l>
 	     <l>Are sweet like wanton loves because I hate.</l>
@@ -2222,7 +2363,8 @@
 	   
 	   <lg type="poem" xml:id="morning-joy">
 	     <head rend="caps">
-	
+	       Morning Joy
+
 	       <note type="textual" resp="cf">
 		 This poem also appeared in:
 		 <list>
@@ -2484,13 +2626,16 @@
 	   <pb n="42" />
 	   
 	   <lg type="poem" xml:id="the-harlem-dancer">
-	     <head>
-	       <title>
-		 <app>
-		   <lem wit="#HS" rend="caps">The Harlem Dancer</lem>
-		   <rdg wit="#SINH-the-harlem-dancer">The Harlem Dancer</rdg>
-		 </app>
-	       </title>
+	     <head rend="caps">
+	       The Harlem Dancer
+
+	       <note type="textual" resp="cf">
+		 This poem also appeared in:
+		 <list>
+		   <item><ref target="#SevenArts-harlem"><title level="j">The Seven Arts</title></ref> <date when="1917-10">(October, 1917)</date> with <ref target="#SevenArts-invocation">"Invocation"</ref>, presented as "Two Sonnets" by Eli Edwards.</item>
+		   <item><ref target="#SINH-the-harlem-dancer"><title level="m">Spring in New Hampshire</title></ref> <date when="1920">(1920)</date>.</item>
+		 </list>
+	       </note>
 	     </head>
 
 	     <l>Applauding youths laughed with young prostitutes</l>
@@ -2501,14 +2646,14 @@
 	     <l>The light gauze hanging loose about her form;</l>
 	     <l>To me she seemed a proudly-swaying palm</l>
 	     <l>Grown lovelier for passing through a storm.</l>
-	     <l>Upon her swarthy neck black<app><rdg wit="#SINH-the-harlem-dancer">,</rdg></app> shiny curls</l>
+	     <l>Upon her swarthy neck black<app><lem wit="#HS" /><rdg wit="#SevenArts-harlem #SINH-the-harlem-dancer">,</rdg></app> shiny curls</l>
 	     <l><app>
 	       <lem wit="#HC">Luxuriant</lem>
-	       <rdg wit="#SINH-the-harlem-dancer">Profusely</rdg>
-	       </app> fell; and<app><rdg wit="#SINH-the-harlem-dancer">,</rdg></app> tossing coins in praise,</l>
+	       <rdg wit="#SevenArts-harlem #SINH-the-harlem-dancer">Profusely</rdg>
+	       </app> fell; and<app><rdg wit="#SevenArts-harlem #SINH-the-harlem-dancer">,</rdg></app> tossing coins in praise,</l>
 	     <l>The wine-flushed, bold-eyed boys, and even the girls,</l>
-	     <l>Devoured her <app><lem wit="#HC">shape</lem></app> with eager, passionate gaze<app><lem wit="#HC">;</lem><rdg wit="#SINH-the-harlem-dancer">:</rdg></app></l>
-	     <l>But<app><rdg wit="#SINH-the-harlem-dancer">,</rdg></app> looking at her falsely-smiling face,</l>
+	     <l>Devoured her <app><lem wit="#HC">shape</lem><rdg wit="#SevenArts-harlem #SINH-the-harlem-dancer" /></app> with eager, passionate gaze<app><lem wit="#HC">;</lem><rdg wit="#SevenArts-harlem #SINH-the-harlem-dancer">:</rdg></app></l>
+	     <l>But<app><lem wit="#HS" /><rdg wit="#SevenArts-harlem #SINH-the-harlem-dancer">,</rdg></app> looking at her falsely-smiling face,</l>
 	     <l>I knew her self was not in that strange place.</l>
 	   </lg>
 	   
@@ -2715,26 +2860,35 @@
 
 	   <lg type="poem" xml:id="exhortation-summer-1919">
 	     <head>
-	       
-	       <title>
-		 <app>
-		   <lem wit="#HS" rend="caps">Exhortation: Summer, 1919</lem>
-		   <rdg wit="#SINH-the-castaways">Exhortation</rdg>
-		 </app>
-	       </title>
+	       <app>
+		 <lem wit="#HS" rend="caps">Exhortation: Summer, 1919</lem>
+		 <rdg wit="#SINH-exhortation">Exhortation</rdg>
+		 <rdg wit="#Liberator-to">To Ethiopa</rdg>
+	       </app>
+
+
+	       <note type="textual" resp="cf">
+		 This poem also appears in:
+		 <list>
+		   <item><ref target="#SINH-exhortation"><title level="m">Spring in New Hampshire</title></ref> (<date when="1920">1920</date>).</item>
+		   <item><ref target="#Liberator-to"><title level="j">The Liberator</title></ref> (<date when="1920-02">February, 1920</date>) under the title "To Ethiopia."</item>
+		 </list>
+
+		 The version appearing in <title level="j">The Liberator</title> does not indent any poetic lines. Its organization into stanzas is also different: 1-7, 8-13,14-20,21-26.
+	       </note>
 	     </head>
 
 	     <lg type="stanza">
-	       <l>Through the pregnant universe rumbles life's terrific thunder<app><lem wit="#HC">,</lem></app></l>
+	       <l>Through the pregnant universe rumbles life's terrific thunder<app><lem wit="#HC">,</lem><rdg wit="#SINH-exhortation #Liberator-to" /></app></l>
 	       <l rend="indent1">And Earth's bowels quake with terror; strange and terrible storms break,</l>
-	       <l>Lightning-torches flame the heavens, kindling souls of men<app><lem wit="#HC">,</lem></app> thereunder:</l>
-	       <l rend="indent1">Africa! long ages sleeping, <app><lem wit="#HC">O</lem><rdg wit="#SINH-exhortation">Oh</rdg></app> my motherland, awake!</l>
+	       <l>Lightning-torches flame the heavens, kindling souls of men<app><lem wit="#HC">,</lem><rdg wit="#SINH-exhortation #Liberator-to" /></app> thereunder:</l>
+	       <l rend="indent1">Africa! long ages sleeping, <app><lem wit="#HC">O</lem><rdg wit="#SINH-exhortation">Oh</rdg><rdg wit="#Liberator-to">oh</rdg></app> my motherland, awake!</l>
 	     </lg>
 
 	     <lg type="stanza">
 	       <l>In the East the clouds glow crimson with the new dawn that is breaking,</l>
-	       <l rend="indent1">And its golden glory fills the western skies<app><lem wit="#HC">.</lem><rdg wit="#SINH-exhortation">:—</rdg></app></l>
-	       <l rend="indent1"><app><lem wit="#HC">O</lem><rdg wit="#SINH-exhortation">Oh</rdg></app> my brothers and my sisters, wake! arise!</l>
+	       <l rend="indent1">And its golden glory fills the western skies<app><lem wit="#HC">.</lem><rdg wit="#SINH-exhortation #Liberator-to">:—</rdg></app></l>
+	       <l rend="indent1"><app><lem wit="#HC">O</lem><rdg wit="#SINH-exhortation #Liberator-to">Oh</rdg></app> my brothers and my sisters, wake! arise!</l>
 	       <l>For the new birth rends the old earth and the very dead are waking,</l>
 	       <l rend="indent1">Ghosts are turned flesh, throwing off the grave's disguise,</l>
 	       <l rend="indent1">And the foolish, even children, are made wise;</l>
@@ -2742,7 +2896,7 @@
 
 	       <pb n="50" />
 
-	       <l rend="indent1"><app><lem wit="#HC">O</lem><rdg wit="#SINH-exhortation">Oh</rdg></app> my brothers, dreaming for dim centuries,</l>
+	       <l rend="indent1"><app><lem wit="#HC">O</lem><rdg wit="#SINH-exhortation #Liberator-to">Oh</rdg></app> my brothers, dreaming for dim centuries,</l>
 	       <l rend="indent1">Wake from sleeping; to the East turn, turn your eyes!</l>
 	     </lg>
 
@@ -2750,18 +2904,18 @@
 	       <l>Oh the night is sweet for sleeping, but the shining day's for working;</l>
 	       <l rend="indent1">Sons of the seductive night, for your children's children's sake,</l>
 	       <l>From the deep primeval forests where the crouching leopard's lurking,</l>
-	       <l rend="indent1">Lift your heavy-lidded eyes,<app><rdg wit="#SINH-exhortation">—</rdg></app> Ethiopia! awake!</l>
+	       <l rend="indent1">Lift your heavy-lidded eyes,<app><lem wit="#HS"> </lem><rdg wit="#SINH-exhortation #Liberator-to">—</rdg></app>Ethiopia<app><lem wit="#HS #SINH-exhortation">!</lem><rdg wit="#Liberator-to">,</rdg></app> awake!</l>
 	     </lg>
 
 	     <lg type="stanza">
 	       <l>In the East the clouds glow crimson with the new dawn that is breaking,</l>
-	       <l rend="indent1">And its golden glory fills the western skies<app><lem wit="#HC">.</lem><rdg wit="#SINH-exhortation">:—</rdg></app></l>
-	       <l rend="indent1"><app><lem wit="#HC">O</lem><rdg wit="#SINH-exhortation">Oh</rdg></app> my brothers and my sisters, wake! arise!</l>
+	       <l rend="indent1">And its golden glory fills the western skies<app><lem wit="#HC">.</lem><rdg wit="#SINH-exhortation #Liberator-to">:—</rdg></app></l>
+	       <l rend="indent1"><app><lem wit="#HC">O</lem><rdg wit="#SINH-exhortation #Liberator-to">Oh</rdg></app><app><lem wit="#HS #SINH-exhortation" /><rdg wit="#Liberator-to">,</rdg></app> my brothers and my sisters, wake<app><lem wit="#HS #SINH-exhortation">!</lem><rdg wit="#Liberator-to">,</rdg></app> arise!</l>
 	       <l>For the new birth rends the old earth and the very dead are waking,</l>
 	       <l rend="indent1">Ghosts are turned flesh, throwing off the grave's disguise,</l>
 	       <l rend="indent1">And the foolish, even children, are made wise;</l>
 	       <l>For the big earth groans in travail for the strong, new world in making—</l>
-	       <l rend="indent1"><app><lem wit="#HC">O</lem><rdg wit="#SINH-exhortation">Oh</rdg></app> my brothers, dreaming for long centuries,</l>
+	       <l rend="indent1"><app><lem wit="#HC">O</lem><rdg wit="#SINH-exhortation #Liberator-to">Oh</rdg></app><app><lem wit="#HS #SINH-exhortation" /><rdg wit="#Liberator-to">,</rdg></app> my brothers<app><lem wit="#HS SINH-exhortation">,</lem><rdg wit="#Liberator-to" /></app> dreaming for long centuries,</l>
 	       <l rend="indent1">Wake from sleeping; to the East turn, turn your eyes!</l>
 	     </lg>
 	   </lg>
@@ -2972,17 +3126,12 @@
 
 	   <lg type = "poem" xml:id="a-prayer">
 	     <head>
-	       
-	       <title>
-		 <app>
-		   <lem wit="#HS" rend="caps">A Prayer</lem>
-		   <rdg wit="#SINH-a-prayer">A Prayer</rdg>
-		 </app>
-	       </title>
+		 A Prayer
 	     </head>
 
 	     <head type="dedication">
 	       <app>
+		 <lem wit="#HS" />
 		 <rdg rend="italics" wit="#SINH-a-prayer">(For Max Eastman)</rdg>
 	       </app>
 	     </head>
@@ -3502,13 +3651,16 @@
 	   
 	   <lg type="poem" xml:id="a-memory-of-june">
 
-	     <head>
-	       <app>
-		 <lem wit="#HS" rend="caps">A Memory of June</lem>
-		 <rdg wit="#SINH-a-memory #CambridgeMagazine-MemoryOfJune">A Memory of June</rdg>
-	       </app>
+	     <head rend="caps">
+	       A Memory of June
+
 	       <note type="textual" resp="cf">
-		 This poem also appeared in <ref target="#SINH-a-memory"><title level="m">Spring in New Hampshire</title></ref> and <ref target="#CambridgeMagazine-MemoryOfJune"><title level="j">Cambridge Magazine</title></ref>.
+		 This poem also appeared in:
+		 <list>
+		   <item><ref target="#SINH-a-memory"><title level="m">Spring in New Hampshire</title></ref> <date when="1920">(1920)</date>.</item>
+		   <item><ref target="#CambridgeMagazine-MemoryOfJune"><title level="j">Cambridge Magazine</title></ref> <date when="1920">(1920)</date>.</item>
+		   <item><ref target="#Liberator-a-memory"><title level="j">The Liberator</title></ref> <date when="1921-08">(August, 1921)</date>.</item>
+		 </list>
 	       </note>
 	     </head>
 
@@ -3523,7 +3675,7 @@
 	       <l>I always see the evening when we met—</l>
 	       <l rend="indent1">The first of June <app>
 	       <lem wit="#HS">baptized</lem>
-	       <rdg wit="#SINH-a-memory">baptised</rdg>
+	       <rdg wit="#SINH-a-memory #Liberator-a-memory">baptised</rdg>
 	       </app> in tender rain—</l>
 	       <l>And walked home through the wide streets, gleaming wet,</l>
 	       <l rend="indent1">Arms locked, our warm flesh pulsing with love's pain.</l>
@@ -3531,17 +3683,17 @@
 
 	     <lg type="stanza">
 	       <l>I always see the cheerful little room,</l>
-	       <l rend="indent1">And in the corner, fresh and white, the bed<app><lem wit="#HS">,</lem><rdg wit="#SINH-a-memory #CambridgeMagazine-MemoryOfJune" /></app></l>
+	       <l rend="indent1">And in the corner, fresh and white, the bed<app><lem wit="#HS #Liberator-a-memory">,</lem><rdg wit="#SINH-a-memory #CambridgeMagazine-MemoryOfJune" /></app></l>
 	       <l>Sweet scented with a delicate perfume,</l>
-	       <l rend="indent1">Wherein for one night only we were wed<app><lem wit="#HS">;</lem><rdg wit="#SING-a-memory #CambridgeMagazine-MemoryOfJune">:</rdg></app></l>
+	       <l rend="indent1">Wherein for one night only we were wed<app><lem wit="#HS #Liberator-a-memory">;</lem><rdg wit="#SING-a-memory #CambridgeMagazine-MemoryOfJune">:</rdg></app></l>
 	     </lg>
 
 	     <lg type="stanza">
-	       <l>Where in the starlit stillness we lay mute<app><lem wit="#HS">,</lem><rdg wit="#SING-a-memory #CambridgeMagazine-MemoryOfJune" /></app></l>
+	       <l>Where in the starlit stillness we lay mute<app><lem wit="#HS #Liberator-a-memory">,</lem><rdg wit="#SING-a-memory #CambridgeMagazine-MemoryOfJune" /></app></l>
 	       <l rend="indent1">And heard the whispering showers all night long,</l>
 	       <l>And your brown burning body was a lute</l>
-	       <l>Whereon <app>
-	       <lem wit="#HS">my</lem>
+	       <l rend="indent1">Whereon <app>
+	       <lem wit="#HS #Liberator-a-memory">my</lem>
 	       <rdg wit="#SINH-a-memory #CambridgeMagazine-MemoryOfJune">wild</rdg>
 	       </app> passion played his fevered song.</l>
 	     </lg>
@@ -3553,7 +3705,7 @@
 	       <l rend="indent1">With scarlet roses staining her fair feet,</l>
 	       <l>My soul takes leave of me to sing all day</l>
 	       <l rend="indent1">A <app>
-	       <lem wit="#HS">love so fugitive and so</lem>
+	       <lem wit="#HS #Liberator-a-memory">love so fugitive and so</lem>
 	       <rdg wit="#SINH-a-memory #CambridgeMagazine-MemoryOfJune">night of rare love, perfect and</rdg>
 	       </app> complete.</l>
 	     </lg>
@@ -3844,7 +3996,7 @@
 
 	     <l>My spirit wails for water, water now!</l>
 	     <l>My tongue is aching dry, my throat is hot</l>
-	     <l>For water<app><lem wit="#HS">,</lem><rdg with="#Liberator-thirst">;</rdg></app> fresh <app>
+	     <l>For water<app><lem wit="#HS">,</lem><rdg wit="#Liberator-thirst">;</rdg></app> fresh <app>
 	       <lem wit="#HS">rain</lem>
 	       <rdg wit="#Liberator-thirst">rains</rdg></app> shaken from a bough,</l>
 	     <l>Or dawn dews heavy in some leafy spot.</l>

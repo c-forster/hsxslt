@@ -50,6 +50,12 @@
       <xsl:attribute name="class">poem</xsl:attribute>
       <xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
       <xsl:apply-templates />
+      <!-- Generate apparatus for notes -->
+      <ul class="editorialNotes">
+      <xsl:for-each select=".//tei:note[@type='editorial']">
+	<li><xsl:value-of select="." /></li>
+      </xsl:for-each>
+      </ul>
     </xsl:element>
   </xsl:template>
 
@@ -244,11 +250,16 @@
   <div id="frontmatter"><xsl:apply-templates /></div>
 </xsl:template>
 
-<!-- Elements with rend='italics' -->
+<!-- Elements with rend attributes -->
 <xsl:template match="tei:*[@rend='italics']"><em><xsl:apply-templates /></em></xsl:template>
 
 <!-- Line breaks marked in TEI. -->
 <xsl:template match="tei:lb"><br /></xsl:template>
+
+<xsl:template match="tei:pb"><div class="pageBreak"><xsl:value-of select="@n" /></div></xsl:template>
+
+<!-- For editorial notes within the text -->
+<xsl:template match="tei:note[@type='editorial']">◦ </xsl:template>
 
 </xsl:stylesheet>
 

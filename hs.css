@@ -21,7 +21,11 @@ p {
 .poem {
     padding-left: 7em;
     margin-top: 2em;
-    border-top: solid gray 1px;
+/*    border-top: solid gray 1px; */
+/* The following three rules ensure a page number goes with the appropriate poem */
+    border-bottom: solid gray 1px;
+    padding-bottom: 2em;
+    margin-bottom: 2em;
     clear: both;
 }
 
@@ -141,7 +145,7 @@ div.prose p {
 }
 
 div.prose p + p {
-    text-indent: 3em;
+    text-indent: 2em;
 }
 
 div.prose .signature {
@@ -184,4 +188,28 @@ div.prose .signature {
 
 #tableOfContents a {
     text-decoration: none;
+}
+
+.caps {
+    font-variant: small-caps;
+}
+
+.pageBreak {
+    color: gray;
+    float: right;
+    right: 0em;
+    text-align: right;
+    font-size: 0.7em;
+}
+
+.editorialNotes {
+    margin-left: -7em;
+    padding: 1em;
+    font-family: sans-serif;
+    font-size: 0.7em;
+    border: solid 1px black;
+}
+
+.editorialNotes li {
+    list-style: none;
 }
