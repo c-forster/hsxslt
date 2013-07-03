@@ -50,12 +50,18 @@
       <xsl:attribute name="class">poem</xsl:attribute>
       <xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
       <xsl:apply-templates />
+
       <!-- Generate apparatus for notes -->
       <ul class="editorialNotes">
       <xsl:for-each select=".//tei:note[@type='editorial']">
-	<li><xsl:value-of select="." /></li>
+	<li>
+	  <xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
+	  <xsl:text>: </xsl:text>
+	  <xsl:value-of select="." />
+	</li>
       </xsl:for-each>
       </ul>
+
     </xsl:element>
   </xsl:template>
 
@@ -258,8 +264,8 @@
 
 <xsl:template match="tei:pb"><div class="pageBreak"><xsl:value-of select="@n" /></div></xsl:template>
 
-<!-- For editorial notes within the text -->
-<xsl:template match="tei:note[@type='editorial']">◦ </xsl:template>
+<!-- This template inserts footnote markers within the text -->
+<xsl:template match="tei:note[@type='editorial']"><sup class="footnote"><xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" /></sup> </xsl:template>
 
 </xsl:stylesheet>
 

@@ -207,9 +207,14 @@ div.prose .signature {
     padding: 1em;
     font-family: sans-serif;
     font-size: 0.7em;
-    border: solid 1px black;
+
 }
 
 .editorialNotes li {
     list-style: none;
+}
+
+sup.footnote {
+    font-size: 0.7em;
+    color: #6495ED;
 }
