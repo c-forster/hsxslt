@@ -154,11 +154,11 @@ div.prose .signature {
 }
 
 /* Styles for title material */
-#titlePage {
+#titlePage, #half-title {
     margin: 0 auto;
     width: 60%;
     text-align: center;
-    padding: 4em;
+    padding: 8em;
 }
 
 #frontmatter p, #titlePage p {
@@ -173,6 +173,7 @@ div.prose .signature {
     text-align: center;
     padding: 4em;
 }
+
 
 /* Styles for Table of Contents */
 #tableOfContents {
@@ -203,11 +204,12 @@ div.prose .signature {
 }
 
 .editorialNotes {
+    width: 70%;
     margin-left: -7em;
     padding: 1em;
     font-family: sans-serif;
     font-size: 0.7em;
-
+    text-indent: -1em;
 }
 
 .editorialNotes li {

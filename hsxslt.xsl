@@ -129,7 +129,7 @@
 
   <xsl:template match="tei:rdg">
 <!--    <xsl:element name="span"> -->
-    <xsl:element name="div">
+    <xsl:element name="span">
       <xsl:attribute name="class">reading</xsl:attribute>
 <!--      <xsl:value-of select="." /> -->
       <xsl:value-of select="../tei:lem" />]
@@ -212,11 +212,13 @@
 </xsl:template>
 
 
-<!-- Introduction -->
+<!-- Introduction/Preface/Etc ;; Prose Materials -->
 <xsl:template match="tei:div[@type='introduction']|tei:div[@type='preface']">
-  <div class="prose">
+  <xsl:element name="div">
+    <xsl:attribute name="class">prose</xsl:attribute>
+    <xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
     <xsl:apply-templates />
-  </div>
+  </xsl:element>
 </xsl:template>
 
 <xsl:template match="tei:head">
@@ -251,6 +253,11 @@
   <h4><xsl:apply-templates /></h4>
 </xsl:template>
 
+<!-- This template matches the half-title page -->
+<xsl:template match="tei:div[@type='half-title']">
+  <div id="half-title"><h4><xsl:apply-templates /></h4></div>
+</xsl:template>
+
 <!-- Front matter -->
 <xsl:template match="tei:div[@type='frontmatter']">
   <div id="frontmatter"><xsl:apply-templates /></div>
@@ -265,7 +272,17 @@
 <xsl:template match="tei:pb"><div class="pageBreak"><xsl:value-of select="@n" /></div></xsl:template>
 
 <!-- This template inserts footnote markers within the text -->
-<xsl:template match="tei:note[@type='editorial']"><sup class="footnote"><xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" /></sup> </xsl:template>
+<xsl:template match="tei:note[@type='editorial']">
+  <xsl:element name="sup">
+    <xsl:attribute name="class">footnote</xsl:attribute>
+    <xsl:attribute name="id">
+      <xsl:value-of select="ancestor::*/@xml:id" />_fn<xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
+    </xsl:attribute>
+    <xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
+  </xsl:element>
+ </xsl:template>
+
+
 
 </xsl:stylesheet>
 
