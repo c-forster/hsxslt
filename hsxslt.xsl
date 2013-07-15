@@ -269,7 +269,7 @@
 <!-- Line breaks marked in TEI. -->
 <xsl:template match="tei:lb"><br /></xsl:template>
 
-<xsl:template match="tei:pb"><div class="pageBreak"><xsl:value-of select="@n" /></div></xsl:template>
+<xsl:template match="tei:pb"><span class="pageBreak"><xsl:value-of select="@n" /></span></xsl:template>
 
 <!-- This template inserts footnote markers within the text -->
 <xsl:template match="tei:note[@type='editorial']">
