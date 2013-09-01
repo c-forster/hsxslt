@@ -27,7 +27,7 @@
 <!-- Applying it to tei:body works; applying it to tei:text -->
 <!-- does not. I don't know WHY!?!?!?! -->
   <xsl:template match="tei:body">
-    <div id="container">
+    <div id="teiBody">
       <xsl:apply-templates />
     </div>
   </xsl:template>
@@ -39,9 +39,11 @@
     </title>
   </xsl:template>
 
-  <xsl:template match="tei:text">
+  <xsl:template match="tei:text/tei:group">
     <body>
-      <xsl:apply-templates />
+      <div id="container">
+	<xsl:apply-templates />
+      </div>
     </body>
   </xsl:template>
 
@@ -79,6 +81,7 @@
   
   <xsl:template match="tei:l">
     <xsl:element name="p">
+      <xsl:attribute name="class">verse-container</xsl:attribute>
       <span class="lineNo">
         <xsl:choose>
 	  <xsl:when test="parent::tei:lg[@type='poem']">
@@ -282,6 +285,67 @@
   </xsl:element>
  </xsl:template>
 
+<!-- Templates for secondary material: contemporary reviews. -->
+<xsl:template match="tei:text[@type='review']">
+  <xsl:element name="div">
+    <xsl:attribute name="class">prose review</xsl:attribute>
+    <xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
+    <xsl:apply-templates />
+  </xsl:element>
+</xsl:template>
+
+<xsl:template match="tei:text[@type='review']/tei:body/tei:head">
+  <xsl:apply-templates />
+</xsl:template>
+
+<xsl:template match="tei:text[@type='review']/tei:body/tei:head/tei:title">
+  <h2><xsl:apply-templates /></h2>
+</xsl:template>
+
+<xsl:template match="tei:bibl">
+  <p class="citation"><strong>Citation:</strong> <xsl:apply-templates /></p>
+</xsl:template>
+
+<!-- The following templates format bibliographical info from bibl -->
+<xsl:template match="tei:bibl/tei:author">
+  <xsl:value-of select="." /> 
+</xsl:template>
+
+<xsl:template match="tei:bibl/tei:title[@level='a']">
+  "<xsl:value-of select="." />" 
+</xsl:template>
+
+<xsl:template match="tei:bibl/tei:title[@level='j']">
+  <em><xsl:value-of select="." /></em>
+</xsl:template>
+
+<xsl:template match="tei:bibl/tei:title[@level='j']">
+  <em><xsl:value-of select="." /></em> 
+</xsl:template>
+
+<!-- This date template could use @when to normalize dates. -->
+<xsl:template match="tei:bibl/tei:date">
+  (<xsl:value-of select="." />).
+</xsl:template>
+
+<!-- For now, we silently omitting place of publication and page References. -->
+<xsl:template match="tei:bibl/tei:pubPlace">
+</xsl:template>
+<xsl:template match="tei:bibl/tei:biblScope">
+</xsl:template>
+
+
+<xsl:template match="tei:group/tei:head">
+  <h1 class="group-title"><xsl:apply-templates /></h1>
+</xsl:template>
+
+
+<!-- Template for quoted material, including poems, particularly in reviews. -->
+<xsl:template match="tei:quote">
+  <blockquote>
+    <xsl:apply-templates />
+  </blockquote>
+</xsl:template>
 
 
 </xsl:stylesheet>

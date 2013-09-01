@@ -1,7 +1,10 @@
+
+
 #container {
     margin: 0 auto;
-    width: 60%;
+    width: 80%; 
     background: #fff;
+/*    padding-left: 18em; */
 }
 
 
@@ -13,13 +16,14 @@ html {
 p {
     padding: 0;
     margin:  0;
-    text-indent: -3em;
+/*    text-indent: -3em;  */
     clear: right;
 }
 
 
 .poem {
-    padding-left: 7em;
+
+    padding-left: 7em; 
     margin-top: 2em;
 /*    border-top: solid gray 1px; */
 /* The following three rules ensure a page number goes with the appropriate poem */
@@ -39,13 +43,14 @@ p {
     margin		: 3em;
 /*    background	: #ccc; */
     float		: left; 
-    margin-left		: -25em;
+    margin-left		: -20em;
 /*    border-right	: solid gray 1px; */
     font-size		: 0.5em;
     font-weight		: normal;
     text-transform	: none;
     font-family		: sans-serif;
     text-indent         : 0em;
+    line-height		: normal;
 }
 
 .note ul {
@@ -128,7 +133,7 @@ p {
 /* Styles for prose blocks follow */
 div.prose {
     margin: 0 auto;
-    width: 40%;
+    width: 65%;
     background: #fff;
 }
 
@@ -153,10 +158,55 @@ div.prose .signature {
     text-align: right;
 }
 
+/* Styles for reviews */
+div.prose.review {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    border-top: 1px navy black;
+}
+
+div.prose.review p.citation {
+    padding: 2em;
+    font-size: 80%;
+    color: darkgray;
+}
+
+
+
+/* What follows are hacks for dealing with poetry 
+  quoted within prose. */
+/* This style hides the line numbers for poems quoted in 
+   a review. */
+div.prose.review .lineNo {
+    display: none;
+}
+
+/* We treat poetic lines as as a special species of HTML paragraphs.
+   This means we have to override the rule for paragraph indentation. */
+div.prose.review p.verse-container {
+    text-indent: 0em;
+}
+
+/* control formatting of poet lines in prose; mostly, that is 
+   quoted material 
+div.prose.review .poetic-line {
+    padding-left: 2em;
+    text-align: left;
+}
+*/
+/* End of Poetry within Prose Hacks */
+
+
+.group-title {
+    font-variant: small-caps;
+}
+
+
+
 /* Styles for title material */
 #titlePage, #half-title {
     margin: 0 auto;
-    width: 60%;
+    width: 60%; 
     text-align: center;
     padding: 8em;
 }
@@ -177,10 +227,16 @@ div.prose .signature {
 
 /* Styles for Table of Contents */
 #tableOfContents {
+    position: absolute;
+    top: 0;
+    left: 0;
     margin: 0 auto;
-    width: 40%;
+    width: 15%;
     text-align: left;
-    padding: 4em;
+    padding-right: 4em;
+    padding-left: 2em;
+    border-right: 1px solid black;
+    font-size: 0.8em;
 }
 
 #tableOfContents li {
@@ -220,4 +276,8 @@ div.prose .signature {
 sup.footnote {
     font-size: 0.7em;
     color: #6495ED;
+}
+
+blockquote {
+    font-size: 0.75em;
 }
