@@ -1,5 +1,4 @@
 
-
 #container {
     margin: 0 auto;
     width: 80%; 
@@ -153,24 +152,30 @@ div.prose p + p {
     text-indent: 2em;
 }
 
-div.prose .signature {
+div.prose .closer {
     right: 0em;
     text-align: right;
 }
 
 /* Styles for reviews */
 div.prose.review {
-    padding-top: 2em;
     padding-bottom: 2em;
-    border-top: 1px navy black;
+    border-bottom: 1px solid black;
 }
 
 div.prose.review p.citation {
-    padding: 2em;
+    width: 60%;
+    padding-top: 0em;
+    padding-bottom: 2em;
     font-size: 80%;
     color: darkgray;
 }
 
+div.prose.review h4 {
+    color: #777777;
+    font-size: 1.0em;
+    line-height: normal;
+}
 
 
 /* What follows are hacks for dealing with poetry 

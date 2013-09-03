@@ -152,7 +152,7 @@
 <!-- sigla, not for each *witness*, but for each major work. This    -->
 <!-- adhoc sigla in turn is used in the textual apparatus, to avoid  -->
 <!-- having to output the full title / bibl. -->
-  <xsl:template match="tei:ref">
+  <xsl:template match="tei:lg/tei:note/tei:ref">
     <xsl:apply-templates /> (<span class="sigla"><xsl:value-of select="substring-before(@target,'-')" /></span>)
   </xsl:template>
 
@@ -232,10 +232,13 @@
   <p><xsl:apply-templates /></p>
 </xsl:template>
 
-<xsl:template match="tei:signed">
-  <p class="signature"><xsl:apply-templates /></p>
+<xsl:template match="tei:closer">
+  <p class="closer"><xsl:apply-templates /></p>
 </xsl:template>
 
+<xsl:template match="tei:closer//*">
+  <br /><xsl:apply-templates />
+</xsl:template>
 
 <!-- Title -->
 <xsl:template match="tei:titlePage">
@@ -286,7 +289,8 @@
  </xsl:template>
 
 <!-- Templates for secondary material: contemporary reviews. -->
-<xsl:template match="tei:text[@type='review']">
+<!-- This groups supplementary material in here too. -->
+<xsl:template match="tei:text[@type='review'] | tei:text[@type='supplementary']">
   <xsl:element name="div">
     <xsl:attribute name="class">prose review</xsl:attribute>
     <xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
@@ -298,30 +302,57 @@
   <xsl:apply-templates />
 </xsl:template>
 
-<xsl:template match="tei:text[@type='review']/tei:body/tei:head/tei:title">
-  <h2><xsl:apply-templates /></h2>
+<!-- This template generates per-review titles with author name. -->
+<!-- HACK: Also grabs supplementary material and handles them the same way. -->
+<xsl:template match="tei:text[@type='review']/tei:body/tei:head|tei:text[@type='supplementary']/tei:body/tei:head">
+  <h2 class="review-title"><xsl:apply-templates select="tei:title" />
+  </h2>
+  <xsl:if test="tei:bibl/tei:author">
+    <h4 class="review-author">by 
+    <!-- First name/names -->
+    <xsl:for-each select="tei:bibl/tei:author/tei:persName/tei:forename">
+      <xsl:apply-templates select="." />&#160; 
+      <!--  <xsl:value-of select="." />&#160; -->
+    </xsl:for-each>
+    <!-- Last name -->
+    <xsl:apply-templates select="tei:bibl/tei:author/tei:persName/tei:surname" />
+    </h4>
+  </xsl:if>
+  <!-- We now do not call apply-tempaltes for all templates, otherwise we'll -->
+  <!-- output stuff we don't want; just the bibl for the citation. -->
+  <xsl:apply-templates select="tei:bibl" />
 </xsl:template>
 
 <xsl:template match="tei:bibl">
   <p class="citation"><strong>Citation:</strong> <xsl:apply-templates /></p>
 </xsl:template>
 
-<!-- The following templates format bibliographical info from bibl -->
+<!-- The following templates format bibliographical info from bibl into an MLA -->
+<!-- style citation. -->
 <xsl:template match="tei:bibl/tei:author">
-  <xsl:value-of select="." /> 
+  <xsl:apply-templates select="tei:persName/tei:surname" />, 
+  <xsl:for-each select="tei:persName/tei:forename">
+    <xsl:apply-templates select="."/><xsl:if test="position() != last()">&#160;</xsl:if>
+  </xsl:for-each>.
 </xsl:template>
 
 <xsl:template match="tei:bibl/tei:title[@level='a']">
-  "<xsl:value-of select="." />" 
+  "<xsl:apply-templates />."
 </xsl:template>
 
 <xsl:template match="tei:bibl/tei:title[@level='j']">
-  <em><xsl:value-of select="." /></em>
+  <em><xsl:apply-templates /></em> 
 </xsl:template>
 
-<xsl:template match="tei:bibl/tei:title[@level='j']">
+<xsl:template match="tei:bibl/tei:title[@level='j' and @type='main']">
+  <em><xsl:value-of select="." />: </em>
+</xsl:template>
+
+<xsl:template match="tei:bibl/tei:title[@level='j' and @type='sub']">
   <em><xsl:value-of select="." /></em> 
 </xsl:template>
+
+
 
 <!-- This date template could use @when to normalize dates. -->
 <xsl:template match="tei:bibl/tei:date">
@@ -347,6 +378,19 @@
   </blockquote>
 </xsl:template>
 
+
+<!-- Template for resolving choice elements -->
+<!-- For now, when there is a choice between: -->
+<!-- a sic and a corr -->
+<!-- or an abbreviation and an expansion -->
+<!-- it chooses the latter. --> 
+<xsl:template match="tei:choice">
+  <xsl:apply-templates select="tei:corr|tei:abbr" />
+</xsl:template>
+
+<xsl:template match="tei:abbr">
+  <xsl:apply-templates />.
+</xsl:template>
 
 </xsl:stylesheet>
 
