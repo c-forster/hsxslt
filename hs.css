@@ -22,7 +22,8 @@ p {
 
 .poem {
 
-    padding-left: 7em; 
+/*    padding-left: 7em;  */
+    padding-left: 20%;
     margin-top: 2em;
 /*    border-top: solid gray 1px; */
 /* The following three rules ensure a page number goes with the appropriate poem */
@@ -117,7 +118,7 @@ p {
     padding-right: 1em; 
     text-align: right; 
     min-width: 3em;  
-    margin-left: -7em;
+    margin-left: -4em;
 }
 
 .sigla {
@@ -134,6 +135,7 @@ div.prose {
     margin: 0 auto;
     width: 65%;
     background: #fff;
+    padding-left: 15%;
 }
 
 div.prose h3 {
@@ -201,11 +203,11 @@ div.prose.review .poetic-line {
 */
 /* End of Poetry within Prose Hacks */
 
-
-.group-title {
+.section-title {
     font-variant: small-caps;
+    padding-left: 3em;
+    color: #b80000;
 }
-
 
 
 /* Styles for title material */
@@ -245,7 +247,7 @@ div.prose.review .poetic-line {
 }
 
 #tableOfContents li {
-    list-style:none;
+/*    list-style:none; */
 }
 
 #tableOfContents a {
@@ -286,3 +288,17 @@ sup.footnote {
 blockquote {
     font-size: 0.75em;
 }
+
+
+a.reference, a.source {
+    text-decoration: none;
+}
+
+a:link.reference, a:link.source {
+    color: #4961e1;
+}
+
+a:visited.reference, a:visited.source { 
+    color: #483d8b;
+}
+

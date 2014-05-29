@@ -12,8 +12,65 @@
   <xsl:template match="tei:TEI">
     <html>
     <xsl:apply-templates />
+      
+    <div id="tableOfContents">
+      <!-- Rules for extracting Harlem Shadows and its Table of Contents -->
+      <h3>Harlem Shadows</h3>
+      <ul>
+	<!-- A rule for where a div type=contents exist, ie Harlem Shadows-->
+	<xsl:for-each select="tei:text//tei:div[@type='contents']//tei:item">
+	  <li>
+	    <xsl:element name="a">
+	      <xsl:attribute name="href"><xsl:value-of select="tei:ref/@target" /></xsl:attribute>
+	      <xsl:apply-templates />
+	    </xsl:element>
+	  </li>
+	</xsl:for-each>
+	<xsl:for-each select="tei:text[@xml:id='HarlemShadows-DigitalEdition']/tei:group/tei:group">	
+	  <h3><xsl:value-of select="tei:head" /></h3>
+	  <!-- A rule for extracting titles and links from other texts -->
+	  <xsl:for-each select="tei:text">
+	    <li>
+	      <xsl:element name="a">
+		<xsl:attribute name="href">#<xsl:value-of select="./@xml:id" /></xsl:attribute>
+		<xsl:apply-templates select="tei:body/tei:head/tei:title" />
+	      </xsl:element>
+	    </li>
+	  </xsl:for-each>
+	</xsl:for-each>
+	</ul>
+
+      <!-- This next select matches all the group or text children of -->
+      <!-- the main HSDE text wrapper. -->
+	</div>
+
     </html>
   </xsl:template>
+
+<xsl:template match="tei:head">
+</xsl:template>
+
+
+<xsl:template match="tei:div/tei:head">
+  <h3><xsl:apply-templates /></h3>
+</xsl:template>
+
+<!--
+<xsl:template match="tei:div[@type='contents']">
+  <div id="tableOfContents">
+    <h3>Harlem Shadows</h3>
+    <xsl:apply-templates />
+    <xsl:for-each select="tei:group">
+      <h2><xsl:apply-templates select="tei:head" /></h2>
+      <ul>
+	<xsl:for-each select="tei:text">
+	  <li><xsl:apply-templates select="tei:head" /></li>
+	</xsl:for-each>
+      </ul>
+    </xsl:for-each>
+  </div>
+</xsl:template>
+-->
 
 <!-- Create HTML header from teiHeader -->
   <xsl:template match="tei:teiHeader">
@@ -26,12 +83,12 @@
 <!-- This rule creates a container div for formatting HTML  -->
 <!-- Applying it to tei:body works; applying it to tei:text -->
 <!-- does not. I don't know WHY!?!?!?! -->
-  <xsl:template match="tei:body">
+<!--  <xsl:template match="tei:body">
     <div id="teiBody">
       <xsl:apply-templates />
     </div>
   </xsl:template>
-
+-->
 <!-- use titleStmt title for HTML document title -->
   <xsl:template match="tei:titleStmt/tei:title">
     <title>
@@ -39,6 +96,7 @@
     </title>
   </xsl:template>
 
+<!--
   <xsl:template match="tei:text/tei:group">
     <body>
       <div id="container">
@@ -46,11 +104,27 @@
       </div>
     </body>
   </xsl:template>
-
+-->
   <xsl:template match="tei:lg[@type='poem']">
     <xsl:element name="div">
       <xsl:attribute name="class">poem</xsl:attribute>
-      <xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
+      <xsl:attribute name="id">
+	<xsl:choose>
+	  <xsl:when test="ancestor::tei:group[@xml:id='mckay_additional-poems']">
+	    <xsl:value-of select="../../@xml:id" />
+	  </xsl:when>
+	  <xsl:otherwise>
+	    <xsl:value-of select="@xml:id" />
+	  </xsl:otherwise>
+	</xsl:choose>
+      </xsl:attribute>
+
+      <xsl:if test="ancestor::tei:group[@xml:id='mckay_additional-poems']">
+	<div class="note">
+	  <xsl:apply-templates select="../tei:head/tei:bibl" />
+	</div>
+      </xsl:if>
+
       <xsl:apply-templates />
 
       <!-- Generate apparatus for notes -->
@@ -63,7 +137,6 @@
 	</li>
       </xsl:for-each>
       </ul>
-
     </xsl:element>
   </xsl:template>
 
@@ -78,7 +151,7 @@
       <xsl:apply-templates />
     </xsl:element>
   </xsl:template>
-  
+
   <xsl:template match="tei:l">
     <xsl:element name="p">
       <xsl:attribute name="class">verse-container</xsl:attribute>
@@ -152,7 +225,7 @@
 <!-- sigla, not for each *witness*, but for each major work. This    -->
 <!-- adhoc sigla in turn is used in the textual apparatus, to avoid  -->
 <!-- having to output the full title / bibl. -->
-  <xsl:template match="tei:lg/tei:note/tei:ref">
+  <xsl:template match="tei:lg/tei:head/tei:note//tei:ref">
     <xsl:apply-templates /> (<span class="sigla"><xsl:value-of select="substring-before(@target,'-')" /></span>)
   </xsl:template>
 
@@ -195,22 +268,37 @@
 </xsl:template>
 
 <!-- Table of Contents Templates -->
+<!-- 
 <xsl:template match="tei:div[@type='contents']">
   <div id="tableOfContents">
+    <h3>Harlem Shadows</h3>
     <xsl:apply-templates />
+    <xsl:for-each select="tei:group">
+      <h2><xsl:apply-templates select="tei:head" /></h2>
+      <ul>
+	<xsl:for-each select="tei:text">
+	  <li><xsl:apply-templates select="tei:head" /></li>
+	</xsl:for-each>
+      </ul>
+    </xsl:for-each>
   </div>
 </xsl:template>
+-->
 
 <!--
 <xsl:template match="tei:div[@type='contents']//tei:ref">
   <xsl:element name="a"><xsl:attribute name="href"><xsl:value-of select="@target" /></xsl:attribute><xsl:apply-templates /></xsl:element>
 </xsl:template>
 -->
+<!--
 <xsl:template match="tei:div[@type='contents']//tei:item">
   <li><xsl:element name="a"><xsl:attribute name="href"><xsl:value-of select="tei:ref/@target" />
 </xsl:attribute><xsl:apply-templates /></xsl:element></li>
 </xsl:template>
+-->
 
+<xsl:template match="tei:div[@type='contents']">
+</xsl:template>
 <xsl:template match="tei:div[@type='contents']//tei:ref">
 </xsl:template>
 
@@ -224,9 +312,11 @@
   </xsl:element>
 </xsl:template>
 
+<!--
 <xsl:template match="tei:head">
-  <h3><xsl:apply-templates /></h3>
+  <h3><xsl:apply-templates /></h3> 
 </xsl:template>
+-->
 
 <xsl:template match="tei:p">
   <p><xsl:apply-templates /></p>
@@ -256,7 +346,7 @@
 </xsl:template>
 
 <xsl:template match="tei:titlePart[@type='desc']">
-  <h4><xsl:apply-templates /></h4>
+  <xsl:apply-templates />
 </xsl:template>
 
 <!-- This template matches the half-title page -->
@@ -365,14 +455,42 @@
 <xsl:template match="tei:bibl/tei:biblScope">
 </xsl:template>
 
-
+<!-- This rule contains the single worst hack of all; a one-off, bespoke rule -->
+<!-- to not print a *particular* head within the document. -->
+<!-- Heaven forgive me. -->
 <xsl:template match="tei:group/tei:head">
-  <h1 class="group-title"><xsl:apply-templates /></h1>
+  <xsl:choose>
+    <xsl:when test="../@xml:id='hs'">
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:element name="h1">
+	<xsl:attribute name="class">section-title</xsl:attribute>
+	<xsl:apply-templates />
+      </xsl:element>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
+
 
 
 <!-- Template for quoted material, including poems, particularly in reviews. -->
 <xsl:template match="tei:quote">
+  <xsl:choose>
+    <xsl:when test="@source">
+    <xsl:element name="a">
+      <xsl:attribute name="class">source</xsl:attribute>
+      <xsl:attribute name="href"><xsl:value-of select="@source" /></xsl:attribute>
+    <xsl:apply-templates />
+    </xsl:element>
+  </xsl:when>
+  <xsl:otherwise>
+    <xsl:apply-templates />
+  </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+
+<xsl:template match="tei:quote/tei:lg">
   <blockquote>
     <xsl:apply-templates />
   </blockquote>
@@ -388,8 +506,19 @@
   <xsl:apply-templates select="tei:corr|tei:abbr" />
 </xsl:template>
 
+<!-- Here we handle abbreviations. If type is initial, we add a period. -->
+<!-- Otherwise, this is just a passthrough. -->
 <xsl:template match="tei:abbr">
-  <xsl:apply-templates />.
+  <xsl:apply-templates /><xsl:if test="@type='initial'">.</xsl:if>
+</xsl:template>
+
+<!-- A generic rule to convert refs into HTML a tags. -->
+<xsl:template match="tei:ref">
+  <xsl:element name="a">
+    <xsl:attribute name="class">reference</xsl:attribute>
+    <xsl:attribute name="href"><xsl:value-of select="@target" /></xsl:attribute>
+    <xsl:apply-templates />
+  </xsl:element>
 </xsl:template>
 
 </xsl:stylesheet>
