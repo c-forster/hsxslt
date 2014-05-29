@@ -128,15 +128,15 @@
       <xsl:apply-templates />
 
       <!-- Generate apparatus for notes -->
-      <ul class="editorialNotes">
+      <ul class="editorialNotes"><xsl:text>&#10;</xsl:text>
       <xsl:for-each select=".//tei:note[@type='editorial']">
 	<li>
 	  <xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
 	  <xsl:text>: </xsl:text>
 	  <xsl:value-of select="." />
-	</li>
+	</li><xsl:text>&#10;</xsl:text>
       </xsl:for-each>
-      </ul>
+      </ul><xsl:text>&#10;</xsl:text>
     </xsl:element>
   </xsl:template>
 
