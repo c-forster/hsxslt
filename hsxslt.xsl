@@ -89,13 +89,18 @@
     </div>
   </xsl:template>
 -->
+
 <!-- use titleStmt title for HTML document title -->
   <xsl:template match="tei:titleStmt/tei:title">
-    <title>
-      <xsl:value-of select="." />
-    </title>
+    <title><xsl:value-of select="." /></title>
   </xsl:template>
 
+<!-- These templates silence other aspects of the titleStmt that we -->
+<!-- don't need for HTML output. -->
+  <xsl:template match="tei:titleStmt/tei:author"></xsl:template>
+  <xsl:template match="tei:titleStmt/tei:principal"></xsl:template>
+  <xsl:template match="tei:publicationStmt"></xsl:template>
+  <xsl:template match="tei:sourceDesc"></xsl:template>
 <!--
   <xsl:template match="tei:text/tei:group">
     <body>
@@ -121,7 +126,7 @@
 
       <xsl:if test="ancestor::tei:group[@xml:id='mckay_additional-poems']">
 	<div class="note">
-	  <xsl:apply-templates select="../tei:head/tei:bibl" />
+ 	  <xsl:apply-templates select="../tei:head/tei:bibl" />
 	</div>
       </xsl:if>
 
@@ -133,7 +138,10 @@
 	<li>
 	  <xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
 	  <xsl:text>: </xsl:text>
-	  <xsl:value-of select="." />
+	  <!-- In order preserve formatting using hi tag within notes, rather than value of -->
+	  <!-- this next function is apply-templates. I'm scared. - csf 5/29/14 -->
+	  <!--	  <xsl:value-of select="." /> -->
+	  <xsl:apply-templates />
 	</li><xsl:text>&#10;</xsl:text>
       </xsl:for-each>
       </ul><xsl:text>&#10;</xsl:text>
@@ -361,6 +369,7 @@
 
 <!-- Elements with rend attributes -->
 <xsl:template match="tei:*[@rend='italics']"><em><xsl:apply-templates /></em></xsl:template>
+<xsl:template match="tei:*[@rend='bold']"><strong><xsl:apply-templates /></strong></xsl:template>
 
 <!-- Line breaks marked in TEI. -->
 <xsl:template match="tei:lb"><br /></xsl:template>
@@ -368,15 +377,11 @@
 <xsl:template match="tei:pb"><span class="pageBreak"><xsl:value-of select="@n" /></span></xsl:template>
 
 <!-- This template inserts footnote markers within the text -->
-<xsl:template match="tei:note[@type='editorial']">
-  <xsl:element name="sup">
-    <xsl:attribute name="class">footnote</xsl:attribute>
-    <xsl:attribute name="id">
-      <xsl:value-of select="ancestor::*/@xml:id" />_fn<xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
-    </xsl:attribute>
-    <xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
-  </xsl:element>
- </xsl:template>
+<xsl:template match="tei:note[@type='editorial']"><xsl:element name="sup">
+<xsl:attribute name="class">footnote</xsl:attribute>
+<xsl:attribute name="id"><xsl:value-of select="ancestor::*/@xml:id" />_fn<xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" /></xsl:attribute><xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
+</xsl:element>
+</xsl:template>
 
 <!-- Templates for secondary material: contemporary reviews. -->
 <!-- This groups supplementary material in here too. -->
@@ -413,8 +418,10 @@
   <xsl:apply-templates select="tei:bibl" />
 </xsl:template>
 
+<!-- This template silences the bibl description. Ideally, they should be -->
+<!-- gathered together in a div, as a sort of works cited. #+:TODO. -->
 <xsl:template match="tei:bibl">
-  <p class="citation"><strong>Citation:</strong> <xsl:apply-templates /></p>
+<!--  <p class="citation"><strong>Citation:</strong> <xsl:apply-templates /></p> -->
 </xsl:template>
 
 <!-- The following templates format bibliographical info from bibl into an MLA -->
