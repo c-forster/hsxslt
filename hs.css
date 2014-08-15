@@ -123,7 +123,7 @@ p {
 
 .sigla {
     color: blue;
-    text-decoration: italic;
+    text-decoration: italics;
 }
 
 .empty-lemma {
@@ -285,10 +285,17 @@ sup.footnote {
     color: #6495ED;
 }
 
-blockquote {
-    font-size: 0.75em;
+span.quoted-lg {
+    display: block;
 }
 
+span.quoted-poetry {
+    display: block;
+    margin-left: 3em;
+    text-indent: -2em;
+    font-size: 1em;
+    line-height: 1.4em;
+}
 
 a.reference, a.source {
     text-decoration: none;

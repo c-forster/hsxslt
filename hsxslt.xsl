@@ -12,7 +12,7 @@
   <xsl:template match="tei:TEI">
     <html>
     <xsl:apply-templates />
-      
+    <body>
     <div id="tableOfContents">
       <!-- Rules for extracting Harlem Shadows and its Table of Contents -->
       <h3>Harlem Shadows</h3>
@@ -43,7 +43,7 @@
       <!-- This next select matches all the group or text children of -->
       <!-- the main HSDE text wrapper. -->
 	</div>
-
+    </body>
     </html>
   </xsl:template>
 
@@ -478,7 +478,11 @@
   </xsl:choose>
 </xsl:template>
 
-
+<xsl:template match="tei:p/tei:note">
+  <span class="note">
+    <xsl:apply-templates />
+  </span>
+</xsl:template>
 
 <!-- Template for quoted material, including poems, particularly in reviews. -->
 <xsl:template match="tei:quote">
@@ -496,13 +500,27 @@
   </xsl:choose>
 </xsl:template>
 
-
 <xsl:template match="tei:quote/tei:lg">
-  <blockquote>
+  <span class="quoted-lg">
+    <xsl:text disable-output-escaping="yes">&lt;br /&gt;</xsl:text>
     <xsl:apply-templates />
-  </blockquote>
+    <xsl:text disable-output-escaping="yes">&lt;br /&gt;</xsl:text>
+  </span>
 </xsl:template>
 
+<xsl:template match="tei:quote/tei:lg/tei:l">
+  <span class="quoted-poetry"><xsl:apply-templates />
+  <!-- This sillines is necessary, otherwise our one br tag gets 
+       interpreted as two. -->
+  <xsl:text disable-output-escaping="yes">&lt;br /&gt;</xsl:text></span>
+</xsl:template>
+
+<xsl:template match="tei:quote/tei:lg/tei:lg/tei:l">
+  <span class="quoted-poetry"><xsl:apply-templates />
+  <!-- This sillines is necessary, otherwise our one br tag gets 
+       interpreted as two. -->
+  <xsl:text disable-output-escaping="yes">&lt;br /&gt;</xsl:text></span>
+</xsl:template>
 
 <!-- Template for resolving choice elements -->
 <!-- For now, when there is a choice between: -->
