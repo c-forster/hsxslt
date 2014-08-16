@@ -312,7 +312,7 @@
 
 
 <!-- Introduction/Preface/Etc ;; Prose Materials -->
-<xsl:template match="tei:div[@type='introduction']|tei:div[@type='preface']">
+<xsl:template match="tei:div[@type='introductory-prose']">
   <xsl:element name="div">
     <xsl:attribute name="class">prose</xsl:attribute>
     <xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>

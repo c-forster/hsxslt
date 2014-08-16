@@ -141,6 +141,7 @@ div.prose {
 div.prose h3 {
     font-variant: small-caps;
     text-align: center;
+    font-size: 1.7em;
 }
 
 div.prose p {
