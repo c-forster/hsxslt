@@ -310,3 +310,18 @@ a:visited.reference, a:visited.source {
     color: #483d8b;
 }
 
+#viewToggles{
+    position		: fixed;
+    right		: 0;
+    top			: 20%;
+    width		: 12em;
+    background-color	: gray;
+    opacity		: 0.8;
+    font-size		: 0.7em;
+    font-family		: sans-serif;
+    padding: 1em;
+}
+
+.editorialNotes {
+    display: none;
+}

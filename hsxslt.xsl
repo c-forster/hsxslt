@@ -43,6 +43,20 @@
       <!-- This next select matches all the group or text children of -->
       <!-- the main HSDE text wrapper. -->
 	</div>
+
+	<xsl:comment>This div contains the toggles for notes, apparatus, etc.</xsl:comment>
+	<div id="viewToggles">
+	  <h3>Textual Features:</h3>
+	  <form action="">
+	    <input type="checkbox" name="toggleCheckbox" value="editorialNotesCheckbox">Editorial Notes.</input>
+	  </form>
+	</div>
+	
+	<xsl:comment>TODO: Load jQuery from Google CDN with Fallback</xsl:comment>
+	<script src="jquery-2.1.1.js" type="text/javascript"></script>
+
+	<xsl:comment>Load simple JS controls.</xsl:comment>
+	<script src="hs.js" type="text/javascript"></script>
     </body>
     </html>
   </xsl:template>
@@ -136,6 +150,10 @@
       <ul class="editorialNotes"><xsl:text>&#10;</xsl:text>
       <xsl:for-each select=".//tei:note[@type='editorial']">
 	<li>
+	  <xsl:attribute name="class">editorialNote</xsl:attribute>
+	  <xsl:attribute name="id">
+	    <xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_<xsl:value-of select="count(preceding-sibling::note)" />
+	  </xsl:attribute>
 	  <xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
 	  <xsl:text>: </xsl:text>
 	  <!-- In order preserve formatting using hi tag within notes, rather than value of -->
