@@ -5,7 +5,7 @@ $(document).ready(function(){
 	id = id.replace('CheckBox','')
 	console.log(id);
 
-        if($(this).attr("name")=="toggleCheckbox"){
+        if($(this).attr("type")=="checkbox"){
             $('#' + id).toggle();
 	    $('.'+id+'Fn').toggle();	    
         }

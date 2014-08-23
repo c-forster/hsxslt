@@ -61,23 +61,6 @@
   <h3><xsl:apply-templates /></h3>
 </xsl:template>
 
-<!--
-<xsl:template match="tei:div[@type='contents']">
-  <div id="tableOfContents">
-    <h3>Harlem Shadows</h3>
-    <xsl:apply-templates />
-    <xsl:for-each select="tei:group">
-      <h2><xsl:apply-templates select="tei:head" /></h2>
-      <ul>
-	<xsl:for-each select="tei:text">
-	  <li><xsl:apply-templates select="tei:head" /></li>
-	</xsl:for-each>
-      </ul>
-    </xsl:for-each>
-  </div>
-</xsl:template>
--->
-
 <!-- Create HTML header from teiHeader -->
   <xsl:template match="tei:teiHeader">
     <head>
@@ -85,16 +68,6 @@
     <xsl:apply-templates />
     </head>
   </xsl:template>
-
-<!-- This rule creates a container div for formatting HTML  -->
-<!-- Applying it to tei:body works; applying it to tei:text -->
-<!-- does not. I don't know WHY!?!?!?! -->
-<!--  <xsl:template match="tei:body">
-    <div id="teiBody">
-      <xsl:apply-templates />
-    </div>
-  </xsl:template>
--->
 
 <!-- use titleStmt title for HTML document title -->
   <xsl:template match="tei:titleStmt/tei:title">
@@ -107,17 +80,9 @@
   <xsl:template match="tei:titleStmt/tei:principal"></xsl:template>
   <xsl:template match="tei:publicationStmt"></xsl:template>
   <xsl:template match="tei:sourceDesc"></xsl:template>
-<!--
-  <xsl:template match="tei:text/tei:group">
-    <body>
-      <div id="container">
-	<xsl:apply-templates />
-      </div>
-    </body>
-  </xsl:template>
--->
+
   <xsl:template match="tei:lg[@type='poem']">
-    <!-- This variable will hold a unique id for this poem, which can be used 
+    <!-- Create variable to hold a unique id for this poem, which can be used 
          to generate other unique xml:id's for elements within the poem. -->
     <xsl:variable name="poemid">
       <xsl:choose>
@@ -130,24 +95,27 @@
       </xsl:choose>
     </xsl:variable>
 
-    <!-- Toggles for individual poem. -->
-    <div>
-      <xsl:attribute name="class">toggles</xsl:attribute>
-      <xsl:attribute name="xml:id"><xsl:value-of select="$poemid" />_toggles</xsl:attribute>
-      <xsl:text>&#10;</xsl:text>
-      <xsl:comment>This div contains the toggles for notes, apparatus, etc.</xsl:comment>
-      <xsl:text>&#10;</xsl:text>
-      <h3>Textual Features:</h3>
-      <form>
-	<input type="checkbox" name="toggleCheckbox">
-	  <xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>Editorial Notes.
-	</input>
-      </form>
-    </div>
-
+    <!-- Container div for poem. -->
     <xsl:element name="div">
       <xsl:attribute name="class">poem</xsl:attribute>
       <xsl:attribute name="id"><xsl:value-of select="$poemid" /></xsl:attribute>
+
+      <!-- Toggles for individual poem. -->
+      <xsl:text>&#10;</xsl:text>
+      <div>
+	<xsl:attribute name="class">toggles</xsl:attribute>
+	<xsl:attribute name="xml:id"><xsl:value-of select="$poemid" />_toggles</xsl:attribute>
+	<xsl:text>&#10;</xsl:text>
+	<xsl:comment>This div contains the toggles for notes, apparatus, etc.</xsl:comment>
+	<xsl:text>&#10;</xsl:text>
+	<h4>Textual Features:</h4><xsl:text>&#10;</xsl:text>
+	<form><xsl:text>&#10;</xsl:text>
+	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_textualApparatusCheckBox</xsl:attribute>Textual Apparatus</input></div><xsl:text>&#10;</xsl:text>
+	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>Editorial Notes</input></div><xsl:text>&#10;</xsl:text>
+	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_citationCheckBox</xsl:attribute>Citation</input></div><xsl:text>&#10;</xsl:text>
+	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_contextualNotesCheckBox</xsl:attribute>Contextual Notes</input></div><xsl:text>&#10;</xsl:text>
+	</form>	<xsl:text>&#10;</xsl:text>
+      </div><xsl:text>&#10;</xsl:text>
 
       <xsl:apply-templates />
 

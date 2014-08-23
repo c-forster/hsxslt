@@ -31,6 +31,7 @@ p {
     padding-bottom: 2em;
     margin-bottom: 2em;
     clear: both;
+    position: relative;
 }
 
 .poem h3 {
@@ -311,14 +312,17 @@ a:visited.reference, a:visited.source {
     color: #483d8b;
 }
 
-.toggles{
-    top			: 20%;
+.toggles {
     width		: 12em;
     background-color	: gray;
     opacity		: 0.8;
     font-size		: 0.7em;
     font-family		: sans-serif;
-    padding: 1em;
+    padding-left: 1em; 
+    padding-right: 1em;
+/*    position: absolute;
+    right: 0; */
+    float: right;
 }
 
 .editorialNotes {
