@@ -44,14 +44,6 @@
       <!-- the main HSDE text wrapper. -->
 	</div>
 
-	<xsl:comment>This div contains the toggles for notes, apparatus, etc.</xsl:comment>
-	<div id="viewToggles">
-	  <h3>Textual Features:</h3>
-	  <form action="">
-	    <input type="checkbox" name="toggleCheckbox" value="editorialNotesCheckbox">Editorial Notes.</input>
-	  </form>
-	</div>
-	
 	<xsl:comment>TODO: Load jQuery from Google CDN with Fallback</xsl:comment>
 	<script src="jquery-2.1.1.js" type="text/javascript"></script>
 
@@ -125,34 +117,50 @@
   </xsl:template>
 -->
   <xsl:template match="tei:lg[@type='poem']">
+    <!-- This variable will hold a unique id for this poem, which can be used 
+         to generate other unique xml:id's for elements within the poem. -->
+    <xsl:variable name="poemid">
+      <xsl:choose>
+	<xsl:when test="ancestor::tei:group[@xml:id='mckay_additional-poems']">
+	  <xsl:value-of select="../../@xml:id" />
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:value-of select="@xml:id" />
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <!-- Toggles for individual poem. -->
+    <div>
+      <xsl:attribute name="class">toggles</xsl:attribute>
+      <xsl:attribute name="xml:id"><xsl:value-of select="$poemid" />_toggles</xsl:attribute>
+      <xsl:text>&#10;</xsl:text>
+      <xsl:comment>This div contains the toggles for notes, apparatus, etc.</xsl:comment>
+      <xsl:text>&#10;</xsl:text>
+      <h3>Textual Features:</h3>
+      <form>
+	<input type="checkbox" name="toggleCheckbox">
+	  <xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>Editorial Notes.
+	</input>
+      </form>
+    </div>
+
     <xsl:element name="div">
       <xsl:attribute name="class">poem</xsl:attribute>
-      <xsl:attribute name="id">
-	<xsl:choose>
-	  <xsl:when test="ancestor::tei:group[@xml:id='mckay_additional-poems']">
-	    <xsl:value-of select="../../@xml:id" />
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:value-of select="@xml:id" />
-	  </xsl:otherwise>
-	</xsl:choose>
-      </xsl:attribute>
-
-      <xsl:if test="ancestor::tei:group[@xml:id='mckay_additional-poems']">
-	<div class="note">
- 	  <xsl:apply-templates select="../tei:head/tei:bibl" />
-	</div>
-      </xsl:if>
+      <xsl:attribute name="id"><xsl:value-of select="$poemid" /></xsl:attribute>
 
       <xsl:apply-templates />
 
       <!-- Generate apparatus for notes -->
-      <ul class="editorialNotes"><xsl:text>&#10;</xsl:text>
+      <ul>
+	<xsl:attribute name="class">editorialNotes</xsl:attribute>
+	<xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotes</xsl:attribute>
+	<xsl:text>&#10;</xsl:text>
       <xsl:for-each select=".//tei:note[@type='editorial']">
 	<li>
 	  <xsl:attribute name="class">editorialNote</xsl:attribute>
-	  <xsl:attribute name="id">
-	    <xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_<xsl:value-of select="count(preceding-sibling::note)" />
+	  <xsl:attribute name="xml:id">
+	    <xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_editorialNote_<xsl:value-of select="count(preceding-sibling::note)" />
 	  </xsl:attribute>
 	  <xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
 	  <xsl:text>: </xsl:text>
@@ -241,10 +249,13 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="tei:note">
-    <div class="note">
+  <xsl:template match="tei:note[@type='textual']">
+    <xsl:element name="div">
+      <xsl:attribute name="class">textualNote</xsl:attribute>
+      <xsl:attribute name="xml:id"><xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_textualNote_<xsl:value-of select="count(preceding-sibling::note)" /></xsl:attribute>
+	    
       <xsl:apply-templates />
-    </div>
+    </xsl:element>
   </xsl:template>
 
 <!-- Probably the ugliest bit of this code. Creates a sort of ad-hoc -->
@@ -396,8 +407,8 @@
 
 <!-- This template inserts footnote markers within the text -->
 <xsl:template match="tei:note[@type='editorial']"><xsl:element name="sup">
-<xsl:attribute name="class">footnote</xsl:attribute>
-<xsl:attribute name="id"><xsl:value-of select="ancestor::*/@xml:id" />_fn<xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" /></xsl:attribute><xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
+<xsl:attribute name="class">footnote <xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_editorialNotesFn</xsl:attribute>
+<xsl:attribute name="id"><xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_fn<xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" /></xsl:attribute><xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
 </xsl:element>
 </xsl:template>
 

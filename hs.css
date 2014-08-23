@@ -37,7 +37,7 @@ p {
     text-indent: -2em;
 }
 
-.note {
+.textualNote {
     width		: 10em;
     padding		: 1em;
     margin		: 3em;
@@ -282,6 +282,7 @@ div.prose.review .poetic-line {
 }
 
 sup.footnote {
+    display: none;
     font-size: 0.7em;
     color: #6495ED;
 }
@@ -310,9 +311,7 @@ a:visited.reference, a:visited.source {
     color: #483d8b;
 }
 
-#viewToggles{
-    position		: fixed;
-    right		: 0;
+.toggles{
     top			: 20%;
     width		: 12em;
     background-color	: gray;
