@@ -110,10 +110,10 @@
 	<xsl:text>&#10;</xsl:text>
 	<h4>Textual Features:</h4><xsl:text>&#10;</xsl:text>
 	<form><xsl:text>&#10;</xsl:text>
-	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_textualApparatusCheckBox</xsl:attribute>Textual Apparatus</input></div><xsl:text>&#10;</xsl:text>
+<!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_textualApparatusCheckBox</xsl:attribute>Textual Apparatus</input></div><xsl:text>&#10;</xsl:text> -->
 	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>Editorial Notes</input></div><xsl:text>&#10;</xsl:text>
-	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_citationCheckBox</xsl:attribute>Citation</input></div><xsl:text>&#10;</xsl:text>
-	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_contextualNotesCheckBox</xsl:attribute>Contextual Notes</input></div><xsl:text>&#10;</xsl:text>
+<!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_citationCheckBox</xsl:attribute>Citation</input></div><xsl:text>&#10;</xsl:text> -->
+<!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_contextualNotesCheckBox</xsl:attribute>Contextual Notes</input></div><xsl:text>&#10;</xsl:text> -->
 	</form>	<xsl:text>&#10;</xsl:text>
       </div><xsl:text>&#10;</xsl:text>
 
@@ -190,33 +190,46 @@
   </xsl:template>
 -->
   <xsl:template match="tei:app">
-    <xsl:apply-templates />
+    <span class="apparatus">
+      <xsl:attribute name="id"><xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_app<xsl:value-of select="count(preceding::tei:app)" />
+      </xsl:attribute>
+      <xsl:apply-templates />
+    </span>
   </xsl:template>
 
   <xsl:template match="tei:lem">
-    <xsl:element name="span">
-      <xsl:attribute name="class">lemma</xsl:attribute>
-<!--      <xsl:value-of select="." /> -->
-     <!-- We test for an empty lemma for those cases, usually puncutation   -->
-     <!-- where something has been simply added. We use this to indicate    -->
-     <!-- where in the text. -->
-      <xsl:if test="not(* or text())"><span class="empty-lemma">&#160;</span></xsl:if>
-      <xsl:apply-templates />
-    </xsl:element>
+      <xsl:element name="span">
+	<xsl:attribute name="class">reading lemma</xsl:attribute>
+	<xsl:attribute name="id"><xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_lemma_<xsl:value-of select="count(preceding-sibling::span[@class='lemma'])" /></xsl:attribute>
+	<!--      <xsl:value-of select="." /> -->
+	<!-- We test for an empty lemma for those cases, usually puncutation   -->
+	<!-- where something has been simply added. We use this to indicate    -->
+	<!-- where in the text. -->
+	<xsl:if test="not(* or text())"><span class="empty-lemma">&#160;</span></xsl:if>
+	<xsl:apply-templates />
+      </xsl:element>
   </xsl:template>
 
   <xsl:template match="tei:rdg">
-<!--    <xsl:element name="span"> -->
     <xsl:element name="span">
       <xsl:attribute name="class">reading</xsl:attribute>
-<!--      <xsl:value-of select="." /> -->
-      <xsl:value-of select="../tei:lem" />]
-      <xsl:apply-templates /> (
-      <!-- <xsl:apply-templates select="key('witnessTitles',substring-after(@wit,'#'))" />)-->
-      <xsl:value-of select="substring-before(@wit,'-')" />)
+      <xsl:attribute name="id">
+	<xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_app<xsl:value-of select="count(../preceding-sibling::app)" />_rdg<xsl:value-of select="count(preceding-sibling::note)" />
+      </xsl:attribute>
+      <xsl:value-of select="." /><xsl:text> </xsl:text><xsl:apply-templates select="@wit" />
     </xsl:element>
   </xsl:template>
 
+<!--
+  <xsl:template match="tei:rdg">
+    <xsl:element name="span">
+      <xsl:attribute name="class">reading</xsl:attribute>
+      <xsl:value-of select="../tei:lem" />]
+      <xsl:apply-templates /> (
+      <xsl:value-of select="substring-before(@wit,'-')" />)
+    </xsl:element>
+  </xsl:template>
+-->
   <xsl:template match="tei:note[@type='textual']">
     <xsl:element name="div">
       <xsl:attribute name="class">textualNote</xsl:attribute>
@@ -231,13 +244,10 @@
 <!-- adhoc sigla in turn is used in the textual apparatus, to avoid  -->
 <!-- having to output the full title / bibl. -->
   <xsl:template match="tei:lg/tei:head/tei:note//tei:ref">
-    <xsl:apply-templates /> (<span class="sigla"><xsl:value-of select="substring-before(@target,'-')" /></span>)
+<!--    <xsl:apply-templates /> (<span class="sigla"><xsl:value-of select="substring-before(@target,'-')" /></span>) -->
+    <xsl:apply-templates /> (<xsl:apply-templates select="@target" />)
   </xsl:template>
 
-<!--  <xsl:template match="@rend">
-    <xsl:apply-templates />
-  </xsl:template>
--->
 <!-- Span level Templates -->
 <!-- This template matches journal and monograph titles -->
   <xsl:template match="tei:title[@level='j']|tei:title[@level='m']">
@@ -541,6 +551,31 @@
     <xsl:attribute name="href"><xsl:value-of select="@target" /></xsl:attribute>
     <xsl:apply-templates />
   </xsl:element>
+</xsl:template>
+
+<xsl:template match="tei:note[@type='textual']//tei:ref" priority="2">
+  <xsl:element name="a">
+    <xsl:attribute name="class">reference</xsl:attribute>
+    <xsl:attribute name="href"><xsl:value-of select="@target" /></xsl:attribute>
+    <xsl:apply-templates />
+  </xsl:element>
+  [<xsl:apply-templates select="@target" />]
+</xsl:template>
+<!-- This rule is basically a cheat; it essentially implements a crude 
+     sort of look up that converts witness names (or partial witness names) 
+     to single character sigla markers. 
+
+     You might be asking, why not use xsl:when and xsl:choice.
+     Good question! Well, a single @wit can in fact contain multiple matches, so
+     for that reason this crude set of if statements is actually better and easier 
+     to maintain in this circumstance. Really.
+-->
+<xsl:template match="@wit|@target">
+  <xsl:if test="contains(., '#Liberator')"><span class="sigla">*</span></xsl:if>
+  <xsl:if test="contains(., '#SINH')"><span class="sigla">†</span></xsl:if>
+  <xsl:if test="contains(., '#Pearsons')"><span class="sigla">§</span></xsl:if>
+  <xsl:if test="contains(., '#Cambridge')"><span class="sigla">#</span></xsl:if>
+  <xsl:if test="contains(., '#ThreeSonnets')"><span class="sigla">‡</span> </xsl:if>
 </xsl:template>
 
 </xsl:stylesheet>
