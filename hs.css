@@ -1,16 +1,39 @@
 
-#container {
-    margin: 0 auto;
-    width: 80%; 
-    background: #fff;
-/*    padding-left: 18em; */
-}
-
-
 html {
     font-size: 1.3em;
     color: #423F37;
 }
+/*
+ Media Queries for Responsive Layout
+*/
+
+@media screen and (min-width: 47.5em ) {
+  .leftColumn { margin-right: 19.5em; }
+ 
+  .rightColumn { position: absolute; top: 0; right: 0; width: 18.75em; }
+}
+
+/*
+ Basic Structure Rules
+*/
+
+.columnsContainer {
+    position: relative;
+    margin: 0.5em;
+}
+
+.leftColumn {
+    border: 1px solid  #ccc; 
+    padding: 1.25em; 
+    margin-bottom: .5em;
+}
+
+.rightColumn {
+    border: 1px solid  #ccc; 
+    padding: 1.25em;
+}
+
+
 
 p {
     padding: 0;
@@ -240,15 +263,6 @@ div.prose.review .poetic-line {
 
 /* Styles for Table of Contents */
 #tableOfContents {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 0 auto;
-    width: 15%;
-    text-align: left;
-    padding-right: 4em;
-    padding-left: 2em;
-    border-right: 1px solid black;
     font-size: 0.8em;
 }
 
