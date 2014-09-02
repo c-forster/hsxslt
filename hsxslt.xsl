@@ -23,7 +23,7 @@
 	<xsl:for-each select="/tei:TEI/tei:text/tei:group/tei:text/tei:front/tei:div[@type='contents']//tei:item">
 	  <li>
 	    <xsl:element name="a">
-	      <xsl:attribute name="href"><xsl:value-of select="tei:ref/@target" /></xsl:attribute>
+	      <xsl:attribute name="href"><xsl:value-of select="concat(substring-after(tei:ref/@target,'#'),'.html')" /></xsl:attribute>
 	      <xsl:apply-templates />
 	    </xsl:element>
 	  </li>
