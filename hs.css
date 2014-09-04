@@ -8,9 +8,9 @@ html {
 */
 
 @media screen and (min-width: 47.5em ) {
-  .leftColumn { margin-right: 19.5em; }
+  .leftColumn { margin-right: 16em; }
  
-  .rightColumn { position: absolute; top: 0; right: 0; width: 18.75em; }
+  .rightColumn { position: absolute; top: 0; right: 0; width: 15em; }
 }
 
 /*
@@ -20,16 +20,17 @@ html {
 .columnsContainer {
     position: relative;
     margin: 0.5em;
+    margin-top: 4em; /* To clear content below header. */
 }
 
 .leftColumn {
-    border: 1px solid  #ccc; 
+/*    border: 1px solid  #ccc; */
     padding: 1.25em; 
     margin-bottom: .5em;
 }
 
 .rightColumn {
-    border: 1px solid  #ccc; 
+/*    border: 1px solid  #ccc;  */
     padding: 1.25em;
 }
 
@@ -50,7 +51,7 @@ p {
     margin-top: 2em;
 /*    border-top: solid gray 1px; */
 /* The following three rules ensure a page number goes with the appropriate poem */
-    border-bottom: solid gray 1px;
+/*    border-bottom: solid gray 1px; */
     padding-bottom: 2em;
     margin-bottom: 2em;
     clear: both;
@@ -191,7 +192,7 @@ div.prose .closer {
 /* Styles for reviews */
 div.prose.review {
     padding-bottom: 2em;
-    border-bottom: 1px solid black;
+/*    border-bottom: 1px solid black; */
 }
 
 div.prose.review p.citation {
@@ -332,7 +333,7 @@ a:visited.reference, a:visited.source {
 
 .toggles {
     line-height: normal;
-    width		: 12em;
+    width		: 12em; 
     background-color	: gray;
     opacity		: 0.8;
     font-size		: 0.7em;
@@ -340,8 +341,8 @@ a:visited.reference, a:visited.source {
     padding-left: 1em; 
     padding-right: 1em;
 /*    position: absolute;
-    right: 0; */
-    float: right;
+      right: 0; */
+    float: right; 
 }
 
 .toggles h4 {
@@ -352,3 +353,26 @@ a:visited.reference, a:visited.source {
     display: none;
 }
 
+#header {
+    width: 100%;
+    background-color: #423F37; 
+    color: #ccc;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-variant: small-caps;
+    position: fixed;
+    left: 0;
+    top: 0;
+/*    padding: 1em;*/
+    padding-left: 2em;
+    margin-bottom: 0.5em;
+    border-bottom: solid black 1px;
+    z-index: 10;
+}
+
+#editorsIntroduction    { margin-top: 2em; }
+#editorsIntroduction h1 { font-family: 'EB Garamond', Times, serf; font-size: 2em; }
+#editorsIntroduction h2 { font-family: 'EB Garamond', Times, serf; font-size: 1.7em; }
+#editorsIntroduction p  { font-family: 'Open Sans Condensed',Helvetica,Arial,sans-serif;  }
+#editorsIntroduction ul { font-family: 'Open Sans Condensed',Helvetica,Arial,sans-serif;  }
+
+#footer { text-align: right; margin-top: 2em; margin-right: 3em; font-family: 'Open Sans Condensed',Helvetica,Arial,sans-serif; font-size:x-small; color: #c0c0c0; }

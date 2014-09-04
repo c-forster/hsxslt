@@ -14,10 +14,11 @@
   </xsl:template>
 
   <xsl:template name="tableOfContents">
-
     <div id="tableOfContents">
+      <!-- TO BE ADDED HERE: Introductory Material. -->
+
       <!-- Rules for extracting Harlem Shadows and its Table of Contents -->
-      <h3>Harlem Shadows</h3>
+      <h3><em>Harlem Shadows</em> (1922)</h3>
       <ul>
 	<!-- A rule for where a div type=contents exist, ie Harlem Shadows-->
 	<xsl:for-each select="/tei:TEI/tei:text/tei:group/tei:text/tei:front/tei:div[@type='contents']//tei:item">
@@ -28,22 +29,24 @@
 	    </xsl:element>
 	  </li>
 	</xsl:for-each>
-	<xsl:for-each select="tei:text[@xml:id='HarlemShadows-DigitalEdition']/tei:group/tei:group">	
-	  <h3><xsl:value-of select="tei:head" /></h3>
+      </ul>
+
+      <!-- A Rule for the Other Main Heads. -->
+      <xsl:for-each select="/tei:TEI/tei:text/tei:group/tei:group">	
+	<h3><xsl:value-of select="tei:head" /></h3>
+	<ul>
 	  <!-- A rule for extracting titles and links from other texts -->
 	  <xsl:for-each select="tei:text">
 	    <li>
 	      <xsl:element name="a">
-		<xsl:attribute name="href">#<xsl:value-of select="./@xml:id" /></xsl:attribute>
+		<xsl:attribute name="href"><xsl:value-of select="./@xml:id" />.html</xsl:attribute>
 		<xsl:apply-templates select="tei:body/tei:head/tei:title" />
 	      </xsl:element>
 	    </li>
 	  </xsl:for-each>
-	</xsl:for-each>
-      </ul>
+	</ul>
+      </xsl:for-each>
 
-      <!-- This next select matches all the group or text children of -->
-      <!-- the main HSDE text wrapper. -->
     </div>
 
   </xsl:template>
@@ -64,12 +67,49 @@
     <h3><xsl:apply-templates /></h3>
   </xsl:template>
 
-  <!-- Create HTML header from teiHeader -->
+  <!-- Generate landing index.html page from the teiHeader -->
   <xsl:template match="tei:teiHeader">
-    <head>
-      <link rel="stylesheet" href="hs.css" />
-      <xsl:apply-templates />
-    </head>
+    <xsl:result-document method="html" href="harlem-shadows/index.html">
+      <html>
+	<head>
+	  <title>Harlem Shadows: An Electronic Edition</title>
+	  <xsl:call-template name="htmlHeader" />
+	</head>
+	<body>
+
+	  <xsl:call-template name="header" />
+	  <div class="columnsContainer">
+	    <div class="leftColumn" id="editorsIntroduction">
+		<h1>Harlem Shadows (1922)</h1>
+
+		<p>This edition organizes an open-source edition of Claude McKay's 1922 collection of poems <em>Harlem Shadows</em>. It seeks to aggregate the most comprehensive collection of texts related to McKay's 1922 collection and make them available to students and readers of McKay. This project is under development by <a href="http://cforster.com">Chris Forster</a> and <a href="http://roopikarisam.com">Roopika Risam</a>. You can read more <a href="http://cforster.com/2012/06/drill-baby-drill">about the inspiration for the project</a>.</p>
+		<p>The edition remains under development, but a rationale for the edition, introductory materials, an explanation of how its apparatus is organized, and a PDF copy of the same material collected here are all forthcoming (promise!).</p>
+		<ul>
+		  <li>Numerous scanned editions of <em>Harlem Shadows</em> exist:
+		  <ul>
+		    <li><a href="http://books.google.com/books?id=aKTPAAAAMAAJ">Google Books Copy Scanned from Indiana University.</a></li>
+		    <li><a href="http://books.google.com/books?id=EVFBAAAAYAAJ">Google Books Copy Scanned from Princeton.</a></li>
+		    <li><a href="http://www.archive.org/details/harlemshadows00mcka">Archive.org Copy Scanned from the Library of Congress.</a></li>
+		    <li><a href="http://www.archive.org/details/harlemshadowspoe00mckauoft">Archive.org Copy Scanned from the University of Toronto.</a></li>
+		  </ul>
+		  </li>
+		  <li>This page is generated from a TEI XML file <a href="https://github.com/c-forster/harlem-shadows">hosted on github</a>.</li>
+		  <li>The XSLT which transforms the TEI into the HTML viewable here is also <a href="https://github.com/c-forster/hsxlst">hosted on github.</a></li>
+		</ul>
+		<p>If you have any questions about this project or are interested in contributing, contact: <a href="mailto:cforster@syr.edu">cforster@syr.edu</a>.</p>
+		
+		<div id="footer">Page last updated Thursday, September 4, 2014.</div>
+	      </div>
+
+	    <!-- Div for Table of Contents. -->
+	    <div class="rightColumn">
+	      <xsl:call-template name="tableOfContents" />
+	    </div>
+
+	  </div> <!-- closes container -->
+	</body>
+      </html>
+    </xsl:result-document>
   </xsl:template>
 
   <!-- use titleStmt title for HTML document title -->
@@ -103,15 +143,15 @@
       <html>
 	<head>
 	  <title><xsl:value-of select="tei:head" /></title>
-	  <link rel="stylesheet" href="hs.css" />
-	  <meta charset="UTF-8" />
+	  <xsl:call-template name="htmlHeader" />
 	</head>
 
 	<body>
+	  <xsl:call-template name="header" />
 	  <div class="columnsContainer">
 	    <div class="leftColumn">
 
-	      <!-- Container div for poem. -->
+	      <!-- Container div for content. -->
 	      <xsl:element name="div">
 		<xsl:attribute name="class">poem</xsl:attribute>
 		<xsl:attribute name="id"><xsl:value-of select="$poemid" /></xsl:attribute>
@@ -158,6 +198,7 @@
 	      </xsl:element>
 	    </div>
 
+	    <!-- Div for Table of Contents. -->
 	    <div class="rightColumn">
 	      <xsl:call-template name="tableOfContents" />
 	    </div>
@@ -165,11 +206,7 @@
 	  </div>
 	  
 	  <!-- Load Javascript and jQuery. -->
-	  <xsl:comment>TODO: Load jQuery from Google CDN with Fallback</xsl:comment>
-	  <script src="jquery-2.1.1.js" type="text/javascript"></script>
-	  <xsl:comment>Load simple JS controls.</xsl:comment>
-	  <script src="hs.js" type="text/javascript"></script>
-
+	  <xsl:call-template name="JSIncludes" />
 	</body>
       </html>
     </xsl:result-document>
@@ -245,16 +282,6 @@
     </xsl:element>
   </xsl:template>
 
-  <!--
-      <xsl:template match="tei:rdg">
-      <xsl:element name="span">
-      <xsl:attribute name="class">reading</xsl:attribute>
-      <xsl:value-of select="../tei:lem" />]
-      <xsl:apply-templates /> (
-      <xsl:value-of select="substring-before(@wit,'-')" />)
-      </xsl:element>
-      </xsl:template>
-  -->
   <xsl:template match="tei:note[@type='textual']">
     <xsl:element name="div">
       <xsl:attribute name="class">textualNote</xsl:attribute>
@@ -290,73 +317,53 @@
     <li><xsl:apply-templates /></li>
   </xsl:template>
 
-  <!--  <xsl:template match="//*[@rend='caps']">
-       <span class="caps">
-       <xsl:apply-templates />
-       </span>
-       </xsl:template>
-  -->
-  <!-- This is a dummy rule to override the default; this means, rather than  -->
-  <!--  vomitting everything, only material matched to templates above will, in -->
-  <!-- fact appear. - csf 6/12/13  -->
-  <!-- <xsl:template match="text()|@*"> 
-       </xsl:template>  -->
 
   <!-- Front Matter Template -->
   <xsl:template match="tei:front">
     <xsl:apply-templates />
   </xsl:template>
 
-  <!-- Table of Contents Templates -->
-  <!-- 
-       <xsl:template match="tei:div[@type='contents']">
-       <div id="tableOfContents">
-       <h3>Harlem Shadows</h3>
-       <xsl:apply-templates />
-       <xsl:for-each select="tei:group">
-       <h2><xsl:apply-templates select="tei:head" /></h2>
-       <ul>
-       <xsl:for-each select="tei:text">
-       <li><xsl:apply-templates select="tei:head" /></li>
-       </xsl:for-each>
-       </ul>
-       </xsl:for-each>
-       </div>
-       </xsl:template>
-  -->
-
-  <!--
-      <xsl:template match="tei:div[@type='contents']//tei:ref">
-      <xsl:element name="a"><xsl:attribute name="href"><xsl:value-of select="@target" /></xsl:attribute><xsl:apply-templates /></xsl:element>
-      </xsl:template>
-  -->
-  <!--
-      <xsl:template match="tei:div[@type='contents']//tei:item">
-      <li><xsl:element name="a"><xsl:attribute name="href"><xsl:value-of select="tei:ref/@target" />
-      </xsl:attribute><xsl:apply-templates /></xsl:element></li>
-      </xsl:template>
-  -->
-
   <xsl:template match="tei:div[@type='contents']">
   </xsl:template>
   <xsl:template match="tei:div[@type='contents']//tei:ref">
   </xsl:template>
 
-
   <!-- Introduction/Preface/Etc ;; Prose Materials -->
   <xsl:template match="tei:div[@type='introductory-prose']">
-    <xsl:element name="div">
-      <xsl:attribute name="class">prose</xsl:attribute>
-      <xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
-      <xsl:apply-templates />
-    </xsl:element>
-  </xsl:template>
+    <xsl:variable name="id"><xsl:value-of select="@xml:id" />.html</xsl:variable>
+    <xsl:result-document method="html" href="harlem-shadows/{$id}">
+      <!-- HTML HEADER. -->
+      <html>
+	<head>
+	  <title>Harlem Shadows: <xsl:value-of select="tei:head" /></title>
+	  <xsl:call-template name="htmlHeader" />
+	</head>
 
-  <!--
-      <xsl:template match="tei:head">
-      <h3><xsl:apply-templates /></h3> 
-      </xsl:template>
-  -->
+	<body>
+	  <xsl:call-template name="header" />
+
+	  <!-- Container divs for content. -->
+	  <div class="columnsContainer">
+	    <!-- Div for Central Content. -->
+	    <div class="leftColumn">
+	      <xsl:element name="div">
+		<xsl:attribute name="class">prose</xsl:attribute>
+		<xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
+		<xsl:apply-templates />
+	      </xsl:element>
+	    </div>
+	    
+	    <!-- Div for Table of Contents. -->
+	    <div class="rightColumn">
+	      <xsl:call-template name="tableOfContents" />
+	    </div>
+
+	  </div>
+
+	</body>
+      </html>
+    </xsl:result-document>
+  </xsl:template>
 
   <xsl:template match="tei:p">
     <p><xsl:apply-templates /></p>
@@ -406,7 +413,8 @@
   <!-- Line breaks marked in TEI. -->
   <xsl:template match="tei:lb"><br /></xsl:template>
 
-  <xsl:template match="tei:pb"><span class="pageBreak"><xsl:value-of select="@n" /></span></xsl:template>
+  <!-- Silence page breaks. -->
+  <xsl:template match="tei:pb"></xsl:template>
 
   <!-- This template inserts footnote markers within the text -->
   <xsl:template match="tei:note[@type='editorial']"><xsl:element name="sup">
@@ -418,15 +426,50 @@
   <!-- Templates for secondary material: contemporary reviews. -->
   <!-- This groups supplementary material in here too. -->
   <xsl:template match="tei:text[@type='review'] | tei:text[@type='supplementary']">
-    <xsl:element name="div">
-      <xsl:attribute name="class">prose review</xsl:attribute>
-      <xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
-      <xsl:apply-templates />
-    </xsl:element>
+    <xsl:variable name="id"><xsl:value-of select="@xml:id" />.html</xsl:variable>
+
+    <xsl:result-document method="html" href="harlem-shadows/{$id}">
+      
+      <html>
+	<head>
+	  <title>Harlem Shadows: <xsl:value-of select="tei:head" /></title>
+	  <xsl:call-template name="htmlHeader" />
+	</head>
+
+	<body>
+	  <xsl:call-template name="header" />
+
+	  <!-- Container divs for content. -->
+	  <div class="columnsContainer">
+	    <!-- Div for Central Content. -->
+	    <div class="leftColumn">
+	      <xsl:apply-templates select="tei:bibl" />
+
+	      <xsl:element name="div">
+		<xsl:attribute name="class">prose review</xsl:attribute>
+		<xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
+		<xsl:apply-templates />
+	      </xsl:element>
+	    </div>
+	  <!-- Div for Table of Contents. -->
+	  <div class="rightColumn">
+	    <xsl:call-template name="tableOfContents" />
+	  </div>
+	  </div>
+	</body>
+      </html>
+    </xsl:result-document>
   </xsl:template>
 
   <xsl:template match="tei:text[@type='review']/tei:body/tei:head">
     <xsl:apply-templates />
+  </xsl:template>
+
+  <!-- Template to create bibliographic entries for prose. -->
+  <xsl:template match="tei:text[@type='review']/tei:body/tei:head/tei:bibl|tei:text[@type='supplementary']/tei:body/tei:head/tei:bibl">
+    <div class='textualNote'>
+      <xsl:apply-templates />
+    </div>
   </xsl:template>
 
   <!-- This template generates per-review titles with author name. -->
@@ -448,12 +491,6 @@
     <!-- We now do not call apply-tempaltes for all templates, otherwise we'll -->
     <!-- output stuff we don't want; just the bibl for the citation. -->
     <xsl:apply-templates select="tei:bibl" />
-  </xsl:template>
-
-  <!-- This template silences the bibl description. Ideally, they should be -->
-  <!-- gathered together in a div, as a sort of works cited. #+:TODO. -->
-  <xsl:template match="tei:bibl">
-    <!--  <p class="citation"><strong>Citation:</strong> <xsl:apply-templates /></p> -->
   </xsl:template>
 
   <!-- The following templates format bibliographical info from bibl into an MLA -->
@@ -522,7 +559,7 @@
       <xsl:when test="@source">
 	<xsl:element name="a">
 	  <xsl:attribute name="class">source</xsl:attribute>
-	  <xsl:attribute name="href"><xsl:value-of select="@source" /></xsl:attribute>
+	  <xsl:attribute name="href"><xsl:value-of select="concat(substring-after(@source,'#'),'.html')" /></xsl:attribute>
 	  <xsl:apply-templates />
 	</xsl:element>
       </xsl:when>
@@ -576,7 +613,7 @@
   <xsl:template match="tei:ref">
     <xsl:element name="a">
       <xsl:attribute name="class">reference</xsl:attribute>
-      <xsl:attribute name="href"><xsl:value-of select="@target" /></xsl:attribute>
+      <xsl:attribute name="href"><xsl:value-of select="concat(substring-after(@target,'#'),'.html')" /></xsl:attribute>
       <xsl:apply-templates />
     </xsl:element>
   </xsl:template>
@@ -606,6 +643,20 @@ to maintain in this circumstance. Really.
     <xsl:if test="contains(., '#ThreeSonnets')"><span class="sigla">‡</span> </xsl:if>
     <xsl:if test="contains(., '#SevenArts')"><span class="sigla">‖</span> </xsl:if>
     <xsl:if test="contains(., '#Messenger')"><span class="sigla">Δ</span> </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="header">
+    <div id="header">
+      <h1>Harlem Shadows: An Electronic Edition</h1>
+    </div>
+  </xsl:template>
+
+  <xsl:template name="htmlHeader">
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="hs.css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css' />
+    <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css' />
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans' 	  rel='stylesheet' type='text/css' />
   </xsl:template>
 
 </xsl:stylesheet>
