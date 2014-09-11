@@ -54,14 +54,5 @@ $(document).ready(function(){
 	}
     });
 
-    // This function adds the highlight classes where they're needed.
-    $('.apparatus').change(function() {
-	if($('#highlightVariants').is(':checked')) {
-	    $(this).addClass("highlight");
-	}
-	else {
-	    $(this).removeClass("highlight");
-	}
-    })
 });
 
