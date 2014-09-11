@@ -86,11 +86,15 @@ p {
    padding: 0.5em;
 }
 
-.apparatus {
+.apparatus.highlight {
     cursor: pointer;
 }
 
 .reading {
+    display: none;
+}
+
+.highlight > .reading {
 /* Old Style 
     text-decoration: none;
     font-size: 0.7em; 
@@ -108,8 +112,18 @@ p {
 
 .lemma {
     display: inline;
+}
+
+.highlight > .empty-lemma {
+   background-color: red;
+}
+
+.highlight > .lemma {
+    display: inline;
     color: red;
 }
+
+
 
 .title {
     font-style: italic;
@@ -152,11 +166,6 @@ p {
 
 .sigla {
     color: blue;
-    text-decoration: italics;
-}
-
-.empty-lemma {
-   background-color: red;
 }
 
 /* Styles for prose blocks follow */
@@ -334,16 +343,18 @@ a:visited.reference, a:visited.source {
 .toggles {
     line-height: normal;
     width		: 12em; 
-    background-color	: gray;
+/*    background-color	: gray; */
     opacity		: 0.8;
     font-size		: 0.7em;
     font-family		: sans-serif;
     padding-left: 1em; 
     padding-right: 1em;
+    border-left: 1px solid #777;
 /*    position: absolute;
       right: 0; */
     float: right; 
 }
+
 
 .toggles h4 {
     margin-bottom: 0.5em;

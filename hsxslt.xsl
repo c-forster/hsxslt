@@ -82,7 +82,7 @@
 	    <div class="leftColumn" id="editorsIntroduction">
 		<h1>Harlem Shadows (1922)</h1>
 
-		<p>This edition organizes an open-source edition of Claude McKay's 1922 collection of poems <em>Harlem Shadows</em>. It seeks to aggregate the most comprehensive collection of texts related to McKay's 1922 collection and make them available to students and readers of McKay. This project is under development by <a href="http://cforster.com">Chris Forster</a> and <a href="http://roopikarisam.com">Roopika Risam</a>. You can read more <a href="http://cforster.com/2012/06/drill-baby-drill">about the inspiration for the project</a>.</p>
+		<p>This is an open-source edition of Claude McKay's 1922 collection of poems <em>Harlem Shadows</em>. It seeks to aggregate the most comprehensive collection of texts related to McKay's 1922 collection and make them available to students and readers of McKay. This project is under development by <a href="http://cforster.com">Chris Forster</a> and <a href="http://roopikarisam.com">Roopika Risam</a>. You can read more <a href="http://cforster.com/2012/06/drill-baby-drill">about the inspiration for the project</a>.</p>
 		<p>The edition remains under development, but a rationale for the edition, introductory materials, an explanation of how its apparatus is organized, and a PDF copy of the same material collected here are all forthcoming (promise!).</p>
 		<ul>
 		  <li>Numerous scanned editions of <em>Harlem Shadows</em> exist:
@@ -170,6 +170,8 @@
 		  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>Editorial Notes</input></div><xsl:text>&#10;</xsl:text>
 		  <!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_citationCheckBox</xsl:attribute>Citation</input></div><xsl:text>&#10;</xsl:text> -->
 		  <!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_contextualNotesCheckBox</xsl:attribute>Contextual Notes</input></div><xsl:text>&#10;</xsl:text> -->
+<!--		  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_highlightVariants</xsl:attribute>Highlight Variants</input></div><xsl:text>&#10;</xsl:text> -->
+		  <div class="toggle"><input type="checkbox"><xsl:attribute name="id">highlightVariants</xsl:attribute>Highlight Variants</input></div><xsl:text>&#10;</xsl:text>
 		  </form>	<xsl:text>&#10;</xsl:text>
 		  </div><xsl:text>&#10;</xsl:text>
 
