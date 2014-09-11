@@ -166,13 +166,50 @@
 		  <xsl:text>&#10;</xsl:text>
 		  <h4>Textual Features:</h4><xsl:text>&#10;</xsl:text>
 		  <form><xsl:text>&#10;</xsl:text>
+		  <ul>
 		  <!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_textualApparatusCheckBox</xsl:attribute>Textual Apparatus</input></div><xsl:text>&#10;</xsl:text> -->
-		  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>Editorial Notes</input></div><xsl:text>&#10;</xsl:text>
+
+		  <!-- If a poem has any editorial notes, create a box to activate 'em. -->
+		  <li>
+		  <xsl:choose>
+		    <xsl:when test="./descendant::tei:note[@type='editorial']">
+		      <div class="toggle">
+			<input type="checkbox">
+			  <xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>
+			  Editorial Notes
+			</input>
+		      </div><xsl:text>&#10;</xsl:text>
+		    </xsl:when>
+		    <xsl:otherwise>
+		      <p>This poem has no editorial notes.</p><xsl:text>&#10;</xsl:text>
+		    </xsl:otherwise>
+		  </xsl:choose>
+		  </li>
+		  
+
 		  <!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_citationCheckBox</xsl:attribute>Citation</input></div><xsl:text>&#10;</xsl:text> -->
 		  <!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_contextualNotesCheckBox</xsl:attribute>Contextual Notes</input></div><xsl:text>&#10;</xsl:text> -->
-<!--		  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_highlightVariants</xsl:attribute>Highlight Variants</input></div><xsl:text>&#10;</xsl:text> -->
-		  <div class="toggle"><input type="checkbox"><xsl:attribute name="id">highlightVariants</xsl:attribute>Highlight Variants</input></div><xsl:text>&#10;</xsl:text>
-		  </form>	<xsl:text>&#10;</xsl:text>
+		  <!--		  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_highlightVariants</xsl:attribute>Highlight Variants</input></div><xsl:text>&#10;</xsl:text> -->
+
+		  <li>
+		    <xsl:choose>
+		      <xsl:when test="./descendant::tei:app">
+			<div class="toggle">
+			  <input type="checkbox">
+			    <xsl:attribute name="id">highlightVariants</xsl:attribute>
+			    Highlight Variants
+			  </input>
+			</div>
+			<xsl:text>&#10;</xsl:text>
+		      </xsl:when>
+		      <xsl:otherwise>
+			<p>This poem has no textual variants.</p>
+		      </xsl:otherwise>
+		    </xsl:choose>
+		  </li>
+		  </ul>
+		  </form>
+		  <xsl:text>&#10;</xsl:text>
 		  </div><xsl:text>&#10;</xsl:text>
 
 		  <xsl:apply-templates />

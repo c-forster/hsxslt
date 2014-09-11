@@ -367,6 +367,15 @@ a:visited.reference, a:visited.source {
     margin-bottom: 0.5em;
 }
 
+.toggles ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+.toggles li {
+
+}
+
 .editorialNotes {
     display: none;
 }
