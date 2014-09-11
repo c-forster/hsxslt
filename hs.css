@@ -94,7 +94,15 @@ p {
     display: none;
 }
 
-.highlight > .reading {
+.lemma {
+    display: inline;
+}
+
+.empty-lemma {
+    display: inline;
+}
+
+.highlight .reading {
 /* Old Style 
     text-decoration: none;
     font-size: 0.7em; 
@@ -110,18 +118,17 @@ p {
     color: #a0a0a0;
 }
 
-.lemma {
-    display: inline;
-}
-
-.highlight > .empty-lemma {
-   background-color: red;
-}
-
-.highlight > .lemma {
+.highlight .lemma {
     display: inline;
     color: red;
 }
+
+.highlight span.empty-lemma {
+   display: inline;
+   color: red;
+   text-decoration: underline;
+}
+
 
 
 

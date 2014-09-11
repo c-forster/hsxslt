@@ -21,6 +21,7 @@ $(document).ready(function(){
 	    // readings are not.
 	    $('span.reading').hide();
 	    $('span.lemma').show();
+	    $('span.lemma.empty-lemma').show();
         }
 
     });
