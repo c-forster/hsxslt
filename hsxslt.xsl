@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <xsl:stylesheet xmlns:tei="http://www.tei-c.org/ns/1.0"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
+		xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+		exclude-result-prefixes="tei"
+		version="2.0">
 
-  <xsl:output method="html" media-type="text/html; charset=UTF-8" doctype-public="html" 
-              indent="yes" encoding="utf-8" omit-xml-declaration="yes"/>
+  <xsl:output method="html" version="5.0" indent="yes" encoding="utf-8" omit-xml-declaration="yes" />
 
   <xsl:key name="witnessTitles" match="//tei:witness" use="@xml:id" />
 
@@ -160,7 +160,7 @@
 		<xsl:text>&#10;</xsl:text>
 		<div>
 		  <xsl:attribute name="class">toggles</xsl:attribute>
-		  <xsl:attribute name="xml:id"><xsl:value-of select="$poemid" />_toggles</xsl:attribute>
+		  <xsl:attribute name="id"><xsl:value-of select="$poemid" />_toggles</xsl:attribute>
 		  <xsl:text>&#10;</xsl:text>
 		  <xsl:comment>This div contains the toggles for notes, apparatus, etc.</xsl:comment>
 		  <xsl:text>&#10;</xsl:text>
@@ -222,8 +222,8 @@
 		    <xsl:for-each select=".//tei:note[@type='editorial']">
 		      <li>
 			<xsl:attribute name="class">editorialNote</xsl:attribute>
-			<xsl:attribute name="xml:id">
-			  <xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_editorialNote_<xsl:value-of select="count(preceding-sibling::note)" />
+			<xsl:attribute name="id">
+			  <xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_editorialNote_<xsl:value-of select="count(preceding::tei:note)" />
 			</xsl:attribute>
 			<xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
 			<xsl:text>: </xsl:text>
@@ -301,7 +301,7 @@
   <xsl:template match="tei:lem">
     <xsl:element name="span">
       <xsl:attribute name="class">reading lemma</xsl:attribute>
-      <xsl:attribute name="id"><xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_lemma_<xsl:value-of select="count(preceding-sibling::span[@class='lemma'])" /></xsl:attribute>
+      <xsl:attribute name="id"><xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_lemma_<xsl:value-of select="count(preceding::tei:lem)" /></xsl:attribute>
       <!--      <xsl:value-of select="." /> -->
       <!-- We test for an empty lemma for those cases, usually puncutation   -->
       <!-- where something has been simply added. We use this to indicate    -->
@@ -315,7 +315,7 @@
     <xsl:element name="span">
       <xsl:attribute name="class">reading</xsl:attribute>
       <xsl:attribute name="id">
-	<xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_app<xsl:value-of select="count(../preceding-sibling::app)" />_rdg<xsl:value-of select="count(preceding-sibling::note)" />
+	<xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_app<xsl:value-of select="count(../preceding::tei:app)" />_rdg<xsl:value-of select="count(preceding::tei:rdg)" />
       </xsl:attribute>
       <xsl:value-of select="." /><xsl:text> </xsl:text><xsl:apply-templates select="@wit" />
     </xsl:element>
@@ -324,7 +324,7 @@
   <xsl:template match="tei:note[@type='textual']">
     <xsl:element name="div">
       <xsl:attribute name="class">textualNote</xsl:attribute>
-      <xsl:attribute name="xml:id"><xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_textualNote_<xsl:value-of select="count(preceding-sibling::note)" /></xsl:attribute>
+      <xsl:attribute name="id"><xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_textualNote_<xsl:value-of select="count(preceding-sibling::note)" /></xsl:attribute>
       
       <xsl:apply-templates />
     </xsl:element>
@@ -498,10 +498,6 @@
 	</body>
       </html>
     </xsl:result-document>
-  </xsl:template>
-
-  <xsl:template match="tei:text[@type='review']/tei:body/tei:head">
-    <xsl:apply-templates />
   </xsl:template>
 
   <!-- Template to create bibliographic entries for prose. -->
@@ -691,7 +687,7 @@ to maintain in this circumstance. Really.
   </xsl:template>
 
   <xsl:template name="htmlHeader">
-    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <link rel="stylesheet" href="hs.css" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css' />
     <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css' />
