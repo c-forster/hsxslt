@@ -409,11 +409,8 @@
   </xsl:template>
 
   <xsl:template match="tei:closer">
+    <br />
     <p class="closer"><xsl:apply-templates /></p>
-  </xsl:template>
-
-  <xsl:template match="tei:closer//*">
-    <br /><xsl:apply-templates />
   </xsl:template>
 
   <!-- Title -->
@@ -456,7 +453,7 @@
   <xsl:template match="tei:pb"></xsl:template>
 
   <!-- This template inserts footnote markers within the text -->
-  <xsl:template match="tei:note[@type='editorial']"><xsl:element name="sup">
+  <xsl:template match="tei:note[@type='editorial']" priority='4'><xsl:element name="sup">
     <xsl:attribute name="class">footnote <xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_editorialNotesFn</xsl:attribute>
     <xsl:attribute name="id"><xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_fn<xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" /></xsl:attribute><xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
   </xsl:element>
@@ -541,15 +538,15 @@
     "<xsl:apply-templates />."
   </xsl:template>
 
-  <xsl:template match="tei:bibl/tei:title[@level='j']">
+  <xsl:template match="tei:bibl/tei:title[@level='j']" priority='2'>
     <em><xsl:apply-templates /></em> 
   </xsl:template>
 
-  <xsl:template match="tei:bibl/tei:title[@level='j' and @type='main']">
+  <xsl:template match="tei:bibl/tei:title[@level='j' and @type='main']" priority='3'>
     <em><xsl:value-of select="." />: </em>
   </xsl:template>
 
-  <xsl:template match="tei:bibl/tei:title[@level='j' and @type='sub']">
+  <xsl:template match="tei:bibl/tei:title[@level='j' and @type='sub']" priority='3'>
     <em><xsl:value-of select="." /></em> 
   </xsl:template>
 
@@ -604,7 +601,13 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="tei:quote/tei:lg">
+  <!-- These rules handle poems quoted within some other context
+       (usually prose: reviews, etc). These templates are necessary 
+       to prevent the main poem template being triggered, which writes 
+       out to a new file. We give them a high priority.
+  -->
+
+  <xsl:template match="tei:quote/tei:lg" priority="9">
     <span class="quoted-lg">
       <xsl:text disable-output-escaping="yes">&lt;br /&gt;</xsl:text>
       <xsl:apply-templates />
@@ -612,14 +615,14 @@
     </span>
   </xsl:template>
 
-  <xsl:template match="tei:quote/tei:lg/tei:l">
+  <xsl:template match="tei:quote/tei:lg/tei:l" priority="9">
     <span class="quoted-poetry"><xsl:apply-templates />
     <!-- This sillines is necessary, otherwise our one br tag gets 
 	 interpreted as two. -->
     <xsl:text disable-output-escaping="yes">&lt;br /&gt;</xsl:text></span>
   </xsl:template>
 
-  <xsl:template match="tei:quote/tei:lg/tei:lg/tei:l">
+  <xsl:template match="tei:quote/tei:lg/tei:lg/tei:l" priority="9">
     <span class="quoted-poetry">
       <xsl:element name="span"> <xsl:attribute name="class">poetic-line <xsl:for-each select="@*"> <xsl:value-of select="." /> </xsl:for-each> </xsl:attribute>
       <xsl:apply-templates />
