@@ -98,7 +98,7 @@
 		</ul>
 		<p>If you have any questions about this project or are interested in contributing, contact: <a href="mailto:cforster@syr.edu">cforster@syr.edu</a>.</p>
 		
-		<div id="footer">Page last updated Thursday, September 4, 2014.</div>
+		<div id="footer">Page last updated <xsl:value-of select='current-date()' /></div>
 	      </div>
 
 	    <!-- Div for Table of Contents. -->
@@ -142,7 +142,7 @@
       <!-- HTML HEADER. -->
       <html>
 	<head>
-	  <title><xsl:value-of select="tei:head" /></title>
+	  <title><xsl:value-of select="tei:head/text()" /></title>
 	  <xsl:call-template name="htmlHeader" />
 	</head>
 
@@ -334,7 +334,7 @@
   <!-- sigla, not for each *witness*, but for each major work. This    -->
   <!-- adhoc sigla in turn is used in the textual apparatus, to avoid  -->
   <!-- having to output the full title / bibl. -->
-  <xsl:template match="tei:lg/tei:head/tei:note//tei:ref">
+  <xsl:template match="tei:lg/tei:head/tei:note[@type='textual']//tei:ref">
     <!--    <xsl:apply-templates /> (<span class="sigla"><xsl:value-of select="substring-before(@target,'-')" /></span>) -->
     <xsl:apply-templates /> (<xsl:apply-templates select="@target" />)
   </xsl:template>
@@ -632,6 +632,12 @@
     <xsl:text disable-output-escaping="yes">&lt;br /&gt;</xsl:text></span>
   </xsl:template>
 
+  <xsl:template match="tei:quote/tei:p">
+    <blockquote>
+    <xsl:apply-templates />
+    </blockquote>
+  </xsl:template>
+
   <!-- Template for resolving choice elements -->
   <!-- For now, when there is a choice between: -->
   <!-- a sic and a corr -->
@@ -659,11 +665,21 @@
   <xsl:template match="tei:note[@type='textual']//tei:ref" priority="2">
     <xsl:element name="a">
       <xsl:attribute name="class">reference</xsl:attribute>
-      <xsl:attribute name="href"><xsl:value-of select="@target" /></xsl:attribute>
+      <!--      <xsl:attribute name="href"><xsl:value-of select="@target" /></xsl:attribute> -->
+      <xsl:attribute name="href"><xsl:value-of select="concat(substring-after(@target,'#'),'.html')" /></xsl:attribute>
       <xsl:apply-templates />
     </xsl:element>
     [<xsl:apply-templates select="@target" />]
   </xsl:template>
+
+  <xsl:template match="tei:ref[@type='weblink']">
+    <xsl:element name="a">
+      <xsl:attribute name="class">weblink</xsl:attribute>
+      <xsl:attribute name="href"><xsl:value-of select="@target" /></xsl:attribute>
+      <xsl:apply-templates />
+    </xsl:element>
+  </xsl:template>
+
   <!-- This rule is basically a cheat; it essentially implements a crude 
        sort of look up that converts witness names (or partial witness names) 
        to single character sigla markers. 
@@ -681,6 +697,7 @@ to maintain in this circumstance. Really.
     <xsl:if test="contains(., '#ThreeSonnets')"><span class="sigla">‡</span> </xsl:if>
     <xsl:if test="contains(., '#SevenArts')"><span class="sigla">‖</span> </xsl:if>
     <xsl:if test="contains(., '#Messenger')"><span class="sigla">Δ</span> </xsl:if>
+    <xsl:if test="contains(., '#Crusader')"><span class="sigla">◊</span> </xsl:if>
   </xsl:template>
 
   <xsl:template name="header">
