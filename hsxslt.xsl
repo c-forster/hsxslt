@@ -98,7 +98,7 @@
 		</ul>
 		<p>If you have any questions about this project or are interested in contributing, contact: <a href="mailto:cforster@syr.edu">cforster@syr.edu</a>.</p>
 		
-		<div id="footer">Page last updated <xsl:value-of select='current-date()' /></div>
+		<div id="footer">Page last generated: <xsl:call-template name='today' /></div>
 	      </div>
 
 	    <!-- Div for Table of Contents. -->
@@ -712,6 +712,10 @@ to maintain in this circumstance. Really.
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css' />
     <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css' />
     <link href='http://fonts.googleapis.com/css?family=Droid+Sans' 	  rel='stylesheet' type='text/css' />
+  </xsl:template>
+
+  <xsl:template name='today'>
+    <xsl:value-of select="format-date(current-date(), '[MNn] [D1], [Y]')" />
   </xsl:template>
 
 </xsl:stylesheet>
