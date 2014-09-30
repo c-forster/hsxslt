@@ -7,10 +7,12 @@ html {
  Media Queries for Responsive Layout
 */
 
-@media screen and (min-width: 47.5em ) {
+@media screen and (min-width: 60em ) { 
   .leftColumn { margin-right: 16em; }
  
   .rightColumn { position: absolute; top: 0; right: 0; width: 15em; }
+  
+  div#header { position: fixed; left: 0; top: 0; }
 }
 
 /*
@@ -77,6 +79,15 @@ p {
     text-indent         : 0em;
     line-height		: normal;
 }
+
+.textualNote ul {
+/*    list-style: none; */
+    padding-left: 0.5em;
+}
+
+.textualNote li {
+}
+
 
 .note ul {
     padding: 0;
@@ -171,7 +182,7 @@ p {
     margin-left: -4em;
 }
 
-.sigla {
+.siglum {
     color: blue;
 }
 
@@ -310,7 +321,7 @@ div.prose.review .poetic-line {
     padding: 1em;
     font-family: sans-serif;
     font-size: 0.7em;
-    text-indent: -1em;
+/*    text-indent: -1em; */
 }
 
 .editorialNotes li {
@@ -380,13 +391,30 @@ a:visited.reference, a:visited.source {
     display: none;
 }
 
+/* Oh, here's a real ugly hack! To prevent an ugly new line for multiparagraph 
+   editorial notes, we'll make JUST the first p within a note inline. */
+.editorialNotes li p:first-of-type {
+    display: inline;
+}
+
+.editorialNotes li p+p {
+    text-indent: 2em;
+    padding-top: 0.5em;
+}
+
+.editorialNotes li blockquote {
+    padding-left: 4em;
+    border-left: 1px solid #555;
+}
+
 #header {
     width: 100%;
     background-color: #423F37; 
     color: #ccc;
     font-family: 'Open Sans Condensed', sans-serif;
     font-variant: small-caps;
-    position: fixed;
+/*    position: fixed; */
+    position: absolute; 
     left: 0;
     top: 0;
 /*    padding: 1em;*/
@@ -396,6 +424,22 @@ a:visited.reference, a:visited.source {
     z-index: 10;
 }
 
+.witnessDoc {  }
+
+#witnessNote {
+    margin-top: 1em;
+    width: 50%;
+    padding: 1em;
+    border: 1px solid black;
+    font-size: 0.6em;
+    background: #d0d0d0;
+}
+
+/* The full bibliographic entry which is present in the HTML should never be 
+   natively displayed. Instead, it provides the information that can be slurped
+   out as necessary by jQuery. */
+.fullBiblioEntry { display: none; }
+
 #editorsIntroduction    { margin-top: 2em; }
 #editorsIntroduction h1 { font-family: 'EB Garamond', Times, serf; font-size: 2em; }
 #editorsIntroduction h2 { font-family: 'EB Garamond', Times, serf; font-size: 1.7em; }
@@ -403,3 +447,5 @@ a:visited.reference, a:visited.source {
 #editorsIntroduction ul { font-family: 'Open Sans Condensed',Helvetica,Arial,sans-serif;  }
 
 #footer { text-align: right; margin-top: 2em; margin-right: 3em; font-family: 'Open Sans Condensed',Helvetica,Arial,sans-serif; font-size:x-small; color: #c0c0c0; }
+
+#poem-text {  }

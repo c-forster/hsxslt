@@ -187,10 +187,6 @@
 		  </li>
 		  
 
-		  <!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_citationCheckBox</xsl:attribute>Citation</input></div><xsl:text>&#10;</xsl:text> -->
-		  <!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_contextualNotesCheckBox</xsl:attribute>Contextual Notes</input></div><xsl:text>&#10;</xsl:text> -->
-		  <!--		  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_highlightVariants</xsl:attribute>Highlight Variants</input></div><xsl:text>&#10;</xsl:text> -->
-
 		  <li>
 		    <xsl:choose>
 		      <xsl:when test="./descendant::tei:app">
@@ -212,7 +208,9 @@
 		  <xsl:text>&#10;</xsl:text>
 		  </div><xsl:text>&#10;</xsl:text>
 
-		  <xsl:apply-templates />
+		  <div id='poem-text'>
+		    <xsl:apply-templates />
+		  </div>
 
 		  <!-- Generate apparatus for notes -->
 		  <ul>
@@ -300,7 +298,7 @@
 
   <xsl:template match="tei:lem">
     <xsl:element name="span">
-      <xsl:attribute name="class">reading lemma</xsl:attribute>
+      <xsl:attribute name="class">reading lemma <xsl:value-of select='normalize-space(replace(@wit,"#",""))' /></xsl:attribute>
       <xsl:attribute name="id"><xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_lemma_<xsl:value-of select="count(preceding::tei:lem)" /></xsl:attribute>
       <!--      <xsl:value-of select="." /> -->
       <!-- We test for an empty lemma for those cases, usually puncutation   -->
@@ -313,9 +311,10 @@
 
   <xsl:template match="tei:rdg">
     <xsl:element name="span">
-      <xsl:attribute name="class">reading</xsl:attribute>
+      <xsl:attribute name="class">reading <xsl:value-of select='normalize-space(replace(@wit,"#",""))' /></xsl:attribute>
+
       <xsl:attribute name="id">
-	<xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_app<xsl:value-of select="count(../preceding::tei:app)" />_rdg<xsl:value-of select="count(preceding::tei:rdg)" />
+<!--	<xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_app<xsl:value-of select="count(../preceding::tei:app)" />_rdg<xsl:value-of select="count(preceding::tei:rdg)" /> -->
       </xsl:attribute>
       <xsl:value-of select="." /><xsl:text> </xsl:text><xsl:apply-templates select="@wit" />
     </xsl:element>
@@ -662,14 +661,19 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="tei:note[@type='textual']//tei:ref" priority="2">
+  <xsl:template match="tei:note[@type='textual']//tei:ptr">
     <xsl:element name="a">
-      <xsl:attribute name="class">reference</xsl:attribute>
-      <!--      <xsl:attribute name="href"><xsl:value-of select="@target" /></xsl:attribute> -->
-      <xsl:attribute name="href"><xsl:value-of select="concat(substring-after(@target,'#'),'.html')" /></xsl:attribute>
-      <xsl:apply-templates />
+      <xsl:attribute name="class">textualWitness</xsl:attribute>
+      <xsl:attribute name="href">#</xsl:attribute>
+      <xsl:attribute name='id'>
+	<xsl:value-of select="substring-after(@target,'#')" />
+      </xsl:attribute>
+
+      <xsl:call-template name='shortCitation' />
     </xsl:element>
     [<xsl:apply-templates select="@target" />]
+
+    <xsl:call-template name='fullCitation' />
   </xsl:template>
 
   <xsl:template match="tei:ref[@type='weblink']">
@@ -706,12 +710,45 @@ to maintain in this circumstance. Really.
     </div>
   </xsl:template>
 
-  <xsl:template name="htmlHeader">
+  <xsl:template name='htmlHeader'>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+
     <link rel="stylesheet" href="hs.css" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css' />
     <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css' />
     <link href='http://fonts.googleapis.com/css?family=Droid+Sans' 	  rel='stylesheet' type='text/css' />
+  </xsl:template>
+
+  <!-- This function converts witness bibliographic information into a 
+       formatted full citation. N.B.: It takes advantage of the fact 
+       that the context node of templates called by name remains the 
+       same, so that we have the information we need ready-to-hand in 
+       the target attribute.
+  -->
+  <xsl:template name='fullCitation'>
+    <xsl:variable name='biblID'><xsl:value-of select='substring-after(@target,"#")' /></xsl:variable>
+    <span class='fullBiblioEntry'>
+      <xsl:attribute name='id'>bibl<xsl:value-of select='$biblID' /></xsl:attribute>
+      <xsl:apply-templates select='/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:listWit/tei:witness[@xml:id=$biblID]' />
+    </span>
+  </xsl:template>
+
+  <xsl:template name='shortCitation'>
+    <xsl:variable name='biblID'><xsl:value-of select='substring-after(@target,"#")' /></xsl:variable>
+    <span class='shortBiblioEntry'>
+      <xsl:attribute name='id'>bibl<xsl:value-of select='$biblID' /></xsl:attribute>
+      <xsl:apply-templates select='/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:listWit/tei:witness[@xml:id=$biblID]/tei:bibl/tei:title' />
+      <xsl:apply-templates select='/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:listWit/tei:witness[@xml:id=$biblID]/tei:biblStruct/tei:monogr/tei:title' />
+      <xsl:text> </xsl:text>
+      <xsl:apply-templates select='/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:listWit/tei:witness[@xml:id=$biblID]/tei:bibl/tei:date|
+				   /tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:listWit/tei:witness[@xml:id=$biblID]/tei:biblStruct/tei:monogr//tei:date' />
+    </span>
+  </xsl:template>
+
+
+  <xsl:template match='tei:witness'>
+    <xsl:apply-templates />
   </xsl:template>
 
   <xsl:template name='today'>
