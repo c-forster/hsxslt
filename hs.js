@@ -85,6 +85,9 @@ $(document).ready(function(){
 	$('p.verse-container').addClass('witnessDoc');
 	var $witnessInfo = $('#bibl'+$witnessID).html();
 	var $insertText = "<div id='witnessNote'><p>This is the text of the poem as it appears in:"+$witnessInfo+"</p><p><a href='#' class='reset'>Reset.</a></p></div>";
+	// Remove any old witnessNotes
+	$('#witnessNote').remove(); 
+	// Now append the new note.
 	$('#poem-text').append($insertText);
 	// Now remove some of the apparatus to prevent confusion.
 	$('.toggles').hide();
@@ -109,8 +112,9 @@ $(document.body).on('click', '.reset', function (e) {
 // This function resets the poem to standard condition.
 var resetText = function () {
     console.log('reset');
+
+    $('#witnessNote').remove(); 
     $('span.reading').hide();
     $('span.lemma').show();
-    $('#witnessNote').remove();
     $('.toggles').show();
 };

@@ -58,6 +58,7 @@ p {
     margin-bottom: 2em;
     clear: both;
     position: relative;
+    float: left;
 }
 
 .poem h3 {
@@ -368,8 +369,8 @@ a:visited.reference, a:visited.source {
     padding-left: 1em; 
     padding-right: 1em;
     border-left: 1px solid #777;
-/*    position: absolute;
-      right: 0; */
+/*    position: absolute; */
+    right: 0; 
     float: right; 
 }
 
