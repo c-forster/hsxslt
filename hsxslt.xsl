@@ -78,8 +78,9 @@
 	<body>
 
 	  <xsl:call-template name="header" />
-	  <div class="columnsContainer">
-	    <div class="leftColumn" id="editorsIntroduction">
+
+	  <div class="container">
+	    <div class="prose" id="editorsIntroduction">
 		<h1>Harlem Shadows (1922)</h1>
 
 		<p>This is an open-source edition of Claude McKay's 1922 collection of poems <em>Harlem Shadows</em>. It seeks to aggregate the most comprehensive collection of texts related to McKay's 1922 collection and make them available to students and readers of McKay. This project is under development by <a href="http://cforster.com">Chris Forster</a> and <a href="http://roopikarisam.com">Roopika Risam</a>. You can read more <a href="http://cforster.com/2012/06/drill-baby-drill">about the inspiration for the project</a>.</p>
@@ -100,13 +101,11 @@
 		
 		<div id="footer">Page last generated: <xsl:call-template name='today' /></div>
 	      </div>
-
-	    <!-- Div for Table of Contents. -->
-	    <div class="rightColumn">
-	      <xsl:call-template name="tableOfContents" />
-	    </div>
-
-	  </div> <!-- closes container -->
+	  </div>
+	  <!-- Div for Table of Contents. -->
+	  <xsl:text>&#xa;</xsl:text>
+	  <xsl:call-template name="tableOfContents" />
+	  <xsl:text>&#xa;</xsl:text>
 	</body>
       </html>
     </xsl:result-document>
@@ -148,29 +147,29 @@
 
 	<body>
 	  <xsl:call-template name="header" />
-	  <div class="columnsContainer">
-	    <div class="leftColumn">
 
-	      <!-- Container div for content. -->
-	      <xsl:element name="div">
-		<xsl:attribute name="class">poem</xsl:attribute>
-		<xsl:attribute name="id"><xsl:value-of select="$poemid" /></xsl:attribute>
+	  <div class="container">
 
-		<!-- Toggles for individual poem. -->
-		<xsl:text>&#10;</xsl:text>
-		<div>
-		  <xsl:attribute name="class">toggles</xsl:attribute>
-		  <xsl:attribute name="id"><xsl:value-of select="$poemid" />_toggles</xsl:attribute>
-		  <xsl:text>&#10;</xsl:text>
-		  <xsl:comment>This div contains the toggles for notes, apparatus, etc.</xsl:comment>
-		  <xsl:text>&#10;</xsl:text>
-		  <h4>Textual Features:</h4><xsl:text>&#10;</xsl:text>
-		  <form><xsl:text>&#10;</xsl:text>
-		  <ul>
-		  <!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_textualApparatusCheckBox</xsl:attribute>Textual Apparatus</input></div><xsl:text>&#10;</xsl:text> -->
+	    <!-- information: what was formerly toggles and textual note. -->
+	    <div>
+	      <xsl:attribute name="class">information</xsl:attribute>
+	      <xsl:attribute name="id"><xsl:value-of select="$poemid" />_toggles</xsl:attribute>
+	      <xsl:text>&#10;</xsl:text>
 
-		  <!-- If a poem has any editorial notes, create a box to activate 'em. -->
-		  <li>
+	      <h4>Information</h4>
+	      <xsl:comment>Textual Information and History Here</xsl:comment>
+<!--	      <xsl:apply-templates select='tei:note[@type="textual"]' /> -->
+              <xsl:call-template name='textualNote' />
+
+	      <xsl:comment>Toggles for notes, apparatus, etc.</xsl:comment>
+	      <xsl:text>&#10;</xsl:text>
+	      <h4>Textual Features:</h4><xsl:text>&#10;</xsl:text>
+	      <form><xsl:text>&#10;</xsl:text>
+	      <ul>
+		<!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_textualApparatusCheckBox</xsl:attribute>Textual Apparatus</input></div><xsl:text>&#10;</xsl:text> -->
+
+		<!-- If a poem has any editorial notes, create a box to activate 'em. -->
+		<li>
 		  <xsl:choose>
 		    <xsl:when test="./descendant::tei:note[@type='editorial']">
 		      <div class="toggle">
@@ -178,36 +177,44 @@
 			  <xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>
 			  Editorial Notes
 			</input>
-		      </div><xsl:text>&#10;</xsl:text>
+			</div><xsl:text>&#10;</xsl:text>
 		    </xsl:when>
 		    <xsl:otherwise>
 		      <p>This poem has no editorial notes.</p><xsl:text>&#10;</xsl:text>
 		    </xsl:otherwise>
 		  </xsl:choose>
-		  </li>
-		  
+		</li>
 
-		  <li>
-		    <xsl:choose>
-		      <xsl:when test="./descendant::tei:app">
-			<div class="toggle">
-			  <input type="checkbox">
-			    <xsl:attribute name="id">highlightVariants</xsl:attribute>
-			    Highlight Variants
-			  </input>
-			</div>
-			<xsl:text>&#10;</xsl:text>
-		      </xsl:when>
-		      <xsl:otherwise>
-			<p>This poem has no textual variants.</p>
-		      </xsl:otherwise>
-		    </xsl:choose>
-		  </li>
-		  </ul>
-		  </form>
-		  <xsl:text>&#10;</xsl:text>
-		  </div><xsl:text>&#10;</xsl:text>
+		<li>
+		  <xsl:choose>
+		    <xsl:when test="./descendant::tei:app">
+		      <div class="toggle">
+			<input type="checkbox">
+			  <xsl:attribute name="id">highlightVariants</xsl:attribute>
+			  Highlight Variants
+			</input>
+		      </div>
+		      <xsl:text>&#10;</xsl:text>
+		    </xsl:when>
+		    <xsl:otherwise>
+		      <p>This poem has no textual variants.</p>
+		    </xsl:otherwise>
+		  </xsl:choose>
+		</li>
+	      </ul>
+	      </form>
+	      <xsl:text>&#10;</xsl:text>
+	      </div>
+	      
+	      <xsl:text>&#10;</xsl:text>
 
+	      <!-- poem -->
+	      <xsl:element name="div">
+		<xsl:attribute name="class">poem</xsl:attribute>
+		<xsl:attribute name="id"><xsl:value-of select="$poemid" /></xsl:attribute>
+
+		<!-- Toggles for individual poem. -->
+		<xsl:text>&#10;</xsl:text>
 		  <div id='poem-text'>
 		    <xsl:apply-templates />
 		  </div>
@@ -236,18 +243,34 @@
 	    </div>
 
 	    <!-- Div for Table of Contents. -->
-	    <div class="rightColumn">
-	      <xsl:call-template name="tableOfContents" />
-	    </div>
+	    <xsl:call-template name="tableOfContents" />
 
-	  </div>
-	  
+
 	  <!-- Load Javascript and jQuery. -->
 	  <xsl:call-template name="JSIncludes" />
 	</body>
       </html>
     </xsl:result-document>
   </xsl:template>
+
+
+  <!-- This will silence the textual note when it occurs in its order. -->
+  <xsl:template match="tei:note[@type='textual']"></xsl:template>
+
+  <!-- And this will let us insert it at the appropriate moment by calling it explicitly.
+       This note takes advantage of the cheat according to which named 
+       templates called with call-template inhereit the node position of 
+       the calling function. -->
+  <xsl:template name='textualNote'>
+    <xsl:element name="div">
+      <xsl:attribute name="class">textualNote</xsl:attribute>
+
+      <xsl:for-each select='child::tei:note[@type="textual"]'>
+	<xsl:apply-templates />
+      </xsl:for-each>
+    </xsl:element>
+  </xsl:template>
+
 
   <xsl:template match="tei:lg[@type='poem']/tei:lg">
     <div class="linegroup">
@@ -256,9 +279,7 @@
   </xsl:template>
 
   <xsl:template match="tei:lg[@type='poem']/tei:head">
-    <xsl:element name="h3">
-      <xsl:apply-templates />
-    </xsl:element>
+    <h1><xsl:apply-templates /></h1>
   </xsl:template>
 
   <xsl:template match="tei:l">
@@ -320,14 +341,6 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="tei:note[@type='textual']">
-    <xsl:element name="div">
-      <xsl:attribute name="class">textualNote</xsl:attribute>
-      <xsl:attribute name="id"><xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_textualNote_<xsl:value-of select="count(preceding-sibling::note)" /></xsl:attribute>
-      
-      <xsl:apply-templates />
-    </xsl:element>
-  </xsl:template>
 
   <!-- Probably the ugliest bit of this code. Creates a sort of ad-hoc -->
   <!-- sigla, not for each *witness*, but for each major work. This    -->
@@ -381,10 +394,9 @@
 	  <xsl:call-template name="header" />
 
 	  <!-- Container divs for content. -->
-	  <div class="columnsContainer">
+	  <div class="container">
 	    <!-- Div for Central Content. -->
-	    <div class="leftColumn">
-	      <xsl:element name="div">
+	    <xsl:element name="div">
 		<xsl:attribute name="class">prose</xsl:attribute>
 		<xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
 		<xsl:apply-templates />
@@ -392,12 +404,7 @@
 	    </div>
 	    
 	    <!-- Div for Table of Contents. -->
-	    <div class="rightColumn">
-	      <xsl:call-template name="tableOfContents" />
-	    </div>
-
-	  </div>
-
+	    <xsl:call-template name="tableOfContents" />
 	</body>
       </html>
     </xsl:result-document>
@@ -467,7 +474,7 @@
       
       <html>
 	<head>
-	  <title>Harlem Shadows: <xsl:value-of select="tei:head" /></title>
+	  <title>Harlem Shadows: <xsl:value-of select="tei:head/tei:title" /></title>
 	  <xsl:call-template name="htmlHeader" />
 	</head>
 
@@ -475,39 +482,41 @@
 	  <xsl:call-template name="header" />
 
 	  <!-- Container divs for content. -->
-	  <div class="columnsContainer">
+	  <div class="container">
 	    <!-- Div for Central Content. -->
-	    <div class="leftColumn">
-	      <xsl:apply-templates select="tei:bibl" />
-
-	      <xsl:element name="div">
-		<xsl:attribute name="class">prose review</xsl:attribute>
-		<xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
-		<xsl:apply-templates />
-	      </xsl:element>
-	    </div>
+	    <xsl:element name="div">
+	      <xsl:attribute name="class">prose review</xsl:attribute>
+	      <xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
+	      <xsl:apply-templates />
+	    </xsl:element>
+	  </div>
+	  <xsl:text>&#10;</xsl:text>
 	  <!-- Div for Table of Contents. -->
-	  <div class="rightColumn">
-	    <xsl:call-template name="tableOfContents" />
-	  </div>
-	  </div>
+	  <xsl:call-template name="tableOfContents" />
+	  <xsl:text>&#10;</xsl:text>
 	</body>
       </html>
     </xsl:result-document>
   </xsl:template>
-
-  <!-- Template to create bibliographic entries for prose. -->
+  
+  <!-- Template to create bibliographic entries for prose. 
   <xsl:template match="tei:text[@type='review']/tei:body/tei:head/tei:bibl|tei:text[@type='supplementary']/tei:body/tei:head/tei:bibl">
     <div class='textualNote'>
       <xsl:apply-templates />
     </div>
   </xsl:template>
-
+  -->
   <!-- This template generates per-review titles with author name. -->
   <!-- HACK: Also grabs supplementary material and handles them the same way. -->
   <xsl:template match="tei:text[@type='review']/tei:body/tei:head|tei:text[@type='supplementary']/tei:body/tei:head">
-    <h2 class="review-title"><xsl:apply-templates select="tei:title" />
-    </h2>
+
+    <!-- We now do not call apply-tempaltes for all templates, otherwise we'll -->
+    <!-- output stuff we don't want; just the bibl for the citation. -->
+    <div class='information'>
+      <xsl:apply-templates select="tei:bibl" />
+    </div>
+
+    <h2 class="review-title"><xsl:apply-templates select="tei:title" /></h2>
     <xsl:if test="tei:bibl/tei:author">
       <h4 class="review-author">by 
       <!-- First name/names -->
@@ -519,9 +528,7 @@
       <xsl:apply-templates select="tei:bibl/tei:author/tei:persName/tei:surname" />
       </h4>
     </xsl:if>
-    <!-- We now do not call apply-tempaltes for all templates, otherwise we'll -->
-    <!-- output stuff we don't want; just the bibl for the citation. -->
-    <xsl:apply-templates select="tei:bibl" />
+
   </xsl:template>
 
   <!-- The following templates format bibliographical info from bibl into an MLA -->
@@ -712,9 +719,9 @@ to maintain in this circumstance. Really.
 
   <xsl:template name='htmlHeader'>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
 
-    <link rel="stylesheet" href="hs.css" />
+    <link rel="stylesheet" href="hs-new.css" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css' />
     <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css' />
     <link href='http://fonts.googleapis.com/css?family=Droid+Sans' 	  rel='stylesheet' type='text/css' />
