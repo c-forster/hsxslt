@@ -283,9 +283,8 @@
   </xsl:template>
 
   <xsl:template match="tei:l">
-    <xsl:element name="p">
-      <xsl:attribute name="class">verse-container</xsl:attribute>
-      <span class="lineNo">
+    <div class='verse-container'>
+      <div class='lineNo'>
         <xsl:choose>
 	  <xsl:when test="parent::tei:lg[@type='poem']">
 	    <xsl:value-of select="count(preceding-sibling::tei:l)+1" />
@@ -294,14 +293,14 @@
 	    <xsl:value-of select="count(preceding-sibling::tei:l)+count(../preceding-sibling::tei:lg/tei:l)+1"/>
 	  </xsl:otherwise>
 	</xsl:choose> 
-      </span>
+      </div>
 
       <!-- This span contains the poetic line itself -->
-      <xsl:element name="span"> <xsl:attribute name="class">poetic-line <xsl:for-each select="@*"> <xsl:value-of select="." /> </xsl:for-each> </xsl:attribute>
+      <xsl:element name="p"> <xsl:attribute name="class">poetic-line <xsl:for-each select="@*"> <xsl:value-of select="." /> </xsl:for-each> </xsl:attribute>
       <xsl:apply-templates />
       </xsl:element>
       <!-- Here ends the template which grabs the poetic line itself -->
-    </xsl:element>
+    </div>
   </xsl:template>
 
   <!-- This template outputs the text content of poetic lines. -->
