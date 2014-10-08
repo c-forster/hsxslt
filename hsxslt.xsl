@@ -53,7 +53,8 @@
 
   <xsl:template name="JSIncludes">
     <xsl:comment>TODO: Load jQuery from Google CDN with Fallback</xsl:comment>
-    <script src="jquery-2.1.1.js" type="text/javascript"></script>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+    <script src="jquery-2.1.1.min.js" type="text/javascript"></script>
 
     <xsl:comment>Load simple JS controls.</xsl:comment>
     <script src="hs.js" type="text/javascript"></script>
@@ -74,6 +75,7 @@
 	<head>
 	  <title>Harlem Shadows: An Electronic Edition</title>
 	  <xsl:call-template name="htmlHeader" />
+	  <xsl:call-template name="analytics" />
 	</head>
 	<body>
 
@@ -83,7 +85,7 @@
 	    <div class="prose" id="editorsIntroduction">
 		<h1>Harlem Shadows (1922)</h1>
 
-		<p>This is an open-source edition of Claude McKay's 1922 collection of poems <em>Harlem Shadows</em>. It seeks to aggregate the most comprehensive collection of texts related to McKay's 1922 collection and make them available to students and readers of McKay. This project is under development by <a href="http://cforster.com">Chris Forster</a> and <a href="http://roopikarisam.com">Roopika Risam</a>. You can read more <a href="http://cforster.com/2012/06/drill-baby-drill">about the inspiration for the project</a>.</p>
+		<p>This is an open-source edition of Claude McKay's 1922 collection of poems <em>Harlem Shadows</em>. It seeks to aggregate the most comprehensive set of documents related to <em>Harlem Shadows</em> and make them available to students and readers of McKay. This project is under development by <a href="http://cforster.com">Chris Forster</a> and <a href="http://roopikarisam.com">Roopika Risam</a>. You can read more <a href="http://cforster.com/2012/06/drill-baby-drill">about the inspiration for the project</a>.</p>
 		<p>The edition remains under development, but a rationale for the edition, introductory materials, an explanation of how its apparatus is organized, and a PDF copy of the same material collected here are all forthcoming (promise!).</p>
 		<ul>
 		  <li>Numerous scanned editions of <em>Harlem Shadows</em> exist:
@@ -143,6 +145,7 @@
 	<head>
 	  <title><xsl:value-of select="tei:head/text()" /></title>
 	  <xsl:call-template name="htmlHeader" />
+	  <xsl:call-template name="analytics" />
 	</head>
 
 	<body>
@@ -156,54 +159,56 @@
 	      <xsl:attribute name="id"><xsl:value-of select="$poemid" />_toggles</xsl:attribute>
 	      <xsl:text>&#10;</xsl:text>
 
-	      <h4>Information</h4>
-	      <xsl:comment>Textual Information and History Here</xsl:comment>
-<!--	      <xsl:apply-templates select='tei:note[@type="textual"]' /> -->
-              <xsl:call-template name='textualNote' />
+	      <!-- If there is a textual note, add the appropriate material. -->
+	      <xsl:if test='tei:note[@type="textual"]'>
+		<h4>Textual Note</h4>
+		<xsl:comment>Textual Information and History Here</xsl:comment>
+		<!--	      <xsl:apply-templates select='tei:note[@type="textual"]' /> -->
+		<xsl:call-template name='textualNote' />
+	      </xsl:if>
 
+	      <!-- If there are any toggles, add 'em -->
 	      <xsl:comment>Toggles for notes, apparatus, etc.</xsl:comment>
 	      <xsl:text>&#10;</xsl:text>
-	      <h4>Textual Features:</h4><xsl:text>&#10;</xsl:text>
-	      <form><xsl:text>&#10;</xsl:text>
-	      <ul>
-		<!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_textualApparatusCheckBox</xsl:attribute>Textual Apparatus</input></div><xsl:text>&#10;</xsl:text> -->
+	      <xsl:if test="./descendant::tei:note[@type='editorial'] or ./descendant::tei:app">
+		<h4>Notes:</h4><xsl:text>&#10;</xsl:text>
+		<form><xsl:text>&#10;</xsl:text>
+		<ul>
+		  <!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_textualApparatusCheckBox</xsl:attribute>Textual Apparatus</input></div><xsl:text>&#10;</xsl:text> -->
 
-		<!-- If a poem has any editorial notes, create a box to activate 'em. -->
-		<li>
-		  <xsl:choose>
-		    <xsl:when test="./descendant::tei:note[@type='editorial']">
-		      <div class="toggle">
-			<input type="checkbox">
-			  <xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>
-			  Editorial Notes
-			</input>
-			</div><xsl:text>&#10;</xsl:text>
-		    </xsl:when>
-		    <xsl:otherwise>
-		      <p>This poem has no editorial notes.</p><xsl:text>&#10;</xsl:text>
-		    </xsl:otherwise>
+		  <!-- If a poem has any editorial notes, create a box to activate 'em. -->
+		    <xsl:choose>
+		      <xsl:when test="./descendant::tei:note[@type='editorial']">
+			<li>
+			  <div class="toggle">
+			    <input type="checkbox">
+			      <xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>
+			      Editorial Notes
+			    </input>
+			    </div><xsl:text>&#10;</xsl:text>
+			</li>
+		      </xsl:when>
+		    <xsl:otherwise><!-- <p>This poem has no editorial notes.</p><xsl:text>&#10;</xsl:text> --></xsl:otherwise>
 		  </xsl:choose>
-		</li>
 
-		<li>
 		  <xsl:choose>
 		    <xsl:when test="./descendant::tei:app">
-		      <div class="toggle">
-			<input type="checkbox">
-			  <xsl:attribute name="id">highlightVariants</xsl:attribute>
-			  Highlight Variants
-			</input>
-		      </div>
-		      <xsl:text>&#10;</xsl:text>
+		      <li>
+			<div class="toggle">
+			  <input type="checkbox">
+			    <xsl:attribute name="id">highlightVariants</xsl:attribute>
+			    Highlight Variants
+			  </input>
+			</div>
+			<xsl:text>&#10;</xsl:text>
+		      </li>
 		    </xsl:when>
-		    <xsl:otherwise>
-		      <p>This poem has no textual variants.</p>
-		    </xsl:otherwise>
+		    <xsl:otherwise><!--  <p>This poem has no textual variants.</p> --></xsl:otherwise>
 		  </xsl:choose>
-		</li>
 	      </ul>
 	      </form>
 	      <xsl:text>&#10;</xsl:text>
+	      </xsl:if>
 	      </div>
 	      
 	      <xsl:text>&#10;</xsl:text>
@@ -215,7 +220,7 @@
 
 		<!-- Toggles for individual poem. -->
 		<xsl:text>&#10;</xsl:text>
-		  <div id='poem-text'>
+		  <div class='poem-text'>
 		    <xsl:apply-templates />
 		  </div>
 
@@ -283,17 +288,14 @@
   </xsl:template>
 
   <xsl:template match="tei:l">
-    <div class='verse-container'>
-      <div class='lineNo'>
-        <xsl:choose>
+    <div class='verse-container'><p class='lineNo'><xsl:choose>
 	  <xsl:when test="parent::tei:lg[@type='poem']">
 	    <xsl:value-of select="count(preceding-sibling::tei:l)+1" />
 	  </xsl:when>
 	  <xsl:otherwise> 
 	    <xsl:value-of select="count(preceding-sibling::tei:l)+count(../preceding-sibling::tei:lg/tei:l)+1"/>
 	  </xsl:otherwise>
-	</xsl:choose> 
-      </div>
+	</xsl:choose></p>
 
       <!-- This span contains the poetic line itself -->
       <xsl:element name="p"> <xsl:attribute name="class">poetic-line <xsl:for-each select="@*"> <xsl:value-of select="." /> </xsl:for-each> </xsl:attribute>
@@ -387,6 +389,7 @@
 	<head>
 	  <title>Harlem Shadows: <xsl:value-of select="tei:head" /></title>
 	  <xsl:call-template name="htmlHeader" />
+	  <xsl:call-template name="analytics" />
 	</head>
 
 	<body>
@@ -475,6 +478,7 @@
 	<head>
 	  <title>Harlem Shadows: <xsl:value-of select="tei:head/tei:title" /></title>
 	  <xsl:call-template name="htmlHeader" />
+	  <xsl:call-template name="analytics" />
 	</head>
 
 	<body>
@@ -724,6 +728,19 @@ to maintain in this circumstance. Really.
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css' />
     <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css' />
     <link href='http://fonts.googleapis.com/css?family=Droid+Sans' 	  rel='stylesheet' type='text/css' />
+  </xsl:template>
+
+  <!-- Google Analytics -->
+  <xsl:template name='analytics'>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55463139-1', 'auto');
+  ga('send', 'pageview');
+    </script>
   </xsl:template>
 
   <!-- This function converts witness bibliographic information into a 
