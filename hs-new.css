@@ -4,7 +4,10 @@ html {
     color: #423F37;
 }
 
-.container { margin-top: 5em; }
+.container { 
+    margin-top: 5em; 
+    max-width:  1000px;
+}
 
 h1 { font-size: 2.0em; }
 
@@ -133,10 +136,6 @@ p {
     margin-left: 3em; 
 }
 
-#poem-text {
-    padding-left: 10em;
-    text-indent: -10em;
-}
 
 #poem-text h1 { margin-left: 2em; }
 
@@ -389,10 +388,11 @@ a:visited.reference, a:visited.source {
 
 #witnessNote {
     margin-top: 1em;
-    width: 50%;
+    margin: 0 auto;
+    width: 70%;
     padding: 1em;
     border: 1px solid black;
-    font-size: 0.6em;
+    font-size: 0.7em;
     background: #d0d0d0;
 }
 
@@ -414,11 +414,12 @@ a:visited.reference, a:visited.source {
 */
 @media screen and (min-width: 1001px ) { 
 /*  .container { width: 880px; float: left; } */
-  .container { width: 80%; float: left; } 
+/*  .container { width: 80%; float: left; }   */
+    .container { float: left; }
 /*  .information { width: 200px; float: right; border-left: 1px solid #aaa; padding-left: 1em; padding-top: 0em; } */
   .information { width: 30%; float: right; border-left: 1px solid #aaa; padding-left: 1em; padding-top: 0em; border-bottom: none; } 
 /*  .poem { float: left; width: 550px; } */
-  .poem { float: left;  } 
+  .poem { float: left; width: 65%; } 
   #tableOfContents { clear: both; }
 
   div#header { position: fixed; left: 0; top: 0; } 

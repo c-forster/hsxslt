@@ -83,26 +83,26 @@
 
 	  <div class="container">
 	    <div class="prose" id="editorsIntroduction">
-		<h1>Harlem Shadows (1922)</h1>
+	      <h1>Harlem Shadows (1922)</h1>
 
-		<p>This is an open-source edition of Claude McKay's 1922 collection of poems <em>Harlem Shadows</em>. It seeks to aggregate the most comprehensive set of documents related to <em>Harlem Shadows</em> and make them available to students and readers of McKay. This project is under development by <a href="http://cforster.com">Chris Forster</a> and <a href="http://roopikarisam.com">Roopika Risam</a>. You can read more <a href="http://cforster.com/2012/06/drill-baby-drill">about the inspiration for the project</a>.</p>
-		<p>The edition remains under development, but a rationale for the edition, introductory materials, an explanation of how its apparatus is organized, and a PDF copy of the same material collected here are all forthcoming (promise!).</p>
+	      <p>This is an open-source edition of Claude McKay's 1922 collection of poems <em>Harlem Shadows</em>. It seeks to aggregate the most comprehensive set of documents related to <em>Harlem Shadows</em> and make them available to students and readers of McKay. This project is under development by <a href="http://cforster.com">Chris Forster</a> and <a href="http://roopikarisam.com">Roopika Risam</a>. You can read more <a href="http://cforster.com/2012/06/drill-baby-drill">about the inspiration for the project</a>.</p>
+	      <p>The edition remains under development, but a rationale for the edition, introductory materials, an explanation of how its apparatus is organized, and a PDF copy of the same material collected here are all forthcoming (promise!).</p>
+	      <ul>
+		<li>Numerous scanned editions of <em>Harlem Shadows</em> exist:
 		<ul>
-		  <li>Numerous scanned editions of <em>Harlem Shadows</em> exist:
-		  <ul>
-		    <li><a href="http://books.google.com/books?id=aKTPAAAAMAAJ">Google Books Copy Scanned from Indiana University.</a></li>
-		    <li><a href="http://books.google.com/books?id=EVFBAAAAYAAJ">Google Books Copy Scanned from Princeton.</a></li>
-		    <li><a href="http://www.archive.org/details/harlemshadows00mcka">Archive.org Copy Scanned from the Library of Congress.</a></li>
-		    <li><a href="http://www.archive.org/details/harlemshadowspoe00mckauoft">Archive.org Copy Scanned from the University of Toronto.</a></li>
-		  </ul>
-		  </li>
-		  <li>This page is generated from a TEI XML file <a href="https://github.com/c-forster/harlem-shadows">hosted on github</a>.</li>
-		  <li>The XSLT which transforms the TEI into the HTML viewable here is also <a href="https://github.com/c-forster/hsxlst">hosted on github.</a></li>
+		  <li><a href="http://books.google.com/books?id=aKTPAAAAMAAJ">Google Books Copy Scanned from Indiana University.</a></li>
+		  <li><a href="http://books.google.com/books?id=EVFBAAAAYAAJ">Google Books Copy Scanned from Princeton.</a></li>
+		  <li><a href="http://www.archive.org/details/harlemshadows00mcka">Archive.org Copy Scanned from the Library of Congress.</a></li>
+		  <li><a href="http://www.archive.org/details/harlemshadowspoe00mckauoft">Archive.org Copy Scanned from the University of Toronto.</a></li>
 		</ul>
-		<p>If you have any questions about this project or are interested in contributing, contact: <a href="mailto:cforster@syr.edu">cforster@syr.edu</a>.</p>
-		
-		<div id="footer">Page last generated: <xsl:call-template name='today' /></div>
-	      </div>
+		</li>
+		<li>This page is generated from a TEI XML file <a href="https://github.com/c-forster/harlem-shadows">hosted on github</a>.</li>
+		<li>The XSLT which transforms the TEI into the HTML viewable here is also <a href="https://github.com/c-forster/hsxlst">hosted on github.</a></li>
+	      </ul>
+	      <p>If you have any questions about this project or are interested in contributing, contact: <a href="mailto:cforster@syr.edu">cforster@syr.edu</a>.</p>
+	      
+	      <div id="footer">Page last generated: <xsl:call-template name='today' /></div>
+	    </div>
 	  </div>
 	  <!-- Div for Table of Contents. -->
 	  <xsl:text>&#xa;</xsl:text>
@@ -177,17 +177,17 @@
 		  <!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_textualApparatusCheckBox</xsl:attribute>Textual Apparatus</input></div><xsl:text>&#10;</xsl:text> -->
 
 		  <!-- If a poem has any editorial notes, create a box to activate 'em. -->
-		    <xsl:choose>
-		      <xsl:when test="./descendant::tei:note[@type='editorial']">
-			<li>
-			  <div class="toggle">
-			    <input type="checkbox">
-			      <xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>
-			      Editorial Notes
-			    </input>
-			    </div><xsl:text>&#10;</xsl:text>
-			</li>
-		      </xsl:when>
+		  <xsl:choose>
+		    <xsl:when test="./descendant::tei:note[@type='editorial']">
+		      <li>
+			<div class="toggle">
+			  <input type="checkbox">
+			    <xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>
+			    Editorial Notes
+			  </input>
+			  </div><xsl:text>&#10;</xsl:text>
+		      </li>
+		    </xsl:when>
 		    <xsl:otherwise><!-- <p>This poem has no editorial notes.</p><xsl:text>&#10;</xsl:text> --></xsl:otherwise>
 		  </xsl:choose>
 
@@ -205,50 +205,50 @@
 		    </xsl:when>
 		    <xsl:otherwise><!--  <p>This poem has no textual variants.</p> --></xsl:otherwise>
 		  </xsl:choose>
-	      </ul>
-	      </form>
-	      <xsl:text>&#10;</xsl:text>
-	      </xsl:if>
-	      </div>
-	      
-	      <xsl:text>&#10;</xsl:text>
-
-	      <!-- poem -->
-	      <xsl:element name="div">
-		<xsl:attribute name="class">poem</xsl:attribute>
-		<xsl:attribute name="id"><xsl:value-of select="$poemid" /></xsl:attribute>
-
-		<!-- Toggles for individual poem. -->
+		</ul>
+		</form>
 		<xsl:text>&#10;</xsl:text>
-		  <div id='poem-text'>
-		    <xsl:apply-templates />
-		  </div>
-
-		  <!-- Generate apparatus for notes -->
-		  <ul>
-		    <xsl:attribute name="class">editorialNotes</xsl:attribute>
-		    <xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotes</xsl:attribute>
-		    <xsl:text>&#10;</xsl:text>
-		    <xsl:for-each select=".//tei:note[@type='editorial']">
-		      <li>
-			<xsl:attribute name="class">editorialNote</xsl:attribute>
-			<xsl:attribute name="id">
-			  <xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_editorialNote_<xsl:value-of select="count(preceding::tei:note)" />
-			</xsl:attribute>
-			<xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
-			<xsl:text>: </xsl:text>
-			<!-- In order preserve formatting using hi tag within notes, rather than value of -->
-			<!-- this next function is apply-templates. I'm scared. - csf 5/29/14 -->
-			<!--	  <xsl:value-of select="." /> -->
-			<xsl:apply-templates />
-			</li><xsl:text>&#10;</xsl:text>
-		    </xsl:for-each>
-		    </ul><xsl:text>&#10;</xsl:text>
-	      </xsl:element>
+	      </xsl:if>
 	    </div>
+	    
+	    <xsl:text>&#10;</xsl:text>
 
-	    <!-- Div for Table of Contents. -->
-	    <xsl:call-template name="tableOfContents" />
+	    <!-- poem -->
+	    <xsl:element name="div">
+	      <xsl:attribute name="class">poem</xsl:attribute>
+	      <xsl:attribute name="id"><xsl:value-of select="$poemid" /></xsl:attribute>
+
+	      <!-- Toggles for individual poem. -->
+	      <xsl:text>&#10;</xsl:text>
+	      <div id='poem-text'>
+		<xsl:apply-templates />
+	      </div>
+
+	      <!-- Generate apparatus for notes -->
+	      <ul>
+		<xsl:attribute name="class">editorialNotes</xsl:attribute>
+		<xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotes</xsl:attribute>
+		<xsl:text>&#10;</xsl:text>
+		<xsl:for-each select=".//tei:note[@type='editorial']">
+		  <li>
+		    <xsl:attribute name="class">editorialNote</xsl:attribute>
+		    <xsl:attribute name="id">
+		      <xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_editorialNote_<xsl:value-of select="count(preceding::tei:note)" />
+		    </xsl:attribute>
+		    <xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
+		    <xsl:text>: </xsl:text>
+		    <!-- In order preserve formatting using hi tag within notes, rather than value of -->
+		    <!-- this next function is apply-templates. I'm scared. - csf 5/29/14 -->
+		    <!--	  <xsl:value-of select="." /> -->
+		    <xsl:apply-templates />
+		    </li><xsl:text>&#10;</xsl:text>
+		</xsl:for-each>
+		</ul><xsl:text>&#10;</xsl:text>
+	    </xsl:element>
+	  </div>
+
+	  <!-- Div for Table of Contents. -->
+	  <xsl:call-template name="tableOfContents" />
 
 
 	  <!-- Load Javascript and jQuery. -->
@@ -289,19 +289,19 @@
 
   <xsl:template match="tei:l">
     <div class='verse-container'><p class='lineNo'><xsl:choose>
-	  <xsl:when test="parent::tei:lg[@type='poem']">
-	    <xsl:value-of select="count(preceding-sibling::tei:l)+1" />
-	  </xsl:when>
-	  <xsl:otherwise> 
-	    <xsl:value-of select="count(preceding-sibling::tei:l)+count(../preceding-sibling::tei:lg/tei:l)+1"/>
-	  </xsl:otherwise>
-	</xsl:choose></p>
+      <xsl:when test="parent::tei:lg[@type='poem']">
+	<xsl:value-of select="count(preceding-sibling::tei:l)+1" />
+      </xsl:when>
+      <xsl:otherwise> 
+	<xsl:value-of select="count(preceding-sibling::tei:l)+count(../preceding-sibling::tei:lg/tei:l)+1"/>
+      </xsl:otherwise>
+    </xsl:choose></p>
 
-      <!-- This span contains the poetic line itself -->
-      <xsl:element name="p"> <xsl:attribute name="class">poetic-line <xsl:for-each select="@*"> <xsl:value-of select="." /> </xsl:for-each> </xsl:attribute>
-      <xsl:apply-templates />
-      </xsl:element>
-      <!-- Here ends the template which grabs the poetic line itself -->
+    <!-- This span contains the poetic line itself -->
+    <xsl:element name="p"> <xsl:attribute name="class">poetic-line <xsl:for-each select="@*"> <xsl:value-of select="." /> </xsl:for-each> </xsl:attribute>
+    <xsl:apply-templates />
+    </xsl:element>
+    <!-- Here ends the template which grabs the poetic line itself -->
     </div>
   </xsl:template>
 
@@ -336,7 +336,7 @@
       <xsl:attribute name="class">reading <xsl:value-of select='normalize-space(replace(@wit,"#",""))' /></xsl:attribute>
 
       <xsl:attribute name="id">
-<!--	<xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_app<xsl:value-of select="count(../preceding::tei:app)" />_rdg<xsl:value-of select="count(preceding::tei:rdg)" /> -->
+	<!--	<xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_app<xsl:value-of select="count(../preceding::tei:app)" />_rdg<xsl:value-of select="count(preceding::tei:rdg)" /> -->
       </xsl:attribute>
       <xsl:value-of select="." /><xsl:text></xsl:text><xsl:apply-templates select="@wit" />
     </xsl:element>
@@ -399,14 +399,14 @@
 	  <div class="container">
 	    <!-- Div for Central Content. -->
 	    <xsl:element name="div">
-		<xsl:attribute name="class">prose</xsl:attribute>
-		<xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
-		<xsl:apply-templates />
-	      </xsl:element>
-	    </div>
-	    
-	    <!-- Div for Table of Contents. -->
-	    <xsl:call-template name="tableOfContents" />
+	      <xsl:attribute name="class">prose</xsl:attribute>
+	      <xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
+	      <xsl:apply-templates />
+	    </xsl:element>
+	  </div>
+	  
+	  <!-- Div for Table of Contents. -->
+	  <xsl:call-template name="tableOfContents" />
 	</body>
       </html>
     </xsl:result-document>
@@ -503,11 +503,11 @@
   </xsl:template>
   
   <!-- Template to create bibliographic entries for prose. 
-  <xsl:template match="tei:text[@type='review']/tei:body/tei:head/tei:bibl|tei:text[@type='supplementary']/tei:body/tei:head/tei:bibl">
-    <div class='textualNote'>
-      <xsl:apply-templates />
-    </div>
-  </xsl:template>
+       <xsl:template match="tei:text[@type='review']/tei:body/tei:head/tei:bibl|tei:text[@type='supplementary']/tei:body/tei:head/tei:bibl">
+       <div class='textualNote'>
+       <xsl:apply-templates />
+       </div>
+       </xsl:template>
   -->
   <!-- This template generates per-review titles with author name. -->
   <!-- HACK: Also grabs supplementary material and handles them the same way. -->
@@ -643,7 +643,7 @@
 
   <xsl:template match="tei:quote/tei:p">
     <blockquote>
-    <xsl:apply-templates />
+      <xsl:apply-templates />
     </blockquote>
   </xsl:template>
 
@@ -733,13 +733,13 @@ to maintain in this circumstance. Really.
   <!-- Google Analytics -->
   <xsl:template name='analytics'>
     <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-55463139-1', 'auto');
-  ga('send', 'pageview');
+      ga('create', 'UA-55463139-1', 'auto');
+      ga('send', 'pageview');
     </script>
   </xsl:template>
 

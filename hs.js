@@ -64,10 +64,17 @@ $(document).ready(function(){
 	// Get the id of the function
 	var $witnessID = $(this).attr('id');
 
-	console.log($witnessID);
+	// console.log($witnessID);
+	// Reset the text to its lemma-state.
+	resetText();
 
 	// Remove any previously visible witness notes.
 	$('.witnessNote').remove();
+
+	// Remove the toggles themselves, which would now complicate
+	// functionality. They'll return on "RESET."
+//	$('#toggles').hide()
+	disableVariants();
 
 	// Now set all apps in this poem to that value by:
 	// Hiding all lemmas and reading.
@@ -84,7 +91,7 @@ $(document).ready(function(){
 	// text and displaying a link to return to original.
 	$('p.verse-container').addClass('witnessDoc');
 	var $witnessInfo = $('#bibl'+$witnessID).html();
-	var $insertText = "<div id='witnessNote'><p>This is the text of the poem as it appears in:"+$witnessInfo+"</p><p><a href='#' class='reset'>Reset.</a></p></div>";
+	var $insertText = "<div id='witnessNote'><p>This is the text of the poem as it appears in: "+$witnessInfo+"</p><p><a href='#' class='reset'>Reset.</a></p></div>";
 	// Remove any old witnessNotes
 	$('#witnessNote').remove(); 
 	// Now append the new note.
@@ -114,7 +121,26 @@ var resetText = function () {
     console.log('reset');
 
     $('#witnessNote').remove(); 
+
+    // Remove any highlighting/coloring.
+    $('span.apparatus').removeClass('highlight');
+
+    // Hide alternate readings and show lemmas.
     $('span.reading').hide();
     $('span.lemma').show();
-    $('.toggles').show();
+
+
+    // Re-enable highlighting of variants.
+    $('input#highlightVariants').prop('disabled', false);
 };
+
+var disableVariants = function () {
+    console.log('Disable Toggles');
+
+    // Ensure variants checkbox is unchecked.
+    $('input#highlightVariants').prop('checked', false);    
+
+    // Prevent highlighting of variants until we've reset the text to its 
+    // lemma-state.
+    $('input#highlightVariants').prop('disabled', true);
+}
