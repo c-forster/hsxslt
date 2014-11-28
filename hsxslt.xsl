@@ -338,7 +338,7 @@
       <xsl:attribute name="id">
 <!--	<xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_app<xsl:value-of select="count(../preceding::tei:app)" />_rdg<xsl:value-of select="count(preceding::tei:rdg)" /> -->
       </xsl:attribute>
-      <xsl:value-of select="." /><xsl:text> </xsl:text><xsl:apply-templates select="@wit" />
+      <xsl:value-of select="." /><xsl:text></xsl:text><xsl:apply-templates select="@wit" />
     </xsl:element>
   </xsl:template>
 
