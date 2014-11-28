@@ -220,7 +220,7 @@
 
 		<!-- Toggles for individual poem. -->
 		<xsl:text>&#10;</xsl:text>
-		  <div class='poem-text'>
+		  <div id='poem-text'>
 		    <xsl:apply-templates />
 		  </div>
 

@@ -133,10 +133,12 @@ p {
     margin-left: 3em; 
 }
 
-.poem-text {
-    padding-left: 4em;
-    margin-left: 5em;
+#poem-text {
+    padding-left: 10em;
+    text-indent: -10em;
 }
+
+#poem-text h1 { margin-left: 2em; }
 
 .poetic-line {
     display: inline;
@@ -145,8 +147,8 @@ p {
 /* New class added... */
 .verse-container {
     display: block;
-    padding-left: 10em;
-    text-indent: -10em;
+/*    padding-left: 10em;
+    text-indent: -10em; */
 }
 
 .lineNo {
@@ -337,6 +339,7 @@ a:visited.reference, a:visited.source {
     font-family		: sans-serif;
     padding-left: 1em; 
     padding-right: 1em;
+    
 }
 
 .information ul {
