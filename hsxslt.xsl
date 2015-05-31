@@ -7,6 +7,7 @@
 
   <xsl:output method="html" version="5.0" indent="yes" encoding="utf-8" omit-xml-declaration="yes" />
 
+
   <xsl:key name="witnessTitles" match="//tei:witness" use="@xml:id" />
 
   <xsl:template match="tei:TEI">
@@ -334,11 +335,12 @@
   <xsl:template match="tei:rdg">
     <xsl:element name="span">
       <xsl:attribute name="class">reading <xsl:value-of select='normalize-space(replace(@wit,"#",""))' /></xsl:attribute>
-
+<!--
       <xsl:attribute name="id">
-	<!--	<xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_app<xsl:value-of select="count(../preceding::tei:app)" />_rdg<xsl:value-of select="count(preceding::tei:rdg)" /> -->
+	<xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_app<xsl:value-of select="count(../preceding::tei:app)" />_rdg<xsl:value-of select="count(preceding::tei:rdg)" /> 
       </xsl:attribute>
-      <xsl:value-of select="." /><xsl:text></xsl:text><xsl:apply-templates select="@wit" />
+-->
+      <xsl:apply-templates />
     </xsl:element>
   </xsl:template>
 
@@ -656,6 +658,12 @@
     <xsl:apply-templates select="tei:corr|tei:abbr" />
   </xsl:template>
 
+  <!-- Template to silence errors. TODO [Awaiting a better solution; 
+       perhaps a simple span that can be styled to mark/differentiate 
+       the error from the editorial correction. -->
+  <xsl:template match="tei:sic">
+  </xsl:template>
+
   <!-- Here we handle abbreviations. If type is initial, we add a period. -->
   <!-- Otherwise, this is just a passthrough. -->
   <xsl:template match="tei:abbr">
@@ -716,7 +724,7 @@ to maintain in this circumstance. Really.
 
   <xsl:template name="header">
     <div id="header">
-      <h1>Harlem Shadows: An Electronic Edition</h1>
+      <a href='http://harlemshadows.org'><h1>Harlem Shadows: An Electronic Edition</h1></a>
     </div>
   </xsl:template>
 
