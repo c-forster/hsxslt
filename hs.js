@@ -125,6 +125,10 @@ var resetText = function () {
     // Remove any highlighting/coloring.
     $('span.apparatus').removeClass('highlight');
 
+    // Paradoxically, we need to show siglas here, so that they 
+    // will disappear/reappear with their parent spans.
+    $('span.reading').children('span.sigla').show();
+
     // Hide alternate readings and show lemmas.
     $('span.reading').hide();
     $('span.lemma').show();

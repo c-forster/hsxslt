@@ -340,7 +340,8 @@
 	<xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_app<xsl:value-of select="count(../preceding::tei:app)" />_rdg<xsl:value-of select="count(preceding::tei:rdg)" /> 
       </xsl:attribute>
 -->
-      <xsl:apply-templates />
+<!--      <xsl:value-of select="." /><xsl:text></xsl:text><xsl:apply-templates select="@wit" /> -->
+      <xsl:apply-templates /><xsl:text></xsl:text><xsl:apply-templates select="@wit" />
     </xsl:element>
   </xsl:template>
 
@@ -662,6 +663,7 @@
        perhaps a simple span that can be styled to mark/differentiate 
        the error from the editorial correction. -->
   <xsl:template match="tei:sic">
+    <span class='sic'><xsl:apply-templates />[SIC]</span>
   </xsl:template>
 
   <!-- Here we handle abbreviations. If type is initial, we add a period. -->
