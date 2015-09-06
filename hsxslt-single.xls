@@ -282,40 +282,9 @@
   <xsl:apply-templates />
 </xsl:template>
 
-<!-- Table of Contents Templates -->
-<!-- 
-<xsl:template match="tei:div[@type='contents']">
-  <div id="tableOfContents">
-    <h3>Harlem Shadows</h3>
-    <xsl:apply-templates />
-    <xsl:for-each select="tei:group">
-      <h2><xsl:apply-templates select="tei:head" /></h2>
-      <ul>
-	<xsl:for-each select="tei:text">
-	  <li><xsl:apply-templates select="tei:head" /></li>
-	</xsl:for-each>
-      </ul>
-    </xsl:for-each>
-  </div>
-</xsl:template>
--->
 
-<!--
-<xsl:template match="tei:div[@type='contents']//tei:ref">
-  <xsl:element name="a"><xsl:attribute name="href"><xsl:value-of select="@target" /></xsl:attribute><xsl:apply-templates /></xsl:element>
-</xsl:template>
--->
-<!--
-<xsl:template match="tei:div[@type='contents']//tei:item">
-  <li><xsl:element name="a"><xsl:attribute name="href"><xsl:value-of select="tei:ref/@target" />
-</xsl:attribute><xsl:apply-templates /></xsl:element></li>
-</xsl:template>
--->
-
-<xsl:template match="tei:div[@type='contents']">
-</xsl:template>
-<xsl:template match="tei:div[@type='contents']//tei:ref">
-</xsl:template>
+<xsl:template match="tei:div[@type='contents']"></xsl:template>
+<xsl:template match="tei:div[@type='contents']//tei:ref"></xsl:template>
 
 
 <!-- Introduction/Preface/Etc ;; Prose Materials -->
@@ -556,9 +525,12 @@
   </xsl:element>
 </xsl:template>
 
-<xsl:template match="tei:note[@type='textual']//tei:ref" priority="2">
+<!-- A rule for handling refs in textual notes.  These summarize
+     textual witnesses for a particular poem. We attached IDs and 
+     functions to them so that we can show textual variants. -->
+<xsl:template match="tei:note[@type='textual']//tei:ref" priority="10">
   <xsl:element name="a">
-    <xsl:attribute name="class">reference</xsl:attribute>
+    <xsl:attribute name="class">textualWitness</xsl:attribute>
     <xsl:attribute name="href"><xsl:value-of select="@target" /></xsl:attribute>
     <xsl:apply-templates />
   </xsl:element>
@@ -573,14 +545,14 @@
      for that reason this crude set of if statements is actually better and easier 
      to maintain in this circumstance. Really.
 -->
-<xsl:template match="@wit|@target">
-  <xsl:if test="contains(., '#Liberator')"><span class="sigla">*</span></xsl:if>
-  <xsl:if test="contains(., '#SINH')"><span class="sigla">†</span></xsl:if>
-  <xsl:if test="contains(., '#Pearsons')"><span class="sigla">§</span></xsl:if>
-  <xsl:if test="contains(., '#Cambridge')"><span class="sigla">#</span></xsl:if>
-  <xsl:if test="contains(., '#ThreeSonnets')"><span class="sigla">‡</span> </xsl:if>
-  <xsl:if test="contains(., '#SevenArts')"><span class="sigla">‖</span> </xsl:if>
-  <xsl:if test="contains(., '#Messenger')"><span class="sigla">Δ</span> </xsl:if>
+<xsl:template name='witnessSigla' match="@wit|@target">
+  <xsl:if test="contains(., '#Liberator')"><span class="siglum">*</span></xsl:if>
+  <xsl:if test="contains(., '#SINH')"><span class="siglum">†</span></xsl:if>
+  <xsl:if test="contains(., '#Pearsons')"><span class="siglum">§</span></xsl:if>
+  <xsl:if test="contains(., '#Cambridge')"><span class="siglum">#</span></xsl:if>
+  <xsl:if test="contains(., '#ThreeSonnets')"><span class="siglum">‡</span> </xsl:if>
+  <xsl:if test="contains(., '#SevenArts')"><span class="siglum">‖</span> </xsl:if>
+  <xsl:if test="contains(., '#Messenger')"><span class="siglum">Δ</span> </xsl:if>
 </xsl:template>
 
 </xsl:stylesheet>
