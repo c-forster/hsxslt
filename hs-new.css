@@ -414,13 +414,17 @@ a:visited.reference, a:visited.source {
 
 #footer { text-align: right; margin-top: 2em; margin-right: 3em; font-family: 'Open Sans Condensed',Helvetica,Arial,sans-serif; font-size:x-small; color: #c0c0c0; }
 
+.review-title {
+    width: 65%;
+}
+
 /*
  Media Queries for Responsive Layout
 */
 @media screen and (min-width: 1001px ) { 
 /*  .container { width: 880px; float: left; } */
 /*  .container { width: 80%; float: left; }   */
-    .container { float: left; }
+    .container { float: left; width: 75%; }
 /*  .information { width: 200px; float: right; border-left: 1px solid #aaa; padding-left: 1em; padding-top: 0em; } */
   .information { width: 30%; float: right; border-left: 1px solid #aaa; padding-left: 1em; padding-top: 0em; border-bottom: none; } 
 /*  .poem { float: left; width: 550px; } */
