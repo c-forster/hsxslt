@@ -534,7 +534,7 @@
       <xsl:apply-templates select="tei:bibl/tei:author/tei:persName/tei:surname" />
       </h4>
     </xsl:if>
-
+   
   </xsl:template>
 
   <!-- The following templates format bibliographical info from bibl into an MLA -->
@@ -788,5 +788,10 @@ to maintain in this circumstance. Really.
     <xsl:value-of select="format-date(current-date(), '[MNn] [D1], [Y]')" />
   </xsl:template>
 
+  <!-- This Template ensures that supplementary texts which consist only of a poem get processed.  -->
+  <xsl:template match="tei:text[@type='supplementary']/tei:body/tei:lg[@type='poem']">
+    <xsl:apply-templates select="tei:l" />
+  </xsl:template>
+  
 </xsl:stylesheet>
 
