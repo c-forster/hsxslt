@@ -384,7 +384,7 @@ a:visited.reference, a:visited.source {
     margin-bottom: 0.5em;
     border-bottom: solid black 1px;
     z-index: 10;
-    white-space: nowrap;
+/*    white-space: nowrap; */
 }
 
 #header a { color: inherit; text-decoration: inherit; }
@@ -442,5 +442,19 @@ a:visited.reference, a:visited.source {
 	width: 17.5%;
 	padding-left: 1em;
 	border-left: solid 1px #aaa;
+    }
+}
+
+/* Remove line numbers for mobile version. */
+@media only screen 
+and (max-device-width: 736px) {
+
+    .lineNo {
+	display: none;
+    }
+
+
+    #header {
+	font-size: 0.7em;
     }
 }
