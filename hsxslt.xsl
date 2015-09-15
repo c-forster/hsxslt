@@ -210,6 +210,31 @@
 		</form>
 		<xsl:text>&#10;</xsl:text>
 	      </xsl:if>
+
+	      <!-- If a poem has any references in reviews/supplementary material, add 'em
+		   here. -->
+	      <xsl:comment>Incoming references from reviews and supplementary material.</xsl:comment>
+	      <div class='incoming-references'>
+		<ul>
+		<xsl:for-each select="//tei:text[@type='review']//tei:ref/@target |
+				      //tei:text[@type='supplementary']//tei:ref/@target |
+				      //tei:text[@type='review']//tei:quote/@source |
+				      //tei:text[@type='supplementary']//tei:quote/@source">
+		  <xsl:variable name="linkID">
+		    <xsl:value-of select="generate-id(..)" />
+		  </xsl:variable>
+		  <xsl:if test=". = concat('#',$poemid)">
+		    <li><xsl:element name='a'>
+		      <xsl:attribute name='href'>
+			<xsl:value-of select="concat(concat(ancestor::*[@xml:id][1]/@xml:id, '.html'), concat('#',$linkID))" />
+		      </xsl:attribute>
+		      <xsl:value-of select="ancestor::tei:text/tei:body/tei:head/tei:title" />
+		    </xsl:element></li>
+		  </xsl:if>
+		</xsl:for-each>
+	      </ul>
+	      </div>
+
 	    </div>
 	    
 	    <xsl:text>&#10;</xsl:text>
@@ -603,6 +628,7 @@
       <xsl:when test="@source">
 	<xsl:element name="a">
 	  <xsl:attribute name="class">source</xsl:attribute>
+	  <xsl:attribute name="id"><xsl:value-of select="generate-id()" /></xsl:attribute>
 	  <xsl:attribute name="href"><xsl:value-of select="concat(substring-after(@source,'#'),'.html')" /></xsl:attribute>
 	  <xsl:apply-templates />
 	</xsl:element>
@@ -676,6 +702,7 @@
   <xsl:template match="tei:ref">
     <xsl:element name="a">
       <xsl:attribute name="class">reference</xsl:attribute>
+      <xsl:attribute name="id"><xsl:value-of select="generate-id()" /></xsl:attribute>
       <xsl:attribute name="href"><xsl:value-of select="concat(substring-after(@target,'#'),'.html')" /></xsl:attribute>
       <xsl:apply-templates />
     </xsl:element>
@@ -792,6 +819,15 @@ to maintain in this circumstance. Really.
   <xsl:template match="tei:text[@type='supplementary']/tei:body/tei:lg[@type='poem']">
     <xsl:apply-templates select="tei:l" />
   </xsl:template>
-  
+
+
+  <!-- Linkback Templates: These templates create anchors within secondary
+       literature and a list of links. -->
+<!--  <xsl:template match="tei:text[@type='review']//tei:ref |
+		       tei:text[@type='supplementary']//tei:ref |
+		       tei:text[@type='review']//tei:quote |
+		       tei:text[@type='supplementary']//tei:ref">
+		       </xsl:template>
+		       -->
 </xsl:stylesheet>
 
