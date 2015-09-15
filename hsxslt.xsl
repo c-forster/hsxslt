@@ -162,7 +162,7 @@
 
 	      <!-- If there is a textual note, add the appropriate material. -->
 	      <xsl:if test='tei:note[@type="textual"]'>
-		<h4>Textual Note</h4>
+		<h4>Textual History:</h4>
 		<xsl:comment>Textual Information and History Here</xsl:comment>
 		<!--	      <xsl:apply-templates select='tei:note[@type="textual"]' /> -->
 		<xsl:call-template name='textualNote' />
@@ -214,26 +214,33 @@
 	      <!-- If a poem has any references in reviews/supplementary material, add 'em
 		   here. -->
 	      <xsl:comment>Incoming references from reviews and supplementary material.</xsl:comment>
-	      <div class='incoming-references'>
-		<ul>
-		<xsl:for-each select="//tei:text[@type='review']//tei:ref/@target |
-				      //tei:text[@type='supplementary']//tei:ref/@target |
-				      //tei:text[@type='review']//tei:quote/@source |
-				      //tei:text[@type='supplementary']//tei:quote/@source">
-		  <xsl:variable name="linkID">
-		    <xsl:value-of select="generate-id(..)" />
-		  </xsl:variable>
-		  <xsl:if test=". = concat('#',$poemid)">
-		    <li><xsl:element name='a'>
-		      <xsl:attribute name='href'>
-			<xsl:value-of select="concat(concat(ancestor::*[@xml:id][1]/@xml:id, '.html'), concat('#',$linkID))" />
-		      </xsl:attribute>
-		      <xsl:value-of select="ancestor::tei:text/tei:body/tei:head/tei:title" />
-		    </xsl:element></li>
-		  </xsl:if>
-		</xsl:for-each>
-	      </ul>
-	      </div>
+	      <xsl:if test="//tei:text[@type='review']//tei:ref[@target=concat('#',$poemid)] |
+			    //tei:text[@type='supplementary']//tei:ref[@target=concat('#',$poemid)] |
+			    //tei:text[@type='review']//tei:quote[@source=concat('#',$poemid)] |
+			    //tei:text[@type='supplementary']//tei:quote[@source=concat('#',$poemid)]">
+
+		<h4>References to Poem:</h4>
+		<div class='incoming-references'>
+		  <ul>
+		    <xsl:for-each select="//tei:text[@type='review']//tei:ref/@target |
+					  //tei:text[@type='supplementary']//tei:ref/@target |
+					  //tei:text[@type='review']//tei:quote/@source |
+					  //tei:text[@type='supplementary']//tei:quote/@source">
+		      <xsl:variable name="linkID">
+			<xsl:value-of select="generate-id(..)" />
+		      </xsl:variable>
+		      <xsl:if test=". = concat('#',$poemid)">
+			<li><xsl:element name='a'>
+			  <xsl:attribute name='href'>
+			    <xsl:value-of select="concat(concat(ancestor::*[@xml:id][1]/@xml:id, '.html'), concat('#',$linkID))" />
+			  </xsl:attribute>
+			  <xsl:value-of select="ancestor::tei:text/tei:body/tei:head/tei:title" />
+			</xsl:element></li>
+		      </xsl:if>
+		    </xsl:for-each>
+		  </ul>
+		</div>
+	      </xsl:if>
 
 	    </div>
 	    
