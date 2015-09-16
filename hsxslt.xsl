@@ -219,8 +219,8 @@
 			    //tei:text[@type='review']//tei:quote[@source=concat('#',$poemid)] |
 			    //tei:text[@type='supplementary']//tei:quote[@source=concat('#',$poemid)]">
 
-		<h4>References to Poem:</h4>
 		<div class='incoming-references'>
+		  <h4>References to Poem:</h4>
 		  <ul>
 		    <xsl:for-each select="//tei:text[@type='review']//tei:ref/@target |
 					  //tei:text[@type='supplementary']//tei:ref/@target |
