@@ -144,7 +144,7 @@
       <!-- HTML HEADER. -->
       <html>
 	<head>
-	  <title><xsl:value-of select="tei:head/text()" /></title>
+	  <title>Harlem Shadows: <xsl:value-of select="tei:head/text()" /></title>
 	  <xsl:call-template name="htmlHeader" />
 	  <xsl:call-template name="analytics" />
 	</head>
@@ -511,7 +511,7 @@
       
       <html>
 	<head>
-	  <title>Harlem Shadows: <xsl:value-of select="tei:head/tei:title" /></title>
+	  <title>Harlem Shadows: <xsl:value-of select="tei:body/tei:head/tei:title" /></title>
 	  <xsl:call-template name="htmlHeader" />
 	  <xsl:call-template name="analytics" />
 	</head>
@@ -841,38 +841,4 @@ to maintain in this circumstance. Really.
 		       </xsl:template>
 -->
 
-  <xsl:template name="typograpic-quotes">
-    <xsl:param name="text"    select="''" />
-    <xsl:param name="quote"   select="'&quot;'" />
-    <xsl:param name="open"    select="'“'" />
-    <xsl:param name="close"   select="'”'" />
-    <xsl:param name="inquote" select="false()" />
-
-    <xsl:choose>
-      <xsl:when test="contains($text, $quote)">
-	<xsl:value-of select="substring-before($text, $quote)" />
-	<xsl:choose>
-          <xsl:when test="$inquote">
-            <xsl:value-of select="$close" />
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="$open" />
-          </xsl:otherwise>
-	</xsl:choose>
-	<xsl:call-template name="typograpic-quotes">
-          <xsl:with-param name="text"    select="substring-after($text, $quote)" />
-          <xsl:with-param name="quote"   select="$quote" />
-          <xsl:with-param name="open"    select="$open" />
-          <xsl:with-param name="close"   select="$close" />
-          <xsl:with-param name="inquote" select="not($inquote)" />
-	</xsl:call-template>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:value-of select="$text" />
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-
-
 </xsl:stylesheet>
-
