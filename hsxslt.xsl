@@ -316,10 +316,10 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="tei:lg[@type='poem']/tei:head">
+  <xsl:template match="tei:lg[@type='poem']/tei:head" priority='4'>
     <h1><xsl:apply-templates /></h1>
   </xsl:template>
-
+  
   <xsl:template match="tei:l">
     <div class='verse-container'><p class='lineNo'><xsl:choose>
       <xsl:when test="parent::tei:lg[@type='poem']">
@@ -653,13 +653,17 @@
   -->
 
   <xsl:template match="tei:quote/tei:lg" priority="9">
-    <span class="quoted-lg">
+    <div class="quoted-lg">
       <xsl:text disable-output-escaping="yes">&lt;br /&gt;</xsl:text>
       <xsl:apply-templates />
       <xsl:text disable-output-escaping="yes">&lt;br /&gt;</xsl:text>
-    </span>
+    </div>
   </xsl:template>
 
+  <xsl:template match="tei:quote/tei:lg[@type='poem']/tei:head" priority='6'>
+    <h2><xsl:apply-templates /></h2>
+  </xsl:template>
+  
   <xsl:template match="tei:quote/tei:lg/tei:l" priority="9">
     <span class="quoted-poetry"><xsl:apply-templates />
     <!-- This sillines is necessary, otherwise our one br tag gets 
@@ -835,6 +839,40 @@ to maintain in this circumstance. Really.
 		       tei:text[@type='review']//tei:quote |
 		       tei:text[@type='supplementary']//tei:ref">
 		       </xsl:template>
-		       -->
+-->
+
+  <xsl:template name="typograpic-quotes">
+    <xsl:param name="text"    select="''" />
+    <xsl:param name="quote"   select="'&quot;'" />
+    <xsl:param name="open"    select="'“'" />
+    <xsl:param name="close"   select="'”'" />
+    <xsl:param name="inquote" select="false()" />
+
+    <xsl:choose>
+      <xsl:when test="contains($text, $quote)">
+	<xsl:value-of select="substring-before($text, $quote)" />
+	<xsl:choose>
+          <xsl:when test="$inquote">
+            <xsl:value-of select="$close" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$open" />
+          </xsl:otherwise>
+	</xsl:choose>
+	<xsl:call-template name="typograpic-quotes">
+          <xsl:with-param name="text"    select="substring-after($text, $quote)" />
+          <xsl:with-param name="quote"   select="$quote" />
+          <xsl:with-param name="open"    select="$open" />
+          <xsl:with-param name="close"   select="$close" />
+          <xsl:with-param name="inquote" select="not($inquote)" />
+	</xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:value-of select="$text" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+
 </xsl:stylesheet>
 
