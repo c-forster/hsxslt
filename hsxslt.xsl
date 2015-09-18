@@ -162,7 +162,7 @@
 
 	      <!-- If there is a textual note, add the appropriate material. -->
 	      <xsl:if test='tei:note[@type="textual"]'>
-		<h4>Textual History:</h4>
+		<h4>Textual History</h4>
 		<xsl:comment>Textual Information and History Here</xsl:comment>
 		<!--	      <xsl:apply-templates select='tei:note[@type="textual"]' /> -->
 		<xsl:call-template name='textualNote' />
@@ -172,7 +172,7 @@
 	      <xsl:comment>Toggles for notes, apparatus, etc.</xsl:comment>
 	      <xsl:text>&#10;</xsl:text>
 	      <xsl:if test="./descendant::tei:note[@type='editorial'] or ./descendant::tei:app">
-		<h4>Notes:</h4><xsl:text>&#10;</xsl:text>
+		<h4>Notes</h4><xsl:text>&#10;</xsl:text>
 		<form><xsl:text>&#10;</xsl:text>
 		<ul>
 		  <!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_textualApparatusCheckBox</xsl:attribute>Textual Apparatus</input></div><xsl:text>&#10;</xsl:text> -->
@@ -184,9 +184,10 @@
 			<div class="toggle">
 			  <input type="checkbox">
 			    <xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>
-			    Editorial Notes
+			    Editorial Notes <span class='help' tip="Check this box to view editorial annotations.">?</span>
 			  </input>
-			  </div><xsl:text>&#10;</xsl:text>
+			</div>
+			<xsl:text>&#10;</xsl:text>
 		      </li>
 		    </xsl:when>
 		    <xsl:otherwise><!-- <p>This poem has no editorial notes.</p><xsl:text>&#10;</xsl:text> --></xsl:otherwise>
@@ -198,7 +199,7 @@
 			<div class="toggle">
 			  <input type="checkbox">
 			    <xsl:attribute name="id">highlightVariants</xsl:attribute>
-			    Highlight Variants
+			    Highlight Variants <span class='help' tip="Check this box to highlight words with variant forms; click on the text to cycle through the variants.">?</span>
 			  </input>
 			</div>
 			<xsl:text>&#10;</xsl:text>
@@ -220,7 +221,7 @@
 			    //tei:text[@type='supplementary']//tei:quote[@source=concat('#',$poemid)]">
 
 		<div class='incoming-references'>
-		  <h4>References to Poem:</h4>
+		  <h4>References to Poem <span class='help' tip='These links will take to you reviews and other places where this poem is mentioned or quoted.'>?</span></h4>
 		  <ul>
 		    <xsl:for-each select="//tei:text[@type='review']//tei:ref/@target |
 					  //tei:text[@type='supplementary']//tei:ref/@target |

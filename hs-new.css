@@ -336,7 +336,7 @@ a:visited.reference, a:visited.source {
 }
 
 .toggle {
-    line-height: normal;
+    line-height: 1.6em;
 /*    width		: 12em;  */
     font-family		: sans-serif;
     padding-left: 1em; 
@@ -370,8 +370,11 @@ a:visited.reference, a:visited.source {
     border-left: 1px solid #ccc;
 }
 
-div.incoming-references {
+div.incoming-references ul {
     list-style-type: circle;
+    list-style-position: inside;
+    padding-left: 1em;
+    text-indent: -1em;
 }
 
 #header {
@@ -396,8 +399,7 @@ div.incoming-references {
 .witnessDoc {  }
 
 #witnessNote {
-    margin-top: 1em;
-    margin: 0 auto;
+    margin: 1em auto;
     width: 70%;
     padding: 1em;
     border: 1px solid black;
@@ -461,4 +463,53 @@ and (max-device-width: 736px) {
     #header {
 	font-size: 0.7em;
     }
+}
+
+/* For "tooltip" help boxes */
+span.help {
+  cursor: pointer;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-color: #89A4CC;
+  line-height: 14px;
+  color: White;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+  margin: 0.25em;
+}
+
+span.help:hover { background-color: #3D6199; }
+
+div.tooltip {
+  background-color: #3D6199;
+  color: white;
+  position: absolute;
+  left: 25px;
+  top: -25px;
+  z-index: 1000000;
+  width: 250px;
+  border-radius: 5px;
+}
+
+div.tooltip:before {
+  border-color: transparent #3D6199 transparent transparent;
+  border-right: 6px solid #3D6199;
+  border-style: solid;
+  border-width: 6px 6px 6px 0px;
+  display: block;
+  height: 0;
+  width: 0;
+  line-height: 0;
+  position: absolute;
+  top: 40%;
+  left: -6px;
+}
+
+div.tooltip p {
+  margin: 10px;
+  color: White;
 }

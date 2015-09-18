@@ -27,7 +27,6 @@ $(document).ready(function(){
 
     });
 
-
     // This function manages behavior when a "reading is clicked."
     // The first 'if' ensures that the behavior is only activated 
     // when the checkbox is checked, to present folks from unintentionally 
@@ -104,6 +103,16 @@ $(document).ready(function(){
 	e.preventDefault();
     });
 
+    // JS for tooltip
+    $("span.help").hover(function () {
+	var tooltipText = $(this).attr('tip');
+	$(this).append('<div class="tooltip"><p>'+tooltipText+'</p></div>');
+    }, function () {
+	$("div.tooltip").remove();
+    });
+
+
+
 });
 
 // Reset to condition when first loaded.
@@ -148,3 +157,6 @@ var disableVariants = function () {
     // lemma-state.
     $('input#highlightVariants').prop('disabled', true);
 }
+
+
+
