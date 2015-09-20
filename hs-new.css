@@ -149,16 +149,20 @@ p {
 /* New class added... */
 .verse-container {
     display: block;
+    padding-left: 5em;
+    text-indent: -3em;
+/*    margin-left: 1em; */
 /*    padding-left: 10em;
     text-indent: -10em; */
 }
 
 .lineNo {
-    display: inline-block;
+    display: inline;
     color: #d0d0d0; 
     padding-right: 1em; 
     text-align: right; 
-    min-width: 3em;
+/*    min-width: 3em;
+    max-width: 3em; */
 }
 
 .siglum {
@@ -427,7 +431,7 @@ div.incoming-references ul {
 /*
  Media Queries for Responsive Layout
 */
-@media screen and (min-width: 1001px ) { 
+@media screen and (min-width: 1101px ) { 
 /*  .container { width: 880px; float: left; } */
 /*  .container { width: 80%; float: left; }   */
     .container { float: left; width: 75%; }
@@ -451,18 +455,25 @@ div.incoming-references ul {
     }
 }
 
-/* Remove line numbers for mobile version. */
+
+/* Rules for mobile and smaller screens. */
 @media only screen 
 and (max-device-width: 736px) {
 
+    /* Remove line numbers for mobile version. */
     .lineNo {
 	display: none;
     }
 
-
     #header {
 	font-size: 0.7em;
     }
+
+    /* Wider format */
+    div.prose {
+	width: 95%;
+    }
+
 }
 
 /* For "tooltip" help boxes */

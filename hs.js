@@ -111,6 +111,10 @@ $(document).ready(function(){
 	$("div.tooltip").remove();
     });
 
+    // JS to close tooltip; for mobile.
+    $("div.tooltip").click(function () {
+	$(this).remove();
+    });
 
 
 });
