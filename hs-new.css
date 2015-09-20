@@ -30,7 +30,7 @@ p {
 }
 
 .information {
-    font-size		: 0.7em;
+    font-size		: 1.0em;
     font-weight		: normal;
     text-transform	: none;
     font-family		: sans-serif;
@@ -38,6 +38,8 @@ p {
     line-height		: normal;
     padding-top: 1em;
     border-bottom: solid 1px #aaa;
+    margin: 0 auto;
+    width: 350px;
 }
 
 .information h1 { font-size: 2.0em; }
@@ -140,7 +142,13 @@ p {
 }
 
 
-#poem-text h1 { margin-left: 2em; }
+#poem-text h1 {
+    margin-left: 2em;
+}
+
+#poem-text {
+    max-width: 750px;
+}
 
 .poetic-line {
     display: inline;
@@ -274,7 +282,8 @@ div.prose.review .poetic-line {
 
 /* Styles for Table of Contents */
 #tableOfContents {
-    font-size: 0.8em;
+    font-size: 1.0em;
+    margin-top: 1em;
 }
 
 #tableOfContents li {
@@ -434,18 +443,34 @@ div.incoming-references ul {
 @media screen and (min-width: 1101px ) { 
 /*  .container { width: 880px; float: left; } */
 /*  .container { width: 80%; float: left; }   */
-    .container { float: left; width: 75%; }
+    .container { float: left; width: 100%; }
 /*  .information { width: 200px; float: right; border-left: 1px solid #aaa; padding-left: 1em; padding-top: 0em; } */
-  .information { width: 30%; float: right; border-left: 1px solid #aaa; padding-left: 1em; padding-top: 0em; border-bottom: none; } 
+    .information {
+	width		: 30%;
+	float		: right;
+	border-left	: 1px solid #aaa;
+	padding-left	: 1em;
+	padding-top	: 0em;
+	border-bottom	: none;
+	font-size	: 0.7em;
+    } 
 /*  .poem { float: left; width: 550px; } */
-  .poem { float: left; max-width: 650px; } 
-  #tableOfContents { clear: both; }
+    .poem {
+	float: left;
+	max-width: 650px;
+    } 
+
+    #tableOfContents {
+	font-size: 1.0em;
+	clear: both;
+    }
 
   div#header { position: fixed; left: 0; top: 0; } 
 }
 
-@media screen and (min-width: 1201px)  {
-    #tableOfContents { 
+@media screen and (min-width: 1251px)  {
+    #tableOfContents {
+	font-size: 0.7em;
 	margin-top: 6em;
 	clear: none; 
 	float: right; 

@@ -17,7 +17,8 @@
   <xsl:template name="tableOfContents">
     <div id="tableOfContents">
       <!-- TO BE ADDED HERE: Introductory Material. -->
-
+      <h2>Contents:</h2>
+      
       <!-- Rules for extracting Harlem Shadows and its Table of Contents -->
       <h3><em>Harlem Shadows</em> (1922)</h3>
       <ul>
