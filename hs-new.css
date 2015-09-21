@@ -157,15 +157,15 @@ p {
 /* New class added... */
 .verse-container {
     display: block;
-    padding-left: 3em;
-    text-indent: -2em;
+    padding-left: 4em;
+    text-indent: -3em;
 /*    margin-left: 1em; */
 /*    padding-left: 10em;
     text-indent: -10em; */
 }
 
 .lineNo {
-    display: inline-block;
+    display: inline;
     color: #d0d0d0; 
     padding-right: 1em; 
     text-align: right; 
