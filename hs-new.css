@@ -165,12 +165,12 @@ p {
 }
 
 .lineNo {
-    display: inline;
+    display: inline-block;
     color: #d0d0d0; 
     padding-right: 1em; 
     text-align: right; 
-/*    min-width: 3em;
-    max-width: 3em; */
+    min-width: 3em;
+/*    max-width: 3em; */
 }
 
 .siglum {
