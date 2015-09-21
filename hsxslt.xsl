@@ -255,8 +255,10 @@
 
 	      <!-- Toggles for individual poem. -->
 	      <xsl:text>&#10;</xsl:text>
-	      <div id='poem-text'>
-		<xsl:apply-templates />
+	      <div>
+		<ol id='poem-text'>
+		  <xsl:apply-templates />
+		</ol>
 	      </div>
 
 	      <!-- Generate apparatus for notes -->
@@ -333,14 +335,14 @@
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <p class='verse-container'><span class='lineNo'><xsl:if test='$lineNumber &lt; 10'>&#160;</xsl:if><xsl:value-of select='$lineNumber' /></span>
+    <li><p class='verse-container'>
 
     <!-- This span contains the poetic line itself -->
     <xsl:element name="span"> <xsl:attribute name="class">poetic-line <xsl:for-each select="@*"> <xsl:value-of select="." /> </xsl:for-each> </xsl:attribute>
     <xsl:apply-templates />
     </xsl:element>
     <!-- Here ends the template which grabs the poetic line itself -->
-    </p>
+    </p></li>
   </xsl:template>
 
   <!-- This template outputs the text content of poetic lines. -->

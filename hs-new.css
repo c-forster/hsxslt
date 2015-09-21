@@ -143,11 +143,12 @@ p {
 
 
 #poem-text h1 {
-    margin-left: 1em;
+/*    margin-left: 1em; */
 }
 
 #poem-text {
-    max-width: 750px;
+    /*    max-width: 750px; */
+    max-width: 50em;
 }
 
 .poetic-line {
@@ -159,19 +160,20 @@ p {
     display: block;
     padding-left: 4em;
     text-indent: -3em;
+    color: #423F37;
 /*    margin-left: 1em; */
 /*    padding-left: 10em;
     text-indent: -10em; */
 }
 
-.lineNo {
-    display: inline;
-    color: #d0d0d0; 
-    padding-right: 1em; 
-    text-align: right; 
-    min-width: 3em;
-/*    max-width: 3em; */
+#poem-text ol {
+
 }
+
+#poem-text li {
+    color: #d0d0d0;
+}
+
 
 .siglum {
     color: blue;
