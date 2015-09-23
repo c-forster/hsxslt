@@ -145,7 +145,7 @@
       <!-- HTML HEADER. -->
       <html>
 	<head>
-	  <title>Harlem Shadows: <xsl:value-of select="tei:head/text()" /></title>
+	  <title>Harlem Shadows: <xsl:value-of select="normalize-space((tei:head/text())[1])" /></title>
 	  <xsl:call-template name="htmlHeader" />
 	  <xsl:call-template name="analytics" />
 	</head>
@@ -807,7 +807,7 @@ to maintain in this circumstance. Really.
   <xsl:template name='fullCitation'>
     <xsl:variable name='biblID'><xsl:value-of select='substring-after(@target,"#")' /></xsl:variable>
     <span class='fullBiblioEntry'>
-      <xsl:attribute name='id'>bibl<xsl:value-of select='$biblID' /></xsl:attribute>
+      <xsl:attribute name='id'>full_bibl<xsl:value-of select='$biblID' /></xsl:attribute>
       <xsl:apply-templates select='/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:listWit/tei:witness[@xml:id=$biblID]' />
     </span>
   </xsl:template>
@@ -815,7 +815,7 @@ to maintain in this circumstance. Really.
   <xsl:template name='shortCitation'>
     <xsl:variable name='biblID'><xsl:value-of select='substring-after(@target,"#")' /></xsl:variable>
     <span class='shortBiblioEntry'>
-      <xsl:attribute name='id'>bibl<xsl:value-of select='$biblID' /></xsl:attribute>
+      <xsl:attribute name='id'>short_bibl<xsl:value-of select='$biblID' /></xsl:attribute>
       <xsl:apply-templates select='/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:listWit/tei:witness[@xml:id=$biblID]/tei:bibl/tei:title' />
       <xsl:apply-templates select='/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:listWit/tei:witness[@xml:id=$biblID]/tei:biblStruct/tei:monogr/tei:title' />
       <xsl:text> </xsl:text>
