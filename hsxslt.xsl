@@ -185,7 +185,7 @@
 			<div class="toggle">
 			  <input type="checkbox">
 			    <xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>
-			    Editorial Notes <span class='help' tip="Check this box to view editorial annotations.">?</span>
+			    Editorial Notes <span class='help' data-tip="Check this box to view editorial annotations.">?</span>
 			  </input>
 			</div>
 			<xsl:text>&#10;</xsl:text>
@@ -200,7 +200,7 @@
 			<div class="toggle">
 			  <input type="checkbox">
 			    <xsl:attribute name="id">highlightVariants</xsl:attribute>
-			    Highlight Variants <span class='help' tip="Check this box to highlight words with variant forms; click on the text to cycle through the variants.">?</span>
+			    Highlight Variants <span class='help' data-tip="Check this box to highlight words with variant forms; click on the text to cycle through the variants.">?</span>
 			  </input>
 			</div>
 			<xsl:text>&#10;</xsl:text>
@@ -222,7 +222,7 @@
 			    //tei:text[@type='supplementary']//tei:quote[@source=concat('#',$poemid)]">
 
 		<div class='incoming-references'>
-		  <h4>References to Poem <span class='help' tip='These links will take to you reviews and other places where this poem is mentioned or quoted.'>?</span></h4>
+		  <h4>References to Poem <span class='help' data-tip='These links will take to you reviews and other places where this poem is mentioned or quoted.'>?</span></h4>
 		  <ul>
 		    <xsl:for-each select="//tei:text[@type='review']//tei:ref/@target |
 					  //tei:text[@type='supplementary']//tei:ref/@target |
@@ -644,15 +644,26 @@
 	  <xsl:attribute name="class">source</xsl:attribute>
 	  <xsl:attribute name="id"><xsl:value-of select="generate-id()" /></xsl:attribute>
 	  <xsl:attribute name="href"><xsl:value-of select="concat(substring-after(@source,'#'),'.html')" /></xsl:attribute>
-	  <xsl:apply-templates />
+	  <xsl:call-template name="quotation" />
 	</xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:call-template name="quotation" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="quotation">
+    <xsl:choose>
+      <xsl:when test="(tei:pb) or not(*)">
+	<blockquote><xsl:apply-templates /></blockquote>
       </xsl:when>
       <xsl:otherwise>
 	<xsl:apply-templates />
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
+  
   <!-- These rules handle poems quoted within some other context
        (usually prose: reviews, etc). These templates are necessary 
        to prevent the main poem template being triggered, which writes 

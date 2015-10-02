@@ -105,7 +105,7 @@ $(document).ready(function(){
 
     // JS for tooltip
     $("span.help").hover(function () {
-	var tooltipText = $(this).attr('tip');
+	var tooltipText = $(this).attr('data-tip');
 	$(this).append('<div class="tooltip"><p>'+tooltipText+'</p></div>');
     }, function () {
 	$("div.tooltip").remove();

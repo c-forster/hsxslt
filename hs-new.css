@@ -182,8 +182,10 @@ p {
 /* Styles for prose blocks follow */
 div.prose {
     margin: 0 auto;
-    width: 65%;
+    /*    width: 65%; */
+    max-width: 30em;
     background: #fff;
+    padding: 0.7em;
 /*    padding-left: 15%; */
 }
 
@@ -197,7 +199,7 @@ div.prose p {
     text-indent: 0em;
     font-size: 1.2em;
     line-height: 1.4em;
-    text-align: justify;
+/*    text-align: justify; */
 }
 
 div.prose p + p {
@@ -322,7 +324,7 @@ div.prose.review .poetic-line {
 
 sup.footnote {
     display: none;
-    font-size: 0.7em;
+    font-size: 0.7rem;
     color: #6495ED;
 }
 
