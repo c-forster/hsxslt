@@ -255,9 +255,10 @@
 
 	      <!-- Toggles for individual poem. -->
 	      <xsl:text>&#10;</xsl:text>
+	      <xsl:call-template name="poem-title" />
 	      <div>
 		<ol id='poem-text'>
-		  <xsl:apply-templates />
+		  <xsl:apply-templates select="tei:l|tei:lg" />
 		</ol>
 	      </div>
 
@@ -320,7 +321,15 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="tei:lg[@type='poem']/tei:head" priority='4'>
+  <xsl:template match="tei:lg/tei:lg/tei:head" priority="10">
+    <h2><xsl:apply-templates /></h2>
+  </xsl:template>
+  
+  <xsl:template name="poem-title">
+    <xsl:apply-templates select="tei:head" />
+  </xsl:template>
+  
+  <xsl:template match="tei:lg[@type='poem']/tei:head" priority="4">
     <h1><xsl:apply-templates /></h1>
   </xsl:template>
   
@@ -850,6 +859,15 @@ to maintain in this circumstance. Really.
   </xsl:template>
 
 
+  <!-- Rules for citations, cit, which group a quote and bibl. -->
+  <xsl:template match="tei:cit">
+    <xsl:apply-templates />
+  </xsl:template>
+
+  <xsl:template match="tei:cit/tei:bibl">
+  </xsl:template>
+
+
   <!-- Linkback Templates: These templates create anchors within secondary
        literature and a list of links. -->
 <!--  <xsl:template match="tei:text[@type='review']//tei:ref |
@@ -858,5 +876,6 @@ to maintain in this circumstance. Really.
 		       tei:text[@type='supplementary']//tei:ref">
 		       </xsl:template>
 -->
+
 
 </xsl:stylesheet>
