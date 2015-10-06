@@ -62,10 +62,6 @@
     <script src="hs.js" type="text/javascript"></script>
   </xsl:template>
 
-  <xsl:template match="tei:head">
-  </xsl:template>
-
-
   <xsl:template match="tei:div/tei:head">
     <h3><xsl:apply-templates /></h3>
   </xsl:template>
@@ -331,6 +327,10 @@
   
   <xsl:template match="tei:lg[@type='poem']/tei:head" priority="4">
     <h1><xsl:apply-templates /></h1>
+  </xsl:template>
+
+  <xsl:template match="tei:lg[@type='poem']/tei:head[@type='dedication']" priority="5">
+    <h3><xsl:apply-templates /></h3>
   </xsl:template>
   
   <xsl:template match="tei:l">
@@ -854,7 +854,7 @@ to maintain in this circumstance. Really.
   </xsl:template>
 
   <!-- This Template ensures that supplementary texts which consist only of a poem get processed.  -->
-  <xsl:template match="tei:text[@type='supplementary']/tei:body/tei:lg[@type='poem']">
+  <xsl:template match="tei:text[@type='supplementary']/tei:body/tei:lg[@type='poem']" priority="1">
     <xsl:apply-templates select="tei:l" />
   </xsl:template>
 

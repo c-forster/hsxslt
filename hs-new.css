@@ -1,6 +1,6 @@
 
-html {
-    font-size: 1.3em;
+body {
+    font-size: 16px;
     color: #423F37;
 }
 
@@ -29,8 +29,14 @@ p {
     margin-bottom: 2em;
 }
 
+ol {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+
 .information {
-    font-size		: 1.0em;
+/*    font-size		: 1.0em; */
     font-weight		: normal;
     text-transform	: none;
     font-family		: sans-serif;
@@ -38,7 +44,7 @@ p {
     line-height		: normal;
     padding-top: 1em;
     border-bottom: solid 1px #aaa;
-    margin: 0 auto;
+/*    margin: 0 auto; */
     width: 350px;
 }
 
@@ -158,8 +164,8 @@ p {
 /* New class added... */
 .verse-container {
     display: block;
-    padding-left: 4em;
-    text-indent: -3em;
+    padding-left: 2em;
+    text-indent: -2em;
     color: #423F37;
 /*    margin-left: 1em; */
 /*    padding-left: 10em;
@@ -444,11 +450,15 @@ div.incoming-references ul {
 /*
  Media Queries for Responsive Layout
 */
-@media screen and (min-width: 1101px ) { 
-/*  .container { width: 880px; float: left; } */
-/*  .container { width: 80%; float: left; }   */
-    .container { float: left; width: 100%; }
-/*  .information { width: 200px; float: right; border-left: 1px solid #aaa; padding-left: 1em; padding-top: 0em; } */
+@media screen and (min-width: 920px ) {
+    body {
+	font-size: 19px;
+    }
+    .container {
+	float: left;
+	width: 100%;
+    }
+    
     .information {
 	width		: 30%;
 	float		: right;
@@ -456,14 +466,28 @@ div.incoming-references ul {
 	padding-left	: 1em;
 	padding-top	: 0em;
 	border-bottom	: none;
-	font-size	: 0.7em;
+/*	font-size	: 0.7em; */
     } 
-/*  .poem { float: left; width: 550px; } */
+
+    .verse-container {
+	display: block;
+	padding-left: 4em;
+	text-indent: -3em;
+	color: #423F37;
+    }
+
+    
     .poem {
 	float: left;
 	max-width: 650px;
+	font-size: 1.2em;
     } 
 
+    ol {
+	list-style-type: decimal;
+	padding-left: 2em;
+    }
+    
     #tableOfContents {
 	font-size: 1.0em;
 	clear: both;
@@ -474,8 +498,8 @@ div.incoming-references ul {
 
 @media screen and (min-width: 1251px)  {
     #tableOfContents {
-	font-size: 0.7em;
-	margin-top: 7em;
+/*	font-size: 0.7em; */
+	margin-top: 5em;
 	clear: none; 
 	float: right; 
 	width: 17.5%;
@@ -488,11 +512,6 @@ div.incoming-references ul {
 /* Rules for mobile and smaller screens. */
 @media only screen 
 and (max-device-width: 736px) {
-
-    /* Remove line numbers for mobile version. */
-    .lineNo {
-	display: none;
-    }
 
     #header {
 	font-size: 0.7em;
