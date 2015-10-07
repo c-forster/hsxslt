@@ -1,4 +1,8 @@
 
+html {
+    box-sizing: border-box; 
+}
+
 body {
     font-size: 16px;
     color: #423F37;
@@ -21,7 +25,7 @@ p {
 
 
 .poem {
-/*    padding-left: 3em; */
+/*    margin-left: 3em; */
 /*    border-top: solid gray 1px; */
 /* The following three rules ensure a page number goes with the appropriate poem */
 /*    border-bottom: solid gray 1px; */

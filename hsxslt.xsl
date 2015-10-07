@@ -84,7 +84,7 @@
 
 	  <xsl:call-template name="header" />
 
-	  <div class="container">
+	  <div class="col-sm-7 col-md-6">
 	    <div class="prose" id="editorsIntroduction">
 	      <h1>Harlem Shadows (1922)</h1>
 
@@ -153,7 +153,7 @@
 	</head>
 
 	<body>
-	  <div class='container-fluid'>
+
 	  <xsl:call-template name="header" />
 
 	  <!-- information: what was formerly toggles and textual note. -->
@@ -251,7 +251,7 @@
 
 	      <!-- poem -->
 	      <xsl:element name="div">
-		<xsl:attribute name="class">poem col-sm-7 col-md-6</xsl:attribute>
+		<xsl:attribute name="class">poem col-sm-5 col-md-5</xsl:attribute>
 		<xsl:attribute name="id"><xsl:value-of select="$poemid" /></xsl:attribute>
 
 		<!-- Toggles for individual poem. -->
@@ -290,7 +290,7 @@
 
 	  <!-- Load Javascript and jQuery. -->
 	  <xsl:call-template name="JSIncludes" />
-	  </div>
+
 	</body>
 </html>
 </xsl:result-document>
@@ -452,10 +452,10 @@
 	<xsl:call-template name="header" />
 
 	<!-- Container divs for content. -->
-	<div class="fluid-container">
+	<div class="col-sm-7 col-md-6">
 	  <!-- Div for Central Content. -->
 	  <xsl:element name="div">
-	    <xsl:attribute name="class">prose col-sm-7 col-md-6</xsl:attribute>
+	    <xsl:attribute name="class">prose</xsl:attribute>
 	    <xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
 	    <xsl:apply-templates />
 	  </xsl:element>
@@ -549,8 +549,14 @@
 	    <xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
 	    <xsl:apply-templates />
 	  </xsl:element>
+	  
+	  <!-- We now do not call apply-tempaltes for all templates, otherwise we'll -->
+	  <!-- output stuff we don't want; just the bibl for the citation. -->
+	  <div class='citation'>
+	    <xsl:apply-templates select="tei:body/tei:head/tei:bibl" />
+	  </div>
 	</div>
-	
+
 	<xsl:text>&#10;</xsl:text>
 	<!-- Div for Table of Contents. -->
 	<xsl:call-template name="tableOfContents" />
@@ -571,13 +577,7 @@
 <!-- HACK: Also grabs supplementary material and handles them the same way. -->
 <xsl:template match="tei:text[@type='review']/tei:body/tei:head|tei:text[@type='supplementary']/tei:body/tei:head">
 
-  <!-- We now do not call apply-tempaltes for all templates, otherwise we'll -->
-  <!-- output stuff we don't want; just the bibl for the citation. -->
-  <div class='information'>
-    <xsl:apply-templates select="tei:bibl" />
-  </div>
-
-  <h2 class="review-title"><xsl:apply-templates select="tei:title" /></h2>
+  <h2 class="review-title"><xsl:apply-templates select="tei:bibl/tei:title[1]" /></h2>
   <xsl:if test="tei:bibl/tei:author">
     <h4 class="review-author">by 
     <!-- First name/names -->
@@ -872,7 +872,9 @@ to maintain in this circumstance. Really.
 
 <!-- This Template ensures that supplementary texts which consist only of a poem get processed.  -->
 <xsl:template match="tei:text[@type='supplementary']/tei:body/tei:lg[@type='poem']" priority="1">
-  <xsl:apply-templates select="tei:l" />
+  <ol id='poem-text'>
+    <xsl:apply-templates select="tei:l|tei:lg" />
+  </ol>
 </xsl:template>
 
 

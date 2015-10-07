@@ -186,13 +186,6 @@ div.prose.review {
 /*    border-bottom: 1px solid black; */
 }
 
-div.prose.review p.citation {
-/*    width: 60%;  */
-    padding-top: 0em;
-    padding-bottom: 2em;
-    font-size: 80%;
-    color: darkgray;
-}
 
 div.prose.review h4 {
     color: #777777;
@@ -286,7 +279,7 @@ div.prose.review p.verse-container {
 
 sup.footnote {
     display: none;
-    font-size: 0.7rem;
+/*    font-size: 0.7em; */
     color: #6495ED;
 }
 
@@ -411,33 +404,10 @@ a.help {
 
 a.help:hover { background-color: #3D6199; }
 
-/*div.tooltip {
-  background-color: #3D6199;
-  color: white;
-  position: absolute;
-  left: 25px;
-  top: -25px;
-  z-index: 1000000;
-  width: 250px;
-  border-radius: 5px;
+.citation {
+    padding-top: 0em;
+    padding-bottom: 2em;
+    font-size: 80%;
+    color: darkgray;
+    width: 50%;
 }
-
-div.tooltip:before {
-  border-color: transparent #3D6199 transparent transparent;
-  border-right: 6px solid #3D6199;
-  border-style: solid;
-  border-width: 6px 6px 6px 0px;
-  display: block;
-  height: 0;
-  width: 0;
-  line-height: 0;
-  position: absolute;
-  top: 40%;
-  left: -6px;
-}
-
-div.tooltip p {
-  margin: 10px;
-  color: White;
-} */
-
