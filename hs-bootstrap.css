@@ -1,0 +1,443 @@
+
+body {
+    font-family: 'Source Sans Pros',Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    color: #423F37;
+}
+
+.poem h1 {
+    font-family: 'EB Garamond',Times,serif;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.poem {
+    margin-left: 1em;
+    font-size: 1.5em;
+}
+
+ol {
+    padding-left: 0;
+}
+
+.information {
+    font-weight		: normal;
+    text-transform	: none;
+    font-family		: sans-serif;
+    line-height		: normal;
+    padding-top: 1em;
+}
+
+.information h1 { font-size: 2.0em; font-weight: bold; }
+.information h2 { font-size: 1.7em; font-weight: bold; }
+.information h3 { font-size: 1.5em; font-weight: bold; }
+.information h4 { font-size: 1.2em; font-weight: bold; }
+
+.textualNote { padding-bottom: 1em; padding-left: 1em; padding-right: 1em; margin: 1em; }
+.textualNote p+p { text-indent: 1em; }
+.textualNote ul {  padding-left: 0em; }
+.textualNote li { }
+
+.note ul {
+    padding: 0;
+}
+
+.linegroup {
+   padding-bottom: 1.0em;
+}
+
+.apparatus.highlight {
+    cursor: pointer;
+}
+
+.reading {
+    display: none;
+}
+
+.lemma {
+    display: inline;
+}
+
+.empty-lemma {
+    display: inline;
+}
+
+.highlight .reading {
+/* Old Style 
+    text-decoration: none;
+    font-size: 0.7em; 
+    vertical-align: middle;
+    color: #a0a0a0; 
+    padding-left: 10em;
+    float: right;
+
+    width: 15em;
+    text-indent: 0em;
+*/
+    display: none;
+    color: #a0a0a0;
+}
+
+.highlight .lemma {
+    display: inline;
+    color: red;
+}
+
+.highlight span.empty-lemma {
+   display: inline;
+   color: red;
+   text-decoration: underline;
+}
+
+.title {
+    font-style: italic;
+}
+
+.caps {
+    text-transform: uppercase;
+    
+}
+
+/* Poetry Indentations. */
+.indent1 {
+    margin-left: 1em;
+}
+
+.indent2 {
+    margin-left: 2em;
+}
+
+.indent3 {
+    margin-left: 3em;
+}
+
+.indent4 {
+    margin-left: 3em; 
+}
+
+.sic {
+}
+
+.poetic-line {
+    display: inline;
+}
+
+.verse-container {
+    font-family: 'EB Garamond',Times,serif;
+    display: block;
+    padding-left: 2em;
+    text-indent: -2em;
+    color: #423F37;
+    margin: 0;
+/*    margin-left: 1em; */
+/*    padding-left: 10em;
+    text-indent: -10em; */
+}
+
+#poem-text ol {
+
+}
+
+#poem-text li {
+    color: #d0d0d0;
+}
+
+
+.siglum {
+    color: blue;
+}
+
+/* Styles for prose blocks follow */
+div.prose {
+    margin: 0 auto; 
+    /*    width: 65%; */
+    max-width: 40em;  
+    background: #fff;
+    padding: 0.7em;
+    font-family: 'EB Garamond',Times,serif;
+/*    padding-left: 15%; */
+}
+
+div.prose h3 {
+    font-variant: small-caps;
+    text-align: center;
+    font-size: 1.7em;
+}
+
+div.prose p {
+    text-indent: 0em;
+    font-size: 1.2em;
+    line-height: 1.4em;
+/*    text-align: justify; */
+}
+
+div.prose p + p {
+    text-indent: 2em;
+}
+
+div.prose .closer {
+    right: 0em;
+    text-align: right;
+}
+
+/* Styles for reviews */
+div.prose.review {
+    padding-bottom: 2em;
+/*    border-bottom: 1px solid black; */
+}
+
+div.prose.review p.citation {
+/*    width: 60%;  */
+    padding-top: 0em;
+    padding-bottom: 2em;
+    font-size: 80%;
+    color: darkgray;
+}
+
+div.prose.review h4 {
+    color: #777777;
+    font-size: 1.0em;
+    line-height: normal;
+}
+
+/* What follows are hacks for dealing with poetry 
+  quoted within prose. */
+/* This style hides the line numbers for poems quoted in 
+   a review. */
+div.prose.review .lineNo {
+    display: none;
+}
+/* We treat poetic lines as as a special species of HTML paragraphs.
+   This means we have to override the rule for paragraph indentation. */
+div.prose.review p.verse-container {
+/*    text-indent: 0em; */
+}
+
+/* End of Poetry within Prose Hacks */
+
+
+.section-title {
+    font-variant: small-caps;
+    padding-left: 3em;
+    color: #b80000;
+}
+
+/* Styles for title material */
+#titlePage, #half-title {
+    margin: 0 auto;
+    width: 60%; 
+    text-align: center;
+    padding: 8em;
+}
+
+#frontmatter p, #titlePage p {
+    text-indent: 0em;
+}
+
+#frontmatter {
+    font-size: 0.8em;
+    color: #838b8b;
+    width: 40%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 4em;
+}
+
+
+/* Styles for Table of Contents */
+#tableOfContents {
+    font-size: 1.0em;
+    font-family: 'EB Garamond',Times,serif;
+}
+
+#tableOfContents h2 { font-family: sans-serif; font-weight: bold; }
+
+#tableOfContents li {
+/*    list-style:none; */
+}
+
+#tableOfContents a {
+    text-decoration: none;
+}
+
+.caps {
+    font-variant: small-caps;
+}
+
+.pageBreak {
+    position: absolute;
+    right: 10%;
+    color: gray;
+    float: right;
+    text-align: right;
+    font-size: 0.7em;
+}
+
+.editorialNotes {
+    padding: 1em;
+    font-family: sans-serif;
+    font-size: 0.7em;
+/*    text-indent: -1em; */
+}
+
+.editorialNotes li {
+    list-style: none;
+}
+
+sup.footnote {
+    display: none;
+    font-size: 0.7rem;
+    color: #6495ED;
+}
+
+div.quoted-lg {
+    display: block;
+}
+
+span.quoted-poetry {
+    display: block;
+    margin-left: 3em;
+    text-indent: -2em;
+    font-size: 1em;
+    line-height: 1.4em;
+}
+
+a.reference, a.source {
+    text-decoration: none;
+}
+
+a:link.reference, a:link.source {
+    color: #4961e1;
+}
+
+a:visited.reference, a:visited.source { 
+    color: #483d8b;
+}
+
+.toggle {
+    line-height: 1.6em;
+/*    width		: 12em;  */
+    font-family		: sans-serif;
+    padding-left: 1em; 
+    padding-right: 1em;
+    
+}
+
+.information ul {
+    padding: 0;
+    list-style-type: none; 
+}
+
+
+.editorialNotes {
+    display: none;
+}
+
+/* Oh, here's a real ugly hack! To prevent an ugly new line for multiparagraph 
+   editorial notes, we'll make JUST the first p within a note inline. */
+.editorialNotes li p:first-of-type {
+    display: inline;
+}
+
+.editorialNotes li p+p {
+    text-indent: 2em;
+    padding-top: 0.5em;
+}
+
+.editorialNotes li blockquote {
+    padding-left: 1em;
+    border-left: 1px solid #ccc;
+}
+
+div.incoming-references ul {
+    list-style-type: circle;
+    list-style-position: inside;
+    padding-left: 1em;
+    text-indent: -1em;
+}
+
+#header {
+    background-color: #423F37; 
+    color: #ccc;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-variant: small-caps;
+}
+
+#header a { color: inherit; text-decoration: inherit; }
+#header h1 { margin-left: 0.5em; }
+
+.witnessDoc {  }
+
+#witnessNote {
+    width: 70%;
+    padding: 0.5em;
+    margin: 1em;
+    border: 1px solid black;
+    font-size: 0.7em;
+    background: #d0d0d0;
+/*    margin: 0 auto; */
+}
+
+/* The full bibliographic entry which is present in the HTML should never be 
+   natively displayed. Instead, it provides the information that can be slurped
+   out as necessary by jQuery. */
+.fullBiblioEntry { display: none; }
+
+#editorsIntroduction    { margin-top: 2em; }
+#editorsIntroduction h1 { font-family: 'EB Garamond', Times, serf; font-size: 2em; }
+#editorsIntroduction h2 { font-family: 'EB Garamond', Times, serf; font-size: 1.7em; }
+#editorsIntroduction p  { font-family: 'Open Sans Condensed',Helvetica,Arial,sans-serif;  }
+#editorsIntroduction ul { font-family: 'Open Sans Condensed',Helvetica,Arial,sans-serif;  }
+
+#footer { text-align: right; margin-top: 2em; margin-right: 3em; font-family: 'Open Sans Condensed',Helvetica,Arial,sans-serif; font-size:x-small; color: #c0c0c0; }
+
+/* For "tooltip" help boxes */
+a.help {
+    text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-color: #89A4CC;
+  line-height: 14px;
+  color: White;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+  margin: 0.25em;
+}
+
+a.help:hover { background-color: #3D6199; }
+
+/*div.tooltip {
+  background-color: #3D6199;
+  color: white;
+  position: absolute;
+  left: 25px;
+  top: -25px;
+  z-index: 1000000;
+  width: 250px;
+  border-radius: 5px;
+}
+
+div.tooltip:before {
+  border-color: transparent #3D6199 transparent transparent;
+  border-right: 6px solid #3D6199;
+  border-style: solid;
+  border-width: 6px 6px 6px 0px;
+  display: block;
+  height: 0;
+  width: 0;
+  line-height: 0;
+  position: absolute;
+  top: 40%;
+  left: -6px;
+}
+
+div.tooltip p {
+  margin: 10px;
+  color: White;
+} */
+

@@ -62,7 +62,7 @@ $(document).ready(function(){
     $('a.textualWitness').click(function (e) {
 	// Get the id of the function
 	var $witnessID = $(this).attr('id');
-
+	console.log($witnessID);
 	// console.log($witnessID);
 	// Reset the text to its lemma-state.
 	resetText();
@@ -89,7 +89,7 @@ $(document).ready(function(){
 	// Show a message explaining provenance of displayed 
 	// text and displaying a link to return to original.
 	$('p.verse-container').addClass('witnessDoc');
-	var $witnessInfo = $('#bibl'+$witnessID).html();
+	var $witnessInfo = $('#short_bibl'+$witnessID).html();
 	var $insertText = "<div id='witnessNote'><p>This is the text of the poem as it appears in: "+$witnessInfo+"</p><p><a href='#' class='reset'>Reset.</a></p></div>";
 	// Remove any old witnessNotes
 	$('#witnessNote').remove(); 
@@ -103,19 +103,8 @@ $(document).ready(function(){
 	e.preventDefault();
     });
 
-    // JS for tooltip
-    $("span.help").hover(function () {
-	var tooltipText = $(this).attr('data-tip');
-	$(this).append('<div class="tooltip"><p>'+tooltipText+'</p></div>');
-    }, function () {
-	$("div.tooltip").remove();
-    });
-
-    // JS to close tooltip; for mobile.
-    $("div.tooltip").click(function () {
-	$(this).remove();
-    });
-
+    // JS for tooltips
+    $('[data-toggle="tooltip"]').tooltip();
 
 });
 
