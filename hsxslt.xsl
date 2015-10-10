@@ -174,44 +174,46 @@
 		<xsl:comment>Toggles for notes, apparatus, etc.</xsl:comment>
 		<xsl:text>&#10;</xsl:text>
 		<xsl:if test="./descendant::tei:note[@type='editorial'] or ./descendant::tei:app">
-		  <h4>Notes</h4><xsl:text>&#10;</xsl:text>
-		  <form><xsl:text>&#10;</xsl:text>
-		  <ul>
-		    <!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_textualApparatusCheckBox</xsl:attribute>Textual Apparatus</input></div><xsl:text>&#10;</xsl:text> -->
+		  <div class='toggles'>
+		    <h4>Notes</h4><xsl:text>&#10;</xsl:text>
+		    <form><xsl:text>&#10;</xsl:text>
+		    <ul>
+		      <!--	  <div class="toggle"><input type="checkbox"><xsl:attribute name="id"><xsl:value-of select="$poemid" />_textualApparatusCheckBox</xsl:attribute>Textual Apparatus</input></div><xsl:text>&#10;</xsl:text> -->
 
-		    <!-- If a poem has any editorial notes, create a box to activate 'em. -->
-		    <xsl:choose>
-		      <xsl:when test="./descendant::tei:note[@type='editorial']">
-			<li>
-			  <div class="toggle">
-			    <input type="checkbox">
-			      <xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>
-			      Editorial Notes <a href='#' class='help' data-toggle='tooltip' title="Check this box to view editorial annotations.">?</a>
-			    </input>
-			  </div>
-			  <xsl:text>&#10;</xsl:text>
-			</li>
-		      </xsl:when>
-		      <xsl:otherwise><!-- <p>This poem has no editorial notes.</p><xsl:text>&#10;</xsl:text> --></xsl:otherwise>
-		    </xsl:choose>
+		      <!-- If a poem has any editorial notes, create a box to activate 'em. -->
+		      <xsl:choose>
+			<xsl:when test="./descendant::tei:note[@type='editorial']">
+			  <li>
+			    <div class="toggle">
+			      <input type="checkbox">
+				<xsl:attribute name="id"><xsl:value-of select="$poemid" />_editorialNotesCheckBox</xsl:attribute>
+				Editorial Notes <a href='#' class='help' data-toggle='tooltip' title="Check this box to view editorial annotations.">?</a>
+			      </input>
+			    </div>
+			    <xsl:text>&#10;</xsl:text>
+			  </li>
+			</xsl:when>
+			<xsl:otherwise><!-- <p>This poem has no editorial notes.</p><xsl:text>&#10;</xsl:text> --></xsl:otherwise>
+		      </xsl:choose>
 
-		    <xsl:choose>
-		      <xsl:when test="./descendant::tei:app">
-			<li>
-			  <div class="toggle">
-			    <input type="checkbox">
-			      <xsl:attribute name="id">highlightVariants</xsl:attribute>
-			      Highlight Variants <a href='#' class='help' data-toggle='tooltip' title="Check this box to highlight words with variant forms; click on the highlighted words to cycle through the variants.">?</a>
-			    </input>
-			  </div>
-			  <xsl:text>&#10;</xsl:text>
-			</li>
-		      </xsl:when>
-		      <xsl:otherwise><!--  <p>This poem has no textual variants.</p> --></xsl:otherwise>
-		    </xsl:choose>
-		  </ul>
-		  </form>
-		  <xsl:text>&#10;</xsl:text>
+		      <xsl:choose>
+			<xsl:when test="./descendant::tei:app">
+			  <li>
+			    <div class="toggle">
+			      <input type="checkbox">
+				<xsl:attribute name="id">highlightVariants</xsl:attribute>
+				Highlight Variants <a href='#' class='help' data-toggle='tooltip' title="Check this box to highlight words with variant forms; click on the highlighted words to cycle through the variants.">?</a>
+			      </input>
+			    </div>
+			    <xsl:text>&#10;</xsl:text>
+			  </li>
+			</xsl:when>
+			<xsl:otherwise><!--  <p>This poem has no textual variants.</p> --></xsl:otherwise>
+		      </xsl:choose>
+		    </ul>
+		    </form>
+		    <xsl:text>&#10;</xsl:text>
+		  </div>
 		</xsl:if>
 
 		<!-- If a poem has any references in reviews/supplementary material, add 'em
@@ -251,7 +253,7 @@
 
 	      <!-- poem -->
 	      <xsl:element name="div">
-		<xsl:attribute name="class">poem col-sm-5 col-md-5</xsl:attribute>
+		<xsl:attribute name="class">poem col-sm-8 col-md-5</xsl:attribute>
 		<xsl:attribute name="id"><xsl:value-of select="$poemid" /></xsl:attribute>
 
 		<!-- Toggles for individual poem. -->
@@ -274,11 +276,7 @@
 		      <xsl:attribute name="id">
 			<xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_editorialNote_<xsl:value-of select="count(preceding::tei:note)" />
 		      </xsl:attribute>
-		      <xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
-		      <xsl:text>: </xsl:text>
-		      <!-- In order preserve formatting using hi tag within notes, rather than value of -->
-		      <!-- this next function is apply-templates. I'm scared. - csf 5/29/14 -->
-		      <!--	  <xsl:value-of select="." /> -->
+		      <span class='list-number'><xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" /></span><xsl:text>: </xsl:text>
 		      <xsl:apply-templates />
 		      </li><xsl:text>&#10;</xsl:text>
 		  </xsl:for-each>
@@ -553,7 +551,24 @@
 	  <!-- We now do not call apply-tempaltes for all templates, otherwise we'll -->
 	  <!-- output stuff we don't want; just the bibl for the citation. -->
 	  <div class='citation'>
+	    <h4>Citation</h4>
 	    <xsl:apply-templates select="tei:body/tei:head/tei:bibl" />
+	  </div>
+
+	  <div class='information'>
+	    <xsl:if test='tei:body/tei:head/tei:note[@type="source"]'>
+	      <h4>Source</h4>
+	      <xsl:comment>Information about Source of This Text</xsl:comment>
+	      <xsl:for-each select='tei:body/tei:head/tei:note[@type="source"]'>
+		<xsl:apply-templates />
+	      </xsl:for-each>
+	    </xsl:if>
+	    <xsl:if test='tei:body/tei:head/tei:note[@type="editorial"]'>
+	      <h4>Note</h4>
+	      <xsl:for-each select='tei:body/tei:head/tei:note[@type="editorial"]'>
+		<xsl:apply-templates />
+	      </xsl:for-each>
+	    </xsl:if>
 	  </div>
 	</div>
 
@@ -654,30 +669,17 @@
 
 <!-- Template for quoted material, including poems, particularly in reviews. -->
 <xsl:template match="tei:quote">
-  <xsl:choose>
-    <xsl:when test="@source">
-      <xsl:element name="a">
-	<xsl:attribute name="class">source</xsl:attribute>
-	<xsl:attribute name="id"><xsl:value-of select="generate-id()" /></xsl:attribute>
-	<xsl:attribute name="href"><xsl:value-of select="concat(substring-after(@source,'#'),'.html')" /></xsl:attribute>
-	<xsl:call-template name="quotation" />
-      </xsl:element>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:call-template name="quotation" />
-    </xsl:otherwise>
-  </xsl:choose>
+  <span class='quotation'>
+    <xsl:apply-templates />
+  </span>
 </xsl:template>
 
-<xsl:template name="quotation">
-  <xsl:choose>
-    <xsl:when test="(tei:pb) or not(*)">
-      <blockquote><xsl:apply-templates /></blockquote>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:apply-templates />
-    </xsl:otherwise>
-  </xsl:choose>
+<xsl:template name="add-source-link">
+  <xsl:if test="../@source">
+    <span class='source'>
+      [<xsl:element name="a"><xsl:attribute name="id"><xsl:value-of select="generate-id()" /></xsl:attribute><xsl:attribute name="href"><xsl:value-of select="concat(substring-after(../@source,'#'),'.html')" /></xsl:attribute>source</xsl:element>]</span>
+  </xsl:if>
+
 </xsl:template>
 
 <!-- These rules handle poems quoted within some other context
@@ -687,38 +689,23 @@
 -->
 
 <xsl:template match="tei:quote/tei:lg" priority="9">
-  <div class="quoted-lg">
-    <xsl:text disable-output-escaping="yes">&lt;br /&gt;</xsl:text>
+  <span class="quoted-lg">
     <xsl:apply-templates />
-    <xsl:text disable-output-escaping="yes">&lt;br /&gt;</xsl:text>
-  </div>
+    <xsl:call-template name="add-source-link" />
+  </span>
 </xsl:template>
 
 <xsl:template match="tei:quote/tei:lg[@type='poem']/tei:head" priority='6'>
-  <h2><xsl:apply-templates /></h2>
+  <span class='quoted-poem-title'><xsl:apply-templates /></span>
 </xsl:template>
 
-<xsl:template match="tei:quote/tei:lg/tei:l" priority="9">
-  <span class="quoted-poetry"><xsl:apply-templates />
-  <!-- This sillines is necessary, otherwise our one br tag gets 
-       interpreted as two. -->
-  <xsl:text disable-output-escaping="yes">&lt;br /&gt;</xsl:text></span>
+<xsl:template match="tei:quote/tei:lg/tei:lg" priority="9">
+  <span class='quoted-poem-stanza'><xsl:apply-templates /></span>
 </xsl:template>
 
-<xsl:template match="tei:quote/tei:lg/tei:lg/tei:l" priority="9">
-  <span class="quoted-poetry">
-    <xsl:element name="span"> <xsl:attribute name="class">poetic-line <xsl:for-each select="@*"> <xsl:value-of select="." /> </xsl:for-each> </xsl:attribute>
-    <xsl:apply-templates />
-    </xsl:element>
-    <!-- This sillines is necessary, otherwise our one br tag gets 
-	 interpreted as two. -->
-  <xsl:text disable-output-escaping="yes">&lt;br /&gt;</xsl:text></span>
-</xsl:template>
-
-<xsl:template match="tei:quote/tei:p">
-  <blockquote>
-    <xsl:apply-templates />
-  </blockquote>
+<!-- Template to match all lines of poetry in quotes. -->
+<xsl:template match="tei:quote/tei:lg/tei:l|tei:quote/tei:lg/tei:lg/tei:l" priority="9">
+  <span class="quoted-poetry"><xsl:apply-templates /></span>
 </xsl:template>
 
 <!-- Template for resolving choice elements -->
@@ -748,7 +735,17 @@
   <xsl:element name="a">
     <xsl:attribute name="class">reference</xsl:attribute>
     <xsl:attribute name="id"><xsl:value-of select="generate-id()" /></xsl:attribute>
-    <xsl:attribute name="href"><xsl:value-of select="concat(substring-after(@target,'#'),'.html')" /></xsl:attribute>
+    <xsl:attribute name="href">
+      <!-- This choice treats internal ref links differently than outgoing links. -->
+      <xsl:choose>
+	<xsl:when test="starts-with(@target, '#')">
+	  <xsl:value-of select="concat(substring-after(@target,'#'),'.html')" />
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:value-of select="@target" />
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
     <xsl:apply-templates />
   </xsl:element>
 </xsl:template>
@@ -798,7 +795,7 @@ to maintain in this circumstance. Really.
 
 <xsl:template name="header">
   <nav class="navbar" id="header">
-    <a href='http://harlemshadows.org'><h1>Harlem Shadows: An Electronic Edition</h1></a>
+    <a href='http://harlemshadows.org'><h1><span class='firstPart'>Harlem Shadows</span>: An Electronic Edition</h1></a>
   </nav>
 </xsl:template>
 
@@ -814,8 +811,8 @@ to maintain in this circumstance. Really.
   <!-- Optional theme -->
   <!--  <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css" /> -->
 
-  <link rel="stylesheet" href="hs-bootstrap.css" />
-
+  <link rel="stylesheet" href="hs-bootstrap.css"  />
+  
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css' />
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css' />
   <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css' />

@@ -1,7 +1,7 @@
 
 body {
     font-family: 'Source Sans Pros',Helvetica,Arial,sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     color: #423F37;
 }
 
@@ -12,8 +12,8 @@ body {
 }
 
 .poem {
-    margin-left: 1em;
-    font-size: 1.5em;
+    margin-left: 0;
+    font-size: 1.2em;
 }
 
 ol {
@@ -140,6 +140,7 @@ ol {
 
 #poem-text li {
     color: #d0d0d0;
+    list-style-type:none; /* By default don't show line numbers; we'll show them on larger sizes. */
 }
 
 
@@ -153,7 +154,7 @@ div.prose {
     /*    width: 65%; */
     max-width: 40em;  
     background: #fff;
-    padding: 0.7em;
+/*    padding: 0.7em; */
     font-family: 'EB Garamond',Times,serif;
 /*    padding-left: 15%; */
 }
@@ -267,7 +268,7 @@ div.prose.review p.verse-container {
 }
 
 .editorialNotes {
-    padding: 1em;
+    padding: 1em 0 0 0;
     font-family: sans-serif;
     font-size: 0.7em;
 /*    text-indent: -1em; */
@@ -277,22 +278,61 @@ div.prose.review p.verse-container {
     list-style: none;
 }
 
+sup {
+    top: -0.7em;
+}
+
 sup.footnote {
     display: none;
-/*    font-size: 0.7em; */
+    font-size: 0.6em;
+    font-family: 'Source Sans Pros',Helvetica,Arial,sans-serif;
     color: #6495ED;
 }
 
-div.quoted-lg {
+
+/* Handling Quotations */
+
+.quotation {
     display: block;
+    padding: 1em 0em 1em 3em;
+}
+
+.quotation p {
+    margin: 0;
+}
+
+.quotation p + p {
+
+}
+
+span.quoted-poem-title {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.6em;
+    text-indent: 0;
+}
+
+span.quoted-lg {
+    display: block;
+    padding: 1em;
+}
+
+span.quoted-poem-stanza {
+    display: block;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
 span.quoted-poetry {
     display: block;
     margin-left: 3em;
     text-indent: -2em;
-    font-size: 1em;
     line-height: 1.4em;
+    font-size: 1.2em;
+}
+
+span.source {
+    display: inline;
 }
 
 a.reference, a.source {
@@ -326,6 +366,10 @@ a:visited.reference, a:visited.source {
     display: none;
 }
 
+.list-number {
+    font-weight: bold;
+}
+
 /* Oh, here's a real ugly hack! To prevent an ugly new line for multiparagraph 
    editorial notes, we'll make JUST the first p within a note inline. */
 .editorialNotes li p:first-of-type {
@@ -334,7 +378,6 @@ a:visited.reference, a:visited.source {
 
 .editorialNotes li p+p {
     text-indent: 2em;
-    padding-top: 0.5em;
 }
 
 .editorialNotes li blockquote {
@@ -358,6 +401,7 @@ div.incoming-references ul {
 
 #header a { color: inherit; text-decoration: inherit; }
 #header h1 { margin-left: 0.5em; }
+#header .firstPart { font-family: 'EB Garamond',Times,serif; }
 
 .witnessDoc {  }
 
@@ -407,7 +451,99 @@ a.help:hover { background-color: #3D6199; }
 .citation {
     padding-top: 0em;
     padding-bottom: 2em;
-    font-size: 80%;
-    color: darkgray;
-    width: 50%;
+/*    font-size: 80%; */
+}
+
+.citation h4 {
+    font-weight: bold;
+}
+
+@media (min-width: 768px) {
+    body {
+	font-size: 16px;
+    }
+
+    #poem-text li {
+	color: #d0d0d0;
+	list-style-type: decimal;
+    }
+
+    .poem {
+	margin-left: 1em;
+	font-size: 1.5em; 
+    }
+}
+
+/* Print Styles */
+@media print {
+    .col-sm-1,
+    .col-sm-2,
+    .col-sm-3,
+    .col-sm-4,
+    .col-sm-5,
+    .col-sm-6,
+    .col-sm-7,
+    .col-sm-8,
+    .col-sm-9,
+    .col-sm-10,
+    .col-sm-11,
+    .col-sm-12 {
+	float: none;
+	width: 100%;
+    }
+    nav {
+	background-color: #fff;
+	text-indent: 0;
+	line-height: 1.2em;
+	left-padding: 0;
+    }
+    nav h1 {
+	font-size: 14pt;
+	margin: 0;
+    }
+    
+    div.prose {
+	max-width: 100%;
+    }
+    
+    div.information {
+	font-size: 8pt;
+    }
+    
+    div.toggles {
+	display: none;
+    }
+    body {
+	margin:0;
+	padding:0;
+	line-height: 1.4em;
+	word-spacing:1px;
+	letter-spacing:0.2px;
+	font: 13px Arial, Helvetica,"Lucida Grande", serif;
+	color: #000;
+	width: 100%;
+    }
+    #tableOfContents {
+	display: none;
+    }
+
+    div.incoming-references li {
+	font-size: 8pt;
+    }
+    
+    a::after {
+	content: "<"attr(href)">";
+    }
+
+    span.source {
+	display: none;
+    }
+
+    a.help {
+	display: none;
+    }
+    
+    @page {
+	margin: 0.25in 1in 0.5in 1in;
+    }
 }
