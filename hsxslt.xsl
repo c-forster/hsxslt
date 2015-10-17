@@ -516,7 +516,7 @@
 
 <!-- This template inserts footnote markers within the text -->
 <xsl:template match="tei:note[@type='editorial']" priority='4'><xsl:element name="sup">
-  <xsl:attribute name="class">footnote <xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_editorialNotesFn</xsl:attribute>
+  <xsl:attribute name="class">footnote <xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id|ancestor::tei:text/@xml:id" />_editorialNotesFn</xsl:attribute>
   <xsl:attribute name="id"><xsl:value-of select="ancestor::tei:lg[@type='poem']/@xml:id" />_fn<xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" /></xsl:attribute><xsl:number count="tei:note[@type='editorial']" from="tei:lg[@type='poem']" level="any" />
 </xsl:element>
 </xsl:template>
