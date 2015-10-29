@@ -8,9 +8,12 @@
 
   <xsl:output method="text" encoding="utf-8" />
 
-  <xsl:strip-space elements="tei:head tei:app tei:p" />
-  <xsl:preserve-space elements="tei:lem" />
-  
+  <xsl:strip-space elements="tei:head tei:app tei:pb" />
+  <xsl:preserve-space elements="tei:lem tei:p tei:ref" />
+
+<!-- <xsl:strip-space elements="*" />
+<xsl:preserve-space elements="tei:p" />
+-->
   <xsl:template name="header">
 \documentclass[12pt,english]{memoir}
 \usepackage[a4paper]{geometry}
@@ -117,10 +120,10 @@
       \title{<xsl:value-of select='$poemid' />}
       \begin{document}
 
-      \begin{verse}
-
       <xsl:call-template name="titleblock" />
       
+      \begin{verse}
+
       <!-- This choice is for whether there are nested lgs within the main 
 	   poem lg. -->
       <xsl:choose>
@@ -178,7 +181,12 @@
   </xsl:template>
 -->
 
-<xsl:template match="tei:lg[@type='poem']/tei:head" priority="4">\authortitle{<xsl:apply-templates />}{Claude McKay}</xsl:template>
+<xsl:template match="tei:text[@xml:id='hs']//tei:lg[@type='poem']/tei:head" priority="4">\authortitle{<xsl:apply-templates />}{Claude McKay}</xsl:template>
+
+<xsl:template match="tei:lg[@type='poem']/tei:head">
+  \poemtitle{<xsl:apply-templates />}
+  
+</xsl:template>
 
   <xsl:template match="tei:lg[@type='poem']/tei:head[@type='dedication']" priority="5">
     \emph{<xsl:apply-templates />}
@@ -383,9 +391,9 @@
   <xsl:template match="tei:cit/tei:bibl"></xsl:template>
 
   <xsl:template match="tei:quote/tei:lg[@type='poem']" priority="9">
-    \begin{verse}
-
     <xsl:call-template name="titleblock" />
+
+    \begin{verse}
     <xsl:choose>
       <xsl:when test="not(tei:lg)">
 	<xsl:call-template name="stanza" />
@@ -400,4 +408,10 @@
     
   </xsl:template>
 
+  <!-- To remove superfluous whitespace in paragraphs.
+       Particularly an issue with tei:pbs interrupting
+       the flow. -->
+<!--  <xsl:template match="tei:p/text()">
+    <xsl:value-of select="normalize-space(.)" />
+  </xsl:template> -->
 </xsl:stylesheet>
