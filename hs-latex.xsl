@@ -117,7 +117,12 @@
     
     <xsl:result-document method="text" href="latex/{$poemid}.tex">
       <xsl:call-template name="header" />
-      \title{<xsl:value-of select='$poemid' />}
+
+      <xsl:choose>
+	<xsl:when test="../../tei:text[@xml:id='hs']">\title{<xsl:value-of select="tei:head">}</xsl:when>
+	<xsl:otherwise>\title{<xsl:value-of select="../tei:head/tei:title" />}</xsl:otherwise>
+      </xsl:choose>
+
       \begin{document}
 
       <xsl:call-template name="titleblock" />
@@ -162,7 +167,6 @@
     <xsl:call-template name="indentation" /><xsl:apply-templates select="tei:l" />
     \end{patverse}
   </xsl:template>
-
 
   <xsl:template name="titleblock">
     <xsl:apply-templates select="tei:head" />
