@@ -121,23 +121,9 @@
       \begin{document}
 
       <xsl:call-template name="titleblock" />
+
+      <xsl:call-template name="poem" />
       
-      \begin{verse}
-
-      <!-- This choice is for whether there are nested lgs within the main 
-	   poem lg. -->
-      <xsl:choose>
-	<xsl:when test="not(tei:lg)">
-	  <xsl:call-template name="stanza" />
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:for-each select="tei:lg">
-	    <xsl:call-template name="stanza" />
-	  </xsl:for-each>
-	</xsl:otherwise>
-      </xsl:choose>
-      \end{verse}
-
       <!-- Output notes. -->
       <xsl:if test="tei:note[@type='textual']">
 	<xsl:call-template name="textualNote" />
@@ -152,6 +138,25 @@
     </xsl:result-document>
   </xsl:template>
 
+
+  <xsl:template name="poem">
+    \begin{verse}
+
+    <!-- This choice is for whether there are nested lgs within the main 
+	 poem lg. -->
+    <xsl:choose>
+      <xsl:when test="not(tei:lg)">
+	<xsl:call-template name="stanza" />
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:for-each select="tei:lg">
+	  <xsl:call-template name="stanza" />
+	</xsl:for-each>
+      </xsl:otherwise>
+    </xsl:choose>
+    \end{verse}
+  </xsl:template>
+  
   <xsl:template name="stanza">
     \begin{patverse}
     <xsl:call-template name="indentation" /><xsl:apply-templates select="tei:l" />
