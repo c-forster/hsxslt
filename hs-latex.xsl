@@ -142,6 +142,11 @@
       <xsl:if test="tei:note[@type='textual']">
 	<xsl:call-template name="textualNote" />
       </xsl:if>
+
+     <!-- Editorial Notes. -->
+      <xsl:if test=".//tei:note[@type='editorial']">
+	<xsl:call-template name="editorialNotes"/>
+      </xsl:if>
       
       \end{document}
     </xsl:result-document>
@@ -297,8 +302,19 @@
   <!-- Silence page breaks. -->
   <xsl:template match="tei:pb"></xsl:template>
 
-  <!-- This template inserts footnote markers within the text -->
-  <xsl:template match="tei:note[@type='editorial']" priority='4'></xsl:template>
+  <!-- Editorial footnotes, in two steps. -->
+  <!-- Add footnote number at location of note. -->
+  <xsl:template match="tei:note[@type='editorial']" priority='4'>\protect\footnotemark</xsl:template>
+
+  <!-- Generate actual notes. -->
+  <xsl:template name="editorialNotes">
+    % Footnotes
+    \setcounter{footnote}{0}
+    <xsl:for-each select=".//tei:note[@type='editorial']">
+      \stepcounter{footnote}
+      \footnotetext{<xsl:apply-templates />}
+    </xsl:for-each>
+  </xsl:template>
 
   <!-- The following templates format bibliographical info from bibl into an MLA -->
   <!-- style citation. -->
