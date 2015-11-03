@@ -11,77 +11,77 @@
   <xsl:strip-space elements="tei:head tei:app tei:pb" />
   <xsl:preserve-space elements="tei:lem tei:p tei:ref" />
 
-<!-- <xsl:strip-space elements="*" />
-<xsl:preserve-space elements="tei:p" />
--->
+  <!-- <xsl:strip-space elements="*" />
+       <xsl:preserve-space elements="tei:p" />
+  -->
   <xsl:template name="header">
-\documentclass[12pt,english]{memoir}
-\usepackage[a4paper]{geometry}
+    \documentclass[12pt,english]{memoir}
+    \usepackage[a4paper]{geometry}
 
-\usepackage{fontspec}
+    \usepackage{fontspec}
 
-% For headers
-\makepagestyle{hs}
-\makeevenhead{hs}{\textsf{\footnotesize \textsc{Harlem Shadows: An Electronic Edition}} \\ {\scriptsize &lt;\url{http://harlemshadows.org}&gt;}}{}{}
-\makeoddhead{hs}{}{}{\textsf{\footnotesize \textsc{Harlem Shadows: An Electronic Edition}} \\ {\scriptsize &lt;\url{http://harlemshadows.org}&gt;}}
-\makeevenfoot{hs}{\thepage}{}{}
-\makeoddfoot{hs}{}{}{\thepage}
-\makeheadrule{hs}{\textwidth}{\normalrulethickness}
+    % For headers
+    \makepagestyle{hs}
+    \makeevenhead{hs}{\textsf{\footnotesize \textsc{Harlem Shadows: An Electronic Edition}} \\ {\scriptsize &lt;\url{http://harlemshadows.org}&gt;}}{}{}
+    \makeoddhead{hs}{}{}{\textsf{\footnotesize \textsc{Harlem Shadows: An Electronic Edition}} \\ {\scriptsize &lt;\url{http://harlemshadows.org}&gt;}}
+    \makeevenfoot{hs}{\thepage}{}{}
+    \makeoddfoot{hs}{}{}{\thepage}
+    \makeheadrule{hs}{\textwidth}{\normalrulethickness}
 
-% For compact lists
-\usepackage{mdwlist}
+    % For compact lists
+    \usepackage{mdwlist}
 
-% To center sections
-%\usepackage{sectsty}
-%\sectionfont{\centering}
-%\subsectionfont{\centering}
+    % To center sections
+    %\usepackage{sectsty}
+    %\sectionfont{\centering}
+    %\subsectionfont{\centering}
 
-% csquotes package ensures pretty, curly quotation marks 
-% with the straight marks that are encoded in the TEI source.
-\usepackage[autostyle]{csquotes}
-\MakeOuterQuote{"}
+    % csquotes package ensures pretty, curly quotation marks 
+    % with the straight marks that are encoded in the TEI source.
+    \usepackage[autostyle]{csquotes}
+    \MakeOuterQuote{"}
 
-% We'll use columns for our notes.
-\usepackage{multicol}
+    % We'll use columns for our notes.
+    \usepackage{multicol}
 
-% For representation of poetry we use the verse package, and redefine
-% some rules.
-\usepackage{verse}
-\renewcommand{\poemtitlefont}{\normalfont\bfseries\large\raggedright}
+    % For representation of poetry we use the verse package, and redefine
+    % some rules.
+    \usepackage{verse}
+    \renewcommand{\poemtitlefont}{\normalfont\bfseries\large\raggedright}
 
-\newcommand{\authortitle}[2]{\poemtitle{#1} #2 \par}
+    \newcommand{\authortitle}[2]{\poemtitle{#1} #2 \par}
 
-\newcommand{\prosetitlefont}{\normalfont\bfseries\large\raggedright}
-  
-% For URLS; loaded last to prevent conflicts.
-\usepackage{hyperref}
+    \newcommand{\prosetitlefont}{\normalfont\bfseries\large\raggedright}
+    
+    % For URLS; loaded last to prevent conflicts.
+    \usepackage{hyperref}
 
-% Font stuff
-\setromanfont[Mapping=tex-text,Numbers=OldStyle]{Linux Libertine O} 
-\setsansfont[Mapping=tex-text,Numbers=OldStyle]{Linux Biolinum O} 
+    % Font stuff
+    \setromanfont[Mapping=tex-text,Numbers=OldStyle]{Linux Libertine O} 
+    \setsansfont[Mapping=tex-text,Numbers=OldStyle]{Linux Biolinum O} 
 
-\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+    \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
 
-% Remove Section Numbers
-\setcounter{secnumdepth}{0}
+    % Remove Section Numbers
+    \setcounter{secnumdepth}{0}
 
-% Custom Fonts
-\newfontfamily\sans{Linux Biolinum O}
+    % Custom Fonts
+    \newfontfamily\sans{Linux Biolinum O}
 
-% Some Custom Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newenvironment{textualnote}{\sans \small \setlength{\parindent}{0cm} \setlength{\parskip}{0.5em}}{\par}
+    % Some Custom Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \newenvironment{textualnote}{\sans \small \setlength{\parindent}{0cm} \setlength{\parskip}{0.5em}}{\par}
 
-% An include command
-\newcommand{\myinclude}[1]{\clearpage\input{#1}\clearpage}
+    % An include command
+    \newcommand{\myinclude}[1]{\clearpage\input{#1}\clearpage}
 
-% Custom Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% For Listing Author
-\newcommand{\poemauthor}[1]{
-{\raggedright \noindent #1}
-\vspace{1em}}
-\setlength{\afterpoemtitleskip}{0em}
+    % Custom Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % For Listing Author
+    \newcommand{\poemauthor}[1]{
+    {\raggedright \noindent #1}
+    \vspace{1em}}
+    \setlength{\afterpoemtitleskip}{0em}
 
-\pagestyle{hs}
+    \pagestyle{hs}
   </xsl:template>
 
   <xsl:key name="witnessTitles" match="//tei:witness" use="@xml:id" />
@@ -101,7 +101,8 @@
   <xsl:template match="tei:publicationStmt"></xsl:template>
   <xsl:template match="tei:sourceDesc"></xsl:template>
 
-  <xsl:template match="tei:lg[@type='poem']">
+  <xsl:template match="tei:text[@xml:id='hs']//tei:lg[@type='poem'] |
+		       tei:group[@xml:id='mckay_additional-poems']//tei:lg[@type='poem']">
     <!-- Create variable to hold a unique id for this poem, which can be used 
          to generate other unique xml:id's for elements within the poem. -->
     <xsl:variable name="poemid">
@@ -114,12 +115,12 @@
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    
+
     <xsl:result-document method="text" href="latex/{$poemid}.tex">
       <xsl:call-template name="header" />
 
       <xsl:choose>
-	<xsl:when test="../../tei:text[@xml:id='hs']">\title{<xsl:value-of select="tei:head">}</xsl:when>
+	<xsl:when test="../../tei:text[@xml:id='hs']">\title{<xsl:value-of select="tei:head" />}</xsl:when>
 	<xsl:otherwise>\title{<xsl:value-of select="../tei:head/tei:title" />}</xsl:otherwise>
       </xsl:choose>
 
@@ -134,7 +135,7 @@
 	<xsl:call-template name="textualNote" />
       </xsl:if>
 
-     <!-- Editorial Notes. -->
+      <!-- Editorial Notes. -->
       <xsl:if test=".//tei:note[@type='editorial']">
 	<xsl:call-template name="editorialNotes"/>
       </xsl:if>
@@ -142,7 +143,6 @@
       \end{document}
     </xsl:result-document>
   </xsl:template>
-
 
   <xsl:template name="poem">
     \begin{verse}
@@ -190,17 +190,17 @@
 
   <xsl:template match="tei:lg/tei:lg/tei:head" priority="10">\poemtitlemark{<xsl:apply-templates />}</xsl:template>
 
-<!--  <xsl:template match="tei:lg[@type='poem']/tei:head" priority="4">\poemtitle{<xsl:apply-templates />}
-  \poemauthor{Claude McKay}
+  <!--  <xsl:template match="tei:lg[@type='poem']/tei:head" priority="4">\poemtitle{<xsl:apply-templates />}
+       \poemauthor{Claude McKay}
+       </xsl:template>
+  -->
+
+  <xsl:template match="tei:text[@xml:id='hs']//tei:lg[@type='poem']/tei:head" priority="4">\authortitle{<xsl:apply-templates />}{Claude McKay}</xsl:template>
+
+  <xsl:template match="tei:lg[@type='poem']/tei:head">
+    \poemtitle{<xsl:apply-templates />}
+    
   </xsl:template>
--->
-
-<xsl:template match="tei:text[@xml:id='hs']//tei:lg[@type='poem']/tei:head" priority="4">\authortitle{<xsl:apply-templates />}{Claude McKay}</xsl:template>
-
-<xsl:template match="tei:lg[@type='poem']/tei:head">
-  \poemtitle{<xsl:apply-templates />}
-  
-</xsl:template>
 
   <xsl:template match="tei:lg[@type='poem']/tei:head[@type='dedication']" priority="5">
     \emph{<xsl:apply-templates />}
@@ -227,11 +227,11 @@
 
   <xsl:template match="tei:rdg"></xsl:template>
 
-<!--  <xsl:template match="tei:app//text()"><xsl:value-of select="normalize-space(.)" /></xsl:template> -->
+  <!--  <xsl:template match="tei:app//text()"><xsl:value-of select="normalize-space(.)" /></xsl:template> -->
 
   <xsl:template name="indentation">\indentpattern{<xsl:for-each select=".//tei:l"><xsl:choose>
-    <xsl:when test="contains(@rend, 'indent')"><xsl:value-of select='substring-after(@rend, "indent")' /></xsl:when>
-    <xsl:otherwise>0</xsl:otherwise>
+  <xsl:when test="contains(@rend, 'indent')"><xsl:value-of select='substring-after(@rend, "indent")' /></xsl:when>
+  <xsl:otherwise>0</xsl:otherwise>
   </xsl:choose></xsl:for-each>}</xsl:template>
   
   <!-- Span level Templates -->
@@ -270,12 +270,16 @@
       <xsl:call-template name="titleblock" />
       
       <xsl:apply-templates />
+      
       \end{document}
     </xsl:result-document>
   </xsl:template>
 
+  <xsl:template match="tei:text[@type='supplementary']/tei:body/tei:lg[@type='poem']">
+    <xsl:call-template name="poem" />
+  </xsl:template>
+  
   <xsl:template match="tei:p">
-    <xsl:text>&#xa;</xsl:text>
     <xsl:apply-templates />
     <xsl:text>&#xa;</xsl:text>
   </xsl:template>
@@ -357,7 +361,7 @@
       <xsl:otherwise>
 	(<xsl:value-of select="." />)
       </xsl:otherwise>
-    <!--    (<xsl:value-of select="." />) -->
+      <!--    (<xsl:value-of select="." />) -->
     </xsl:choose>
   </xsl:template>
 
@@ -436,7 +440,7 @@
   <!-- To remove superfluous whitespace in paragraphs.
        Particularly an issue with tei:pbs interrupting
        the flow. -->
-<!--  <xsl:template match="tei:p/text()">
-    <xsl:value-of select="normalize-space(.)" />
-  </xsl:template> -->
+  <!--  <xsl:template match="tei:p/text()">
+       <xsl:value-of select="normalize-space(.)" />
+       </xsl:template> -->
 </xsl:stylesheet>
