@@ -443,4 +443,11 @@
   <!--  <xsl:template match="tei:p/text()">
        <xsl:value-of select="normalize-space(.)" />
        </xsl:template> -->
+  <!-- Template to do simple LaTeX-specific replacements for things like
+       abbreviations and similar. -->
+  <xsl:template match="text()">
+    <xsl:value-of select="replace(., 'Mr.','Mr.\\ ')" />
+    <xsl:value-of select="replace(., 'Mrs.','Mrs.\\ ')" />
+    <xsl:value-of select="replace(., 'Dr.','Dr.\\ ')" />
+  </xsl:template>
 </xsl:stylesheet>
