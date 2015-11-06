@@ -28,6 +28,10 @@
 % For compact lists
 \usepackage{mdwlist}
 
+% To adjust
+\usepackage[hang]{footmisc}
+\setlength\footnotemargin{10pt}
+
 % To center sections
 %\usepackage{sectsty}
 %\sectionfont{\centering}
@@ -44,9 +48,15 @@
 % For representation of poetry we use the verse package, and redefine
 % some rules.
 \usepackage{verse}
-\renewcommand{\poemtitlefont}{\normalfont\bfseries\large\raggedright}
+%\renewcommand{\poemtitlefont}{\normalfont\bfseries\large\raggedright}
+\renewcommand{\poemtitlefont}{\normalfont\bfseries\large}
 
-\newcommand{\authortitle}[2]{\poemtitle{#1} #2 \par}
+%\setlength{\vleftmargin}{0pt}
+
+%\newcommand{\authortitle}[2]{\poemtitle{#1} #2 \par}
+%\newcommand{\authortitle}[2]{\noindent\hspace{\vleftmargin}{\poemtitlefont #1} \par \noindent\hspace{\vleftmargin}#2}
+\newcommand{\authortitle}[2]{\noindent{\poemtitlefont #1} \par \noindent#2}
+
 
 \newcommand{\prosetitlefont}{\normalfont\bfseries\large\raggedright}
     
@@ -186,7 +196,7 @@
        the calling function. -->
   <xsl:template name='textualNote'>
     \begin{textualnote}
-    \noindent {\large \textbf{Textual Note:}}\par
+    \noindent {\textbf{Textual Note:}}\par
     <xsl:apply-templates select="tei:note[@type='textual']/*" />
     \end{textualnote}
   </xsl:template>
@@ -346,7 +356,11 @@
   <!-- style citation. -->
   <xsl:template match="tei:bibl">
     \begin{mlacitation}
-    <xsl:apply-templates />.
+    <xsl:apply-templates select="tei:author" />
+    <xsl:apply-templates select="tei:title" /><xsl:text> </xsl:text>
+    <xsl:apply-templates select="tei:biblScope[@unit='vol']" />
+    <xsl:apply-templates select="tei:biblScope[@unit='no']" />
+    <xsl:apply-templates select="tei:date" />: <xsl:apply-templates select="tei:biblScope[@unit='pg']" />
     \end{mlacitation}
   </xsl:template>
   
@@ -383,10 +397,10 @@
   <xsl:template match="tei:bibl/tei:pubPlace"></xsl:template>
   <xsl:template match="tei:bibl/tei:biblScope">
     <xsl:choose>
-      <xsl:when test="@unit='vol'"><xsl:apply-templates />: </xsl:when>
-      <xsl:when test="@unit='no'"><xsl:apply-templates />. </xsl:when>
+      <xsl:when test="@unit='vol'"><xsl:apply-templates />.</xsl:when>
+      <xsl:when test="@unit='no'"><xsl:apply-templates /> </xsl:when>
       <xsl:when test="@unit='pg'"><xsl:apply-templates />. </xsl:when>
-      <xsl:otherwise><xsl:apply-templates />.
+      <xsl:otherwise><xsl:apply-templates /></xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
@@ -428,8 +442,9 @@
   <!-- Otherwise, this is just a passthrough. -->
   <xsl:template match="tei:abbr"><xsl:apply-templates /><xsl:if test="@type='initial'">.</xsl:if></xsl:template>
 
-  <!-- A generic rule to convert refs into HTML a tags. -->
+  <!-- Rules for making refs into links where appropriate. -->
   <xsl:template match="tei:ref"><xsl:apply-templates /></xsl:template>
+  <xsl:template match="tei:ref[@type='weblink']">\href{<xsl:value-of select="@target" />}{<xsl:apply-templates />} \texttt{&lt;<xsl:value-of select="@target" />&gt;}</xsl:template>
 
   <xsl:template match='tei:witness'></xsl:template>
 
