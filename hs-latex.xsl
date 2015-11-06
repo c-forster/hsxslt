@@ -185,10 +185,10 @@
        templates called with call-template inhereit the node position of 
        the calling function. -->
   <xsl:template name='textualNote'>
-    \noindent {\large \textbf{Textual Note:}}
-    \begin{multicols}{2}
-    \begin{textualnote}<xsl:apply-templates select="tei:note[@type='textual']/*" />\end{textualnote}
-    \end{multicols}
+    \begin{textualnote}
+    \noindent {\large \textbf{Textual Note:}}\par
+    <xsl:apply-templates select="tei:note[@type='textual']/*" />
+    \end{textualnote}
   </xsl:template>
 
   <xsl:template match="tei:lg[@type='poem']/tei:lg"><xsl:apply-templates /></xsl:template>
@@ -381,7 +381,14 @@
 
   <!-- For now, we silently omitting place of publication and page References. -->
   <xsl:template match="tei:bibl/tei:pubPlace"></xsl:template>
-  <xsl:template match="tei:bibl/tei:biblScope"></xsl:template>
+  <xsl:template match="tei:bibl/tei:biblScope">
+    <xsl:choose>
+      <xsl:when test="@unit='vol'"><xsl:apply-templates />: </xsl:when>
+      <xsl:when test="@unit='no'"><xsl:apply-templates />. </xsl:when>
+      <xsl:when test="@unit='pg'"><xsl:apply-templates />. </xsl:when>
+      <xsl:otherwise><xsl:apply-templates />.
+    </xsl:choose>
+  </xsl:template>
 
   <xsl:template match="tei:p/tei:note">\footnote{<xsl:apply-templates /></xsl:template>
 
