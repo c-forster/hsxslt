@@ -8,80 +8,79 @@
 
   <xsl:output method="text" encoding="utf-8" />
 
-  <xsl:strip-space elements="tei:head tei:app tei:pb" />
+  <xsl:strip-space elements="tei:head tei:app tei:pb tei:bibl" />
   <xsl:preserve-space elements="tei:lem tei:p tei:ref" />
 
-  <!-- <xsl:strip-space elements="*" />
-       <xsl:preserve-space elements="tei:p" />
-  -->
   <xsl:template name="header">
-    \documentclass[12pt,english]{memoir}
-    \usepackage[a4paper]{geometry}
+\documentclass[12pt,english]{memoir}
+\usepackage[a4paper]{geometry}
 
-    \usepackage{fontspec}
+\usepackage{fontspec}
 
-    % For headers
-    \makepagestyle{hs}
-    \makeevenhead{hs}{\textsf{\footnotesize \textsc{Harlem Shadows: An Electronic Edition}} \\ {\scriptsize &lt;\url{http://harlemshadows.org}&gt;}}{}{}
-    \makeoddhead{hs}{}{}{\textsf{\footnotesize \textsc{Harlem Shadows: An Electronic Edition}} \\ {\scriptsize &lt;\url{http://harlemshadows.org}&gt;}}
-    \makeevenfoot{hs}{\thepage}{}{}
-    \makeoddfoot{hs}{}{}{\thepage}
-    \makeheadrule{hs}{\textwidth}{\normalrulethickness}
+% For headers
+\makepagestyle{hs}
+\makeevenhead{hs}{\textsf{\footnotesize \textsc{Harlem Shadows: An Electronic Edition}} \\ {\scriptsize &lt;\url{http://harlemshadows.org}&gt;}}{}{}
+\makeoddhead{hs}{}{}{\textsf{\footnotesize \textsc{Harlem Shadows: An Electronic Edition}} \\ {\scriptsize &lt;\url{http://harlemshadows.org}&gt;}}
+\makeevenfoot{hs}{\thepage}{}{}
+\makeoddfoot{hs}{}{}{\thepage}
+\makeheadrule{hs}{\textwidth}{\normalrulethickness}
 
-    % For compact lists
-    \usepackage{mdwlist}
+% For compact lists
+\usepackage{mdwlist}
 
-    % To center sections
-    %\usepackage{sectsty}
-    %\sectionfont{\centering}
-    %\subsectionfont{\centering}
+% To center sections
+%\usepackage{sectsty}
+%\sectionfont{\centering}
+%\subsectionfont{\centering}
 
-    % csquotes package ensures pretty, curly quotation marks 
-    % with the straight marks that are encoded in the TEI source.
-    \usepackage[autostyle]{csquotes}
-    \MakeOuterQuote{"}
+% csquotes package ensures pretty, curly quotation marks 
+% with the straight marks that are encoded in the TEI source.
+\usepackage[autostyle]{csquotes}
+\MakeOuterQuote{"}
 
-    % We'll use columns for our notes.
-    \usepackage{multicol}
+% We'll use columns for our notes.
+\usepackage{multicol}
 
-    % For representation of poetry we use the verse package, and redefine
-    % some rules.
-    \usepackage{verse}
-    \renewcommand{\poemtitlefont}{\normalfont\bfseries\large\raggedright}
+% For representation of poetry we use the verse package, and redefine
+% some rules.
+\usepackage{verse}
+\renewcommand{\poemtitlefont}{\normalfont\bfseries\large\raggedright}
 
-    \newcommand{\authortitle}[2]{\poemtitle{#1} #2 \par}
+\newcommand{\authortitle}[2]{\poemtitle{#1} #2 \par}
 
-    \newcommand{\prosetitlefont}{\normalfont\bfseries\large\raggedright}
+\newcommand{\prosetitlefont}{\normalfont\bfseries\large\raggedright}
     
-    % For URLS; loaded last to prevent conflicts.
-    \usepackage{hyperref}
+% For URLS; loaded last to prevent conflicts.
+\usepackage{hyperref}
 
-    % Font stuff
-    \setromanfont[Mapping=tex-text,Numbers=OldStyle]{Linux Libertine O} 
-    \setsansfont[Mapping=tex-text,Numbers=OldStyle]{Linux Biolinum O} 
+% Font stuff
+\setromanfont[Mapping=tex-text,Numbers=OldStyle]{Linux Libertine O} 
+\setsansfont[Mapping=tex-text,Numbers=OldStyle]{Linux Biolinum O} 
 
-    \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
 
-    % Remove Section Numbers
-    \setcounter{secnumdepth}{0}
+% Remove Section Numbers
+\setcounter{secnumdepth}{0}
 
-    % Custom Fonts
-    \newfontfamily\sans{Linux Biolinum O}
+% Custom Fonts
+\newfontfamily\sans{Linux Biolinum O}
 
-    % Some Custom Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \newenvironment{textualnote}{\sans \small \setlength{\parindent}{0cm} \setlength{\parskip}{0.5em}}{\par}
+% Some Custom Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{textualnote}{\sans \small \setlength{\parindent}{0cm} \setlength{\parskip}{0.5em}}{\par}
+%\newenvironment{mlacitation}{\setlength{\leftskip}{0.4\textwidth} \footnotesize \par \noindent\ignorespaces\begin{hangparas}{3em}{-1}}{\end{hangparas}\par}
+\newenvironment{mlacitation}{\setlength{\leftskip}{0.4\textwidth} \footnotesize \vspace{2em} \begin{hangparas}{3em}{1}}{\end{hangparas}\par}
 
-    % An include command
-    \newcommand{\myinclude}[1]{\clearpage\input{#1}\clearpage}
+% An include command
+\newcommand{\myinclude}[1]{\clearpage\input{#1}\clearpage}
 
-    % Custom Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % For Listing Author
-    \newcommand{\poemauthor}[1]{
-    {\raggedright \noindent #1}
-    \vspace{1em}}
-    \setlength{\afterpoemtitleskip}{0em}
+% Custom Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% For Listing Author
+\newcommand{\poemauthor}[1]{
+{\raggedright \noindent #1}
+\vspace{1em}}
+\setlength{\afterpoemtitleskip}{0em}
 
-    \pagestyle{hs}
+\pagestyle{hs}
   </xsl:template>
 
   <xsl:key name="witnessTitles" match="//tei:witness" use="@xml:id" />
@@ -101,6 +100,8 @@
   <xsl:template match="tei:publicationStmt"></xsl:template>
   <xsl:template match="tei:sourceDesc"></xsl:template>
 
+
+  <!-- Output template for poems by McKay -->
   <xsl:template match="tei:text[@xml:id='hs']//tei:lg[@type='poem'] |
 		       tei:group[@xml:id='mckay_additional-poems']//tei:lg[@type='poem']">
     <!-- Create variable to hold a unique id for this poem, which can be used 
@@ -116,6 +117,7 @@
       </xsl:choose>
     </xsl:variable>
 
+    <!-- For Poems. -->
     <xsl:result-document method="text" href="latex/{$poemid}.tex">
       <xsl:call-template name="header" />
 
@@ -139,6 +141,9 @@
       <xsl:if test=".//tei:note[@type='editorial']">
 	<xsl:call-template name="editorialNotes"/>
       </xsl:if>
+
+      <!-- Output Citation. -->
+      <xsl:apply-templates select="../tei:head/tei:bibl" />
       
       \end{document}
     </xsl:result-document>
@@ -206,10 +211,14 @@
     \emph{<xsl:apply-templates />}
   </xsl:template>
 
-  <xsl:template match="tei:div[@type='introductory-prose']/tei:head | tei:text[@type='review']/tei:body/tei:head | tei:text[@type='supplementary']/tei:body/tei:head">
-    <!-- We use beforetitleskip and aftertitleskip, for consistency. -->
+  <xsl:template match="tei:div[@type='introductory-prose']/tei:head">
+    \subsection*{<xsl:apply-templates />}
+  </xsl:template>
+
+  <xsl:template match="tei:text[@type='review']/tei:body/tei:head|tei:text[@type='supplementary']/tei:body/tei:head">
     \subsection*{<xsl:apply-templates select="tei:title" />}
   </xsl:template>
+  
   <!-- For each poetic line, apply-templates and, if it isn't the last line
        in a stanza, use the verse package's line termination macro: // -->
   <xsl:template match="tei:l"><xsl:apply-templates /><xsl:if test="following-sibling::tei:l">\\</xsl:if></xsl:template>
@@ -258,7 +267,7 @@
   <xsl:template match="tei:div[@type='contents']"></xsl:template>
   <xsl:template match="tei:div[@type='contents']//tei:ref"></xsl:template>
 
-  <!-- Prose Materials -->
+  <!-- Output Template for Prose Materials -->
   <xsl:template match="tei:div[@type='introductory-prose'] | tei:text[@type='review'] | tei:text[@type='supplementary']">
     <xsl:variable name="id"><xsl:value-of select="@xml:id" />.tex</xsl:variable>
     <xsl:result-document method="text" href="latex/{$id}">
@@ -267,15 +276,18 @@
 
       \begin{document}
       
-      <xsl:call-template name="titleblock" />
-      
+<!--      <xsl:call-template name="titleblock" /> -->
       <xsl:apply-templates />
+
+      <xsl:apply-templates select="tei:body/tei:head/tei:bibl" />
       
       \end{document}
     </xsl:result-document>
   </xsl:template>
 
   <xsl:template match="tei:text[@type='supplementary']/tei:body/tei:lg[@type='poem']">
+    <!-- HACK, for documents which are just single poems. -->
+    <xsl:value-of select="../tei:head/tei:bibl/tei:author" />
     <xsl:call-template name="poem" />
   </xsl:template>
   
@@ -285,9 +297,10 @@
   </xsl:template>
 
   <xsl:template match="tei:closer">
-    <xsl:text>&#xa;</xsl:text>  
-    <xsl:apply-templates />
-    <xsl:text>&#xa;</xsl:text>
+    \vspace{1em}
+    \begin{flushright}
+    {\large \textbf{<xsl:apply-templates />}}
+    \end{flushright}
   </xsl:template>
 
   <!-- Title -->
@@ -331,14 +344,21 @@
 
   <!-- The following templates format bibliographical info from bibl into an MLA -->
   <!-- style citation. -->
+  <xsl:template match="tei:bibl">
+    \begin{mlacitation}
+    <xsl:apply-templates />.
+    \end{mlacitation}
+  </xsl:template>
+  
   <xsl:template match="tei:bibl/tei:author">
-    <xsl:apply-templates select="tei:persName/tei:surname" />, 
-    <xsl:for-each select="tei:persName/tei:forename">
-      <xsl:apply-templates select="."/><xsl:if test="position() != last()">&#160;</xsl:if>
-      </xsl:for-each>.
+    <xsl:apply-templates select="tei:persName/tei:surname" />, <xsl:apply-templates select="tei:persName/tei:forename" />.
   </xsl:template>
 
-  <xsl:template match="tei:bibl/tei:title[@level='a']">"<xsl:apply-templates />."</xsl:template>
+  <xsl:template match="tei:persName/tei:forename">
+    <xsl:apply-templates /><xsl:if test="position() != last()"><xsl:text> </xsl:text></xsl:if>
+  </xsl:template>
+  
+  <xsl:template match="tei:bibl/tei:title[@level='a']">"<xsl:apply-templates />." </xsl:template>
 
   <xsl:template match="tei:bibl/tei:title[@level='j']" priority='2'>\emph{<xsl:apply-templates />}</xsl:template>
 
@@ -351,17 +371,11 @@
 	 solely on length, and then use XSLT datestring formatting.
 	 If it isn't 7 chars long (YYYY-MM) or 10 (YYYY-MM-DD) then
 	 it falls back to using the node content. -->
+    <xsl:text> </xsl:text><!-- Ug, whitespace, amirite? -->
     <xsl:choose>
-      <xsl:when test="string-length(@when) = 7">
-	(<xsl:value-of select='format-date(xs:date(concat(@when,"-01")),"[MNn], [Y]", "en", (), ())' />)
-      </xsl:when>
-      <xsl:when test="string-length(@when) = 10">
-	(<xsl:value-of select='format-date(@when,"[MNn], [Y]", "en", (), ())' />)
-      </xsl:when>
-      <xsl:otherwise>
-	(<xsl:value-of select="." />)
-      </xsl:otherwise>
-      <!--    (<xsl:value-of select="." />) -->
+      <xsl:when test="string-length(@when) = 7">(<xsl:value-of select='format-date(xs:date(concat(@when,"-01")),"[MNn], [Y]", "en", (), ())' />)</xsl:when>
+      <xsl:when test="string-length(@when) = 10">(<xsl:value-of select='format-date(@when,"[MNn], [Y]", "en", (), ())' />)</xsl:when>
+      <xsl:otherwise>(<xsl:value-of select="." />)</xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
@@ -446,8 +460,10 @@
   <!-- Template to do simple LaTeX-specific replacements for things like
        abbreviations and similar. -->
   <xsl:template match="text()">
-    <xsl:value-of select="replace(., 'Mr.','Mr.\\ ')" />
-    <xsl:value-of select="replace(., 'Mrs.','Mrs.\\ ')" />
-    <xsl:value-of select="replace(., 'Dr.','Dr.\\ ')" />
+    <xsl:value-of select="replace(
+			  replace(
+			  replace(., 'Dr.','Dr.\\ ')
+			  , 'Mrs.','Mrs.\\ ')
+			  , 'Mr.','Mr.\\ ')" />
   </xsl:template>
 </xsl:stylesheet>
