@@ -11,11 +11,20 @@
   <xsl:strip-space elements="tei:head tei:app tei:pb tei:bibl" />
   <xsl:preserve-space elements="tei:lem tei:p tei:ref" />
 
-  <xsl:template name="header">
-\documentclass[12pt,english]{memoir}
-\usepackage[a4paper]{geometry}
+  <xsl:template name="header">\documentclass[12pt,english,oneside]{memoir}
+%\usepackage[a4paper]{geometry}
 
 \usepackage{fontspec}
+
+% To format page size
+\setstocksize{11in}{8.5in}
+%\settypeblocksize{9in}{5in}{*}
+%\setulmargins{1in}{*}{*}
+%\setlrmargins{1in}{*}{*}
+\settypeblocksize{0.75\stockheight}{0.6\stockwidth}{*}
+\setlrmargins{*}{*}{1.2}
+\setulmargins{1.0in}{*}{1.4}
+\checkandfixthelayout
 
 % For headers
 \makepagestyle{hs}
@@ -28,7 +37,7 @@
 % For compact lists
 \usepackage{mdwlist}
 
-% To adjust
+% To adjust footnotes.
 \usepackage[hang]{footmisc}
 \setlength\footnotemargin{10pt}
 
@@ -80,6 +89,9 @@
 %\newenvironment{mlacitation}{\setlength{\leftskip}{0.4\textwidth} \footnotesize \par \noindent\ignorespaces\begin{hangparas}{3em}{-1}}{\end{hangparas}\par}
 \newenvironment{mlacitation}{\setlength{\leftskip}{0.4\textwidth} \footnotesize \vspace{2em} \begin{hangparas}{3em}{1}}{\end{hangparas}\par}
 
+% Set Margins for Single Page-Style Printouts
+
+
 % An include command
 \newcommand{\myinclude}[1]{\clearpage\input{#1}\clearpage}
 
@@ -113,7 +125,7 @@
 
   <!-- Output template for poems by McKay -->
   <xsl:template match="tei:text[@xml:id='hs']//tei:lg[@type='poem'] |
-		       tei:group[@xml:id='mckay_additional-poems']//tei:lg[@type='poem']">
+		       tei:group[@xml:id='mckay_additional-poems']//tei:lg[@type='poem']" priority="100">
     <!-- Create variable to hold a unique id for this poem, which can be used 
          to generate other unique xml:id's for elements within the poem. -->
     <xsl:variable name="poemid">
@@ -221,12 +233,12 @@
     \emph{<xsl:apply-templates />}
   </xsl:template>
 
-  <xsl:template match="tei:div[@type='introductory-prose']/tei:head">
-    \subsection*{<xsl:apply-templates />}
+  <xsl:template match="tei:div[@type='introductory-prose']/tei:head" priority="10">
+    \section*{<xsl:apply-templates />}
   </xsl:template>
 
   <xsl:template match="tei:text[@type='review']/tei:body/tei:head|tei:text[@type='supplementary']/tei:body/tei:head">
-    \subsection*{<xsl:apply-templates select="tei:title" />}
+    \section*{<xsl:apply-templates select="tei:title" />}
   </xsl:template>
   
   <!-- For each poetic line, apply-templates and, if it isn't the last line
@@ -289,15 +301,31 @@
 <!--      <xsl:call-template name="titleblock" /> -->
       <xsl:apply-templates />
 
-      <xsl:apply-templates select="tei:body/tei:head/tei:bibl" />
+      <!-- Output notes. -->
+      <xsl:if test="tei:note[@type='textual']">
+	<xsl:call-template name="textualNote" />
+      </xsl:if>
       
+      <!-- Editorial Notes. -->
+      <xsl:if test=".//tei:note[@type='editorial']">
+	<xsl:call-template name="editorialNotes"/>
+      </xsl:if>
+      
+      <!-- Output Citation. -->
+      <xsl:apply-templates select="tei:body/tei:head/tei:bibl" />
+
       \end{document}
     </xsl:result-document>
   </xsl:template>
 
-  <xsl:template match="tei:text[@type='supplementary']/tei:body/tei:lg[@type='poem']">
+  <xsl:template match="tei:text[@type='supplementary']/tei:body/tei:lg[@type='poem']" priority="5">
     <!-- HACK, for documents which are just single poems. -->
     <xsl:value-of select="../tei:head/tei:bibl/tei:author" />
+    <xsl:call-template name="poem" />
+  </xsl:template>
+
+  <xsl:template match="tei:lg[@type='poem']">
+    <xsl:apply-templates select="tei:head" />
     <xsl:call-template name="poem" />
   </xsl:template>
   
@@ -309,7 +337,7 @@
   <xsl:template match="tei:closer">
     \vspace{1em}
     \begin{flushright}
-    {\large \textbf{<xsl:apply-templates />}}
+    {\large \bfseries <xsl:apply-templates />}
     \end{flushright}
   </xsl:template>
 
@@ -359,7 +387,8 @@
     <xsl:apply-templates select="tei:author" />
     <xsl:apply-templates select="tei:title" /><xsl:text> </xsl:text>
     <xsl:apply-templates select="tei:biblScope[@unit='vol']" />
-    <xsl:apply-templates select="tei:biblScope[@unit='no']" />
+     <xsl:apply-templates select="tei:biblScope[@unit='no']" />
+    <xsl:apply-templates select="tei:biblScope" />
     <xsl:apply-templates select="tei:date" />: <xsl:apply-templates select="tei:biblScope[@unit='pg']" />
     \end{mlacitation}
   </xsl:template>
@@ -378,7 +407,7 @@
 
   <xsl:template match="tei:bibl/tei:title[@level='j' and @type='main']" priority='3'>\emph{<xsl:value-of select="." />} </xsl:template>
 
-  <xsl:template match="tei:bibl/tei:title[@level='j' and @type='sub']" priority='3'>\emph<xsl:value-of select="." />}</xsl:template>
+  <xsl:template match="tei:bibl/tei:title[@level='j' and @type='sub']" priority='3'>\emph{<xsl:value-of select="." />}</xsl:template>
 
   <xsl:template match="tei:bibl/tei:date|tei:biblStruct//tei:date">
     <!-- This choose attempts to identify the string format based
@@ -473,6 +502,10 @@
     
   </xsl:template>
 
+  <xsl:template match="tei:div/tei:head">
+    \subsection*{<xsl:apply-templates />}
+  </xsl:template>
+  
   <!-- To remove superfluous whitespace in paragraphs.
        Particularly an issue with tei:pbs interrupting
        the flow. -->
@@ -484,8 +517,10 @@
   <xsl:template match="text()">
     <xsl:value-of select="replace(
 			  replace(
-			  replace(., 'Dr.','Dr.\\ ')
-			  , 'Mrs.','Mrs.\\ ')
-			  , 'Mr.','Mr.\\ ')" />
+			  replace(
+			  replace(., 'Dr. ','Dr.\\ ')
+			  , 'Mrs. ','Mrs.\\ ')
+			  , 'Mr. ','Mr.\\ ')
+			  , '&amp;', '\\&amp;')" />
   </xsl:template>
 </xsl:stylesheet>
