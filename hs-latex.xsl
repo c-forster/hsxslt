@@ -41,6 +41,14 @@
 \usepackage[hang]{footmisc}
 \setlength\footnotemargin{10pt}
 
+% Notes for critical apparatus
+\usepackage[parapparatus,series={A,B}]{reledmac}
+\Xarrangement[A]{twocol}
+
+% For editorial endnotes
+\usepackage{endnotes}
+\renewcommand{\notesname}{Editorial Notes}
+
 % To center sections
 %\usepackage{sectsty}
 %\sectionfont{\centering}
@@ -149,9 +157,11 @@
       </xsl:choose>
 
       \begin{document}
-
+      \beginnumbering
+      \pstart
       <xsl:call-template name="titleblock" />
-
+      \pend
+      \endnumbering
       <xsl:call-template name="poem" />
       
       <!-- Output notes. -->
@@ -172,7 +182,7 @@
   </xsl:template>
 
   <xsl:template name="poem">
-    \begin{verse}
+    \beginnumbering
 
     <!-- This choice is for whether there are nested lgs within the main 
 	 poem lg. -->
@@ -186,17 +196,17 @@
 	</xsl:for-each>
       </xsl:otherwise>
     </xsl:choose>
-    \end{verse}
   </xsl:template>
   
   <xsl:template name="stanza">
-    \begin{patverse}
-    <xsl:call-template name="indentation" /><xsl:apply-templates select="tei:l" />
-    \end{patverse}
+    <xsl:call-template name="indentation" />
+    \stanza
+    <xsl:apply-templates select="tei:l" />
   </xsl:template>
 
   <xsl:template name="titleblock">
     <xsl:apply-templates select="tei:head" />
+    \vspace{2\parskip}
   </xsl:template>
   
   <!-- This will silence the textual note when it occurs in its order. -->
@@ -243,27 +253,32 @@
   
   <!-- For each poetic line, apply-templates and, if it isn't the last line
        in a stanza, use the verse package's line termination macro: // -->
-  <xsl:template match="tei:l"><xsl:apply-templates /><xsl:if test="following-sibling::tei:l">\\</xsl:if></xsl:template>
+  <xsl:template match="tei:l">
+    <xsl:apply-templates />
+    <xsl:choose>
+      <xsl:when test="following-sibling::tei:l">&amp;</xsl:when>
+      <xsl:otherwise>\&amp;</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 
   <!-- This template outputs the text content of poetic lines. -->
   <xsl:template match="tei:l/text()"><xsl:value-of select="." /></xsl:template>
 
-  <xsl:template match="tei:app">
-    <xsl:apply-templates />
-  </xsl:template>
+  <xsl:template match="tei:app">\edtext{\emph{<xsl:apply-templates select ="tei:lem" />}}{\Afootnote{<xsl:apply-templates select="tei:rdg" />}}</xsl:template>
 
-  <xsl:template match="tei:lem">
-    <xsl:apply-templates />
-  </xsl:template>
+  <xsl:template match="tei:lem"><xsl:apply-templates /></xsl:template>
 
-  <xsl:template match="tei:rdg"></xsl:template>
+  <!-- The next template features both the rdg, and outputs a sigilum. -->
+  <xsl:template match="tei:rdg"><xsl:apply-templates /> <xsl:apply-templates select="@wit" /><xsl:if test="position() != last()">,</xsl:if></xsl:template>
+
+  <xsl:template match="tei:rdg/@wit"><xsl:for-each select="tokenize(., ' ')"><xsl:value-of select="normalize-space(replace(.,'#',''))" /> </xsl:for-each></xsl:template>
 
   <!--  <xsl:template match="tei:app//text()"><xsl:value-of select="normalize-space(.)" /></xsl:template> -->
 
-  <xsl:template name="indentation">\indentpattern{<xsl:for-each select=".//tei:l"><xsl:choose>
+  <xsl:template name="indentation">\setstanzaindents{3,<xsl:for-each select=".//tei:l"><xsl:choose>
   <xsl:when test="contains(@rend, 'indent')"><xsl:value-of select='substring-after(@rend, "indent")' /></xsl:when>
-  <xsl:otherwise>0</xsl:otherwise>
-  </xsl:choose></xsl:for-each>}</xsl:template>
+  <xsl:otherwise><xsl:value-of select="0" separator="," /></xsl:otherwise>
+  </xsl:choose><xsl:if test="position() != last()"><xsl:text>,</xsl:text></xsl:if></xsl:for-each>}</xsl:template>
   
   <!-- Span level Templates -->
   <!-- This template matches journal and monograph titles -->
@@ -307,9 +322,9 @@
       </xsl:if>
       
       <!-- Editorial Notes. -->
-      <xsl:if test=".//tei:note[@type='editorial']">
+<!--      <xsl:if test=".//tei:note[@type='editorial']">
 	<xsl:call-template name="editorialNotes"/>
-      </xsl:if>
+      </xsl:if> -->
       
       <!-- Output Citation. -->
       <xsl:apply-templates select="tei:body/tei:head/tei:bibl" />
@@ -368,16 +383,17 @@
 
   <!-- Editorial footnotes, in two steps. -->
   <!-- Add footnote number at location of note. -->
-  <xsl:template match="tei:note[@type='editorial']" priority='4'>\protect\footnotemark</xsl:template>
+  <xsl:template match="tei:note[@type='editorial']" priority='4'>\endnote{<xsl:apply-templates />}</xsl:template>
 
   <!-- Generate actual notes. -->
   <xsl:template name="editorialNotes">
     % Footnotes
-    \setcounter{footnote}{0}
+    \theendnotes
+<!--    \setcounter{footnote}{0}
     <xsl:for-each select=".//tei:note[@type='editorial']">
       \stepcounter{footnote}
       \footnotetext{<xsl:apply-templates />}
-    </xsl:for-each>
+    </xsl:for-each> -->
   </xsl:template>
 
   <!-- The following templates format bibliographical info from bibl into an MLA -->
