@@ -269,10 +269,20 @@
   <xsl:template match="tei:lem"><xsl:apply-templates /></xsl:template>
 
   <!-- The next template features both the rdg, and outputs a sigilum. -->
-  <xsl:template match="tei:rdg"><xsl:apply-templates /> <xsl:apply-templates select="@wit" /><xsl:if test="position() != last()">,</xsl:if></xsl:template>
+  <xsl:template match="tei:rdg"><xsl:apply-templates /> <xsl:apply-templates select="@wit" /><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></xsl:template>
 
-  <xsl:template match="tei:rdg/@wit"><xsl:for-each select="tokenize(., ' ')"><xsl:value-of select="normalize-space(replace(.,'#',''))" /> </xsl:for-each></xsl:template>
+  <!--  <xsl:template match="tei:rdg/@wit"><xsl:for-each select="tokenize(., ' ')"><xsl:value-of select="normalize-space(replace(.,'#',''))" /> </xsl:for-each></xsl:template> -->
 
+  <!--  <xsl:template match="tei:rdg/@wit"><xsl:for-each select="tokenize(., ' ')"><xsl:value-of select="$witnessPath/tei:witness[@xml:id=substring-after(.,'#')]/tei:biblStruct/tei:mongr/tei:title" /> </xsl:for-each></xsl:template> -->
+    <xsl:template match="tei:rdg/@wit"><xsl:for-each select="tokenize(., ' ')"><xsl:call-template name="siglum"><xsl:with-param name="witness" select="." /></xsl:call-template></xsl:for-each></xsl:template>
+
+    <xsl:variable name="witnessPath" select="/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:listWit" />
+    
+    <xsl:template name="siglum">
+      <xsl:param name="witness" />
+      <xsl:value-of select="$witnessPath/tei:witness[@xml:id=substring-after($witness,'#')]/tei:biblStruct/tei:monogr/tei:title" /><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+    </xsl:template>  
+  
   <!--  <xsl:template match="tei:app//text()"><xsl:value-of select="normalize-space(.)" /></xsl:template> -->
 
   <xsl:template name="indentation">\setstanzaindents{3,<xsl:for-each select=".//tei:l"><xsl:choose>
