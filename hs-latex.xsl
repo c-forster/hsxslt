@@ -264,23 +264,32 @@
   <!-- This template outputs the text content of poetic lines. -->
   <xsl:template match="tei:l/text()"><xsl:value-of select="." /></xsl:template>
 
-  <xsl:template match="tei:app">\edtext{\emph{<xsl:apply-templates select ="tei:lem" />}}{\Afootnote{<xsl:apply-templates select="tei:rdg" />}}</xsl:template>
+  <xsl:template match="tei:app">\edtext{<xsl:apply-templates select ="tei:lem" />}{\Afootnote{<xsl:apply-templates select="tei:rdg" />}}</xsl:template>
 
   <xsl:template match="tei:lem"><xsl:apply-templates /></xsl:template>
 
+  <!-- The Following Two Rules handle "empty" lemmas and readings. -->
+  <xsl:template match ="tei:lem/text()|tei:rdg/text()"><xsl:choose><xsl:when test="normalize-space(.) = ''"><xsl:text>[ ]</xsl:text></xsl:when><xsl:otherwise><xsl:value-of select="." /></xsl:otherwise></xsl:choose></xsl:template>
+
+  <!-- Match empty lems and rdgs which will be leaf nodes without any text. -->
+  <xsl:template match="tei:lem[not(node())] | tei:rdg[not(node())]"><xsl:text>[ ]</xsl:text></xsl:template>
+  
   <!-- The next template features both the rdg, and outputs a sigilum. -->
   <xsl:template match="tei:rdg"><xsl:apply-templates /> <xsl:apply-templates select="@wit" /><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></xsl:template>
 
   <!--  <xsl:template match="tei:rdg/@wit"><xsl:for-each select="tokenize(., ' ')"><xsl:value-of select="normalize-space(replace(.,'#',''))" /> </xsl:for-each></xsl:template> -->
 
   <!--  <xsl:template match="tei:rdg/@wit"><xsl:for-each select="tokenize(., ' ')"><xsl:value-of select="$witnessPath/tei:witness[@xml:id=substring-after(.,'#')]/tei:biblStruct/tei:mongr/tei:title" /> </xsl:for-each></xsl:template> -->
-    <xsl:template match="tei:rdg/@wit"><xsl:for-each select="tokenize(., ' ')"><xsl:call-template name="siglum"><xsl:with-param name="witness" select="." /></xsl:call-template></xsl:for-each></xsl:template>
+    <xsl:template match="tei:rdg/@wit"><xsl:for-each select="tokenize(., ' ')"><xsl:call-template name="siglum"><xsl:with-param name="witness" select="." /></xsl:call-template><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></xsl:for-each></xsl:template>
 
     <xsl:variable name="witnessPath" select="/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:listWit" />
     
     <xsl:template name="siglum">
       <xsl:param name="witness" />
-      <xsl:value-of select="$witnessPath/tei:witness[@xml:id=substring-after($witness,'#')]/tei:biblStruct/tei:monogr/tei:title" /><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+      <xsl:variable name="sigWit"><xsl:value-of select="$witnessPath/tei:witness[@xml:id=substring-after($witness,'#')]/tei:biblStruct/tei:monogr/tei:title" /></xsl:variable>
+      <xsl:if test="contains($sigWit, 'Liberator')"><xsl:value-of>\emph{Lib.}</xsl:value-of></xsl:if>
+      <xsl:if test="contains($sigWit,'SINH')"><xsl:value-of>\emph{Spr.}</xsl:value-of></xsl:if>
+      <xsl:if test="contains($sigWit,'Crusader')"><xsl:value-of>\emph{Cru.}</xsl:value-of></xsl:if>
     </xsl:template>  
   
   <!--  <xsl:template match="tei:app//text()"><xsl:value-of select="normalize-space(.)" /></xsl:template> -->
