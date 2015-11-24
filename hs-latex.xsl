@@ -275,12 +275,12 @@
   <xsl:template match="tei:lem[not(node())] | tei:rdg[not(node())]"><xsl:text>[ ]</xsl:text></xsl:template>
   
   <!-- The next template features both the rdg, and outputs a sigilum. -->
-  <xsl:template match="tei:rdg"><xsl:apply-templates /> <xsl:apply-templates select="@wit" /><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></xsl:template>
+  <xsl:template match="tei:rdg"><xsl:apply-templates /><xsl:text> </xsl:text> <xsl:apply-templates select="@wit" /></xsl:template>
 
   <!--  <xsl:template match="tei:rdg/@wit"><xsl:for-each select="tokenize(., ' ')"><xsl:value-of select="normalize-space(replace(.,'#',''))" /> </xsl:for-each></xsl:template> -->
 
   <!--  <xsl:template match="tei:rdg/@wit"><xsl:for-each select="tokenize(., ' ')"><xsl:value-of select="$witnessPath/tei:witness[@xml:id=substring-after(.,'#')]/tei:biblStruct/tei:mongr/tei:title" /> </xsl:for-each></xsl:template> -->
-    <xsl:template match="tei:rdg/@wit"><xsl:for-each select="tokenize(., ' ')"><xsl:call-template name="siglum"><xsl:with-param name="witness" select="." /></xsl:call-template><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></xsl:for-each></xsl:template>
+    <xsl:template match="tei:rdg/@wit"> <xsl:for-each select="tokenize(., ' ')"><xsl:call-template name="siglum"><xsl:with-param name="witness" select="." /></xsl:call-template><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></xsl:for-each></xsl:template>
 
     <xsl:variable name="witnessPath" select="/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:listWit" />
     
@@ -290,6 +290,8 @@
       <xsl:if test="contains($sigWit, 'Liberator')"><xsl:value-of>\emph{Lib.}</xsl:value-of></xsl:if>
       <xsl:if test="contains($sigWit,'SINH')"><xsl:value-of>\emph{Spr.}</xsl:value-of></xsl:if>
       <xsl:if test="contains($sigWit,'Crusader')"><xsl:value-of>\emph{Cru.}</xsl:value-of></xsl:if>
+      <xsl:if test="contains($sigWit,'Messenger')"><xsl:value-of>\emph{Mes.}</xsl:value-of></xsl:if>
+      <xsl:if test="contains($sigWit,'Cambridge')"><xsl:value-of>\emph{Cam.}</xsl:value-of></xsl:if>
     </xsl:template>  
   
   <!--  <xsl:template match="tei:app//text()"><xsl:value-of select="normalize-space(.)" /></xsl:template> -->
