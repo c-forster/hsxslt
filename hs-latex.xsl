@@ -93,7 +93,7 @@
 \newfontfamily\sans{Linux Biolinum O}
 
 % Some Custom Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newenvironment{textualnote}{\sans \small \setlength{\parindent}{0cm} \setlength{\parskip}{0.5em}}{\par}
+\newenvironment{textualnote}{\sans \normalsize \setlength{\parindent}{0cm} \setlength{\parskip}{0.5em}}{\par}
 %\newenvironment{mlacitation}{\setlength{\leftskip}{0.4\textwidth} \footnotesize \par \noindent\ignorespaces\begin{hangparas}{3em}{-1}}{\end{hangparas}\par}
 \newenvironment{mlacitation}{\setlength{\leftskip}{0.4\textwidth} \footnotesize \vspace{2em} \begin{hangparas}{3em}{1}}{\end{hangparas}\par}
 
@@ -415,6 +415,9 @@
   <!-- Generate actual notes. -->
   <xsl:template name="editorialNotes">
     % Footnotes
+    % This Command Reformats them
+    \def\makeenmark{\makebox[\parindent]{\theenmark\hfill}}
+    % This command outputs them.
     \theendnotes
 <!--    \setcounter{footnote}{0}
     <xsl:for-each select=".//tei:note[@type='editorial']">
