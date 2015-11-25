@@ -162,6 +162,9 @@
       <xsl:call-template name="titleblock" />
       \pend
       \endnumbering
+      
+      \vspace{1em}
+      
       <xsl:call-template name="poem" />
       
       <!-- Output notes. -->
@@ -183,7 +186,7 @@
 
   <xsl:template name="poem">
     \beginnumbering
-
+    {\large
     <!-- This choice is for whether there are nested lgs within the main 
 	 poem lg. -->
     <xsl:choose>
@@ -195,7 +198,8 @@
 	  <xsl:call-template name="stanza" />
 	</xsl:for-each>
       </xsl:otherwise>
-    </xsl:choose>
+      </xsl:choose>}
+      \endnumbering
   </xsl:template>
   
   <xsl:template name="stanza">
@@ -206,7 +210,6 @@
 
   <xsl:template name="titleblock">
     <xsl:apply-templates select="tei:head" />
-    \vspace{2\parskip}
   </xsl:template>
   
   <!-- This will silence the textual note when it occurs in its order. -->
@@ -232,11 +235,14 @@
        </xsl:template>
   -->
 
-  <xsl:template match="tei:text[@xml:id='hs']//tei:lg[@type='poem']/tei:head" priority="4">\authortitle{<xsl:apply-templates />}{Claude McKay}</xsl:template>
+  <!--  <xsl:template match="tei:text[@xml:id='hs']//tei:lg[@type='poem']/tei:head" priority="4">\authortitle{<xsl:apply-templates />}{Claude McKay}</xsl:template> -->
+  <!-- Template for creating poem title --> 
+  <xsl:template match="tei:text[@xml:id='hs']//tei:lg[@type='poem']/tei:head" priority="4">
+  {{\LARGE \noindent \bfseries <xsl:apply-templates /> \par}
+  {\Large Claude McKay \par}}</xsl:template>
 
   <xsl:template match="tei:lg[@type='poem']/tei:head">
     \poemtitle{<xsl:apply-templates />}
-    
   </xsl:template>
 
   <xsl:template match="tei:lg[@type='poem']/tei:head[@type='dedication']" priority="5">
@@ -475,7 +481,9 @@
   <!-- Template for quoted material, including poems, particularly in reviews. -->
   <xsl:template match="tei:quote">
     \begin{quote}
+    \beginnumbering
     <xsl:apply-templates />
+    \endnumbering
     \end{quote}
   </xsl:template>
 
@@ -521,10 +529,11 @@
 
   <xsl:template match="tei:cit/tei:bibl"></xsl:template>
 
-  <xsl:template match="tei:quote/tei:lg[@type='poem']" priority="9">
-    <xsl:call-template name="titleblock" />
+  <xsl:template match="tei:quote/tei:lg" priority="9">
+    <xsl:if test="tei:head">
+      <xsl:call-template name="titleblock" />
+    </xsl:if>
 
-    \begin{verse}
     <xsl:choose>
       <xsl:when test="not(tei:lg)">
 	<xsl:call-template name="stanza" />
@@ -535,7 +544,6 @@
 	</xsl:for-each>
       </xsl:otherwise>
     </xsl:choose>
-    \end{verse}
     
   </xsl:template>
 
