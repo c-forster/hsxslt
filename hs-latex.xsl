@@ -480,11 +480,16 @@
 
   <!-- Template for quoted material, including poems, particularly in reviews. -->
   <xsl:template match="tei:quote">
-    \begin{quote}
-    \beginnumbering
+    \begin{quotation}
+    <!-- We need to beginnumbering if there are any lg's here. -->
+    <xsl:if test="tei:lg">
+      \beginnumbering
+    </xsl:if>
     <xsl:apply-templates />
-    \endnumbering
-    \end{quote}
+    <xsl:if test="tei:lg">
+      \endnumbering
+    </xsl:if>
+    \end{quotation}
   </xsl:template>
 
 
