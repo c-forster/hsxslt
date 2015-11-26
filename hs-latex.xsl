@@ -18,12 +18,11 @@
 
 % To format page size
 \setstocksize{11in}{8.5in}
-%\settypeblocksize{9in}{5in}{*}
-%\setulmargins{1in}{*}{*}
-%\setlrmargins{1in}{*}{*}
-\settypeblocksize{0.75\stockheight}{0.6\stockwidth}{*}
-\setlrmargins{*}{*}{1.2}
-\setulmargins{1.0in}{*}{1.4}
+\settrimmedsize{\stockheight}{\stockwidth}{*}
+\settrims{0pt}{0pt}
+\setlrmargins{*}{*}{1.618}
+\setulmargins{60pt}{*}{*}
+\setheaderspaces{*}{*}{1.618}
 \checkandfixthelayout
 
 % For headers
@@ -47,7 +46,9 @@
 
 % For editorial endnotes
 \usepackage{endnotes}
-\renewcommand{\notesname}{Editorial Notes}
+\renewcommand{\notesname}{\sans Editorial Notes}
+\renewcommand\enoteformat{\noindent
+  \sans \makebox[0pt][r]{\textbf{\theenmark.} \,}}
 
 % To center sections
 %\usepackage{sectsty}
@@ -152,17 +153,26 @@
       <xsl:call-template name="header" />
 
       <xsl:choose>
-	<xsl:when test="../../tei:text[@xml:id='hs']">\title{<xsl:value-of select="tei:head" />}</xsl:when>
-	<xsl:otherwise>\title{<xsl:value-of select="../tei:head/tei:title" />}</xsl:otherwise>
+	<xsl:when test="count(tei:text[@xml:id='hs']|ancestor::*) = count(ancestor::*)">
+	  \title{<xsl:value-of select="tei:head/text()" />}
+	  \begin{document}
+	  \beginnumbering
+	  \pstart
+	  <xsl:apply-templates select="tei:head" />
+	  \pend
+	  \endnumbering
+	</xsl:when>
+	<xsl:otherwise>
+	  \title{<xsl:value-of select="../tei:head/tei:title/text()" />}
+	  \begin{document}
+	  \beginnumbering
+	  \pstart
+	  <xsl:apply-templates select="../tei:head/tei:title" />
+	  \pend
+	  \endnumbering
+	</xsl:otherwise>
       </xsl:choose>
 
-      \begin{document}
-      \beginnumbering
-      \pstart
-      <xsl:call-template name="titleblock" />
-      \pend
-      \endnumbering
-      
       \vspace{1em}
       
       <xsl:call-template name="poem" />
@@ -204,14 +214,23 @@
   
   <xsl:template name="stanza">
     <xsl:call-template name="indentation" />
-    \stanza
+    
+    <xsl:choose>
+      <xsl:when test="tei:head and not(../tei:lg[@type='poem'])"> \stanza[<xsl:value-of select="tei:head" />]
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:text>\stanza
+	</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
     <xsl:apply-templates select="tei:l" />
   </xsl:template>
 
+<!--
   <xsl:template name="titleblock">
     <xsl:apply-templates select="tei:head" />
   </xsl:template>
-  
+-->  
   <!-- This will silence the textual note when it occurs in its order. -->
   <xsl:template match="tei:note[@type='textual']"></xsl:template>
 
@@ -221,16 +240,16 @@
        the calling function. -->
   <xsl:template name='textualNote'>
     \begin{textualnote}
-    \noindent {\textbf{Textual Note:}}\par
+    \noindent {\Large \textbf{Textual Note}}\par
     <xsl:apply-templates select="tei:note[@type='textual']/*" />
     \end{textualnote}
   </xsl:template>
 
   <xsl:template match="tei:lg[@type='poem']/tei:lg"><xsl:apply-templates /></xsl:template>
 
-  <xsl:template match="tei:lg/tei:lg/tei:head" priority="10">\poemtitlemark{<xsl:apply-templates />}</xsl:template>
+<!--  <xsl:template match="tei:lg/tei:lg/tei:head" priority="10">\poemtitlemark{<xsl:apply-templates />}</xsl:template> -->
 
-  <!--  <xsl:template match="tei:lg[@type='poem']/tei:head" priority="4">\poemtitle{<xsl:apply-templates />}
+<!--  <xsl:template match="tei:lg[@type='poem']/tei:head" priority="4">\poemtitle{<xsl:apply-templates />}
        \poemauthor{Claude McKay}
        </xsl:template>
   -->
@@ -241,8 +260,12 @@
   {{\LARGE \noindent \bfseries <xsl:apply-templates /> \par}
   {\Large Claude McKay \par}}</xsl:template>
 
+  <!-- Poem title for poems not within "Harlem Shadows. " -->
   <xsl:template match="tei:lg[@type='poem']/tei:head">
-    \poemtitle{<xsl:apply-templates />}
+    {\LARGE \noindent \bfseries <xsl:apply-templates /> \par}
+    {\Large <xsl:for-each select="../../tei:head/tei:bibl/tei:author">
+    <xsl:for-each select="tei:persName/tei:forename"><xsl:value-of select="." /><xsl:text> </xsl:text></xsl:for-each><xsl:for-each select="tei:persName/tei:surname"><xsl:value-of select="." /><xsl:text> </xsl:text></xsl:for-each>
+  </xsl:for-each>}
   </xsl:template>
 
   <xsl:template match="tei:lg[@type='poem']/tei:head[@type='dedication']" priority="5">
@@ -265,6 +288,8 @@
       <xsl:when test="following-sibling::tei:l">&amp;</xsl:when>
       <xsl:otherwise>\&amp;</xsl:otherwise>
     </xsl:choose>
+    <xsl:text>
+    </xsl:text>
   </xsl:template>
 
   <!-- This template outputs the text content of poetic lines. -->
@@ -275,10 +300,9 @@
   <xsl:template match="tei:lem"><xsl:apply-templates /></xsl:template>
 
   <!-- The Following Two Rules handle "empty" lemmas and readings. -->
-  <xsl:template match ="tei:lem/text()|tei:rdg/text()"><xsl:choose><xsl:when test="normalize-space(.) = ''"><xsl:text>[ ]</xsl:text></xsl:when><xsl:otherwise><xsl:value-of select="." /></xsl:otherwise></xsl:choose></xsl:template>
-
-  <!-- Match empty lems and rdgs which will be leaf nodes without any text. -->
-  <xsl:template match="tei:lem[not(node())] | tei:rdg[not(node())]"><xsl:text>[ ]</xsl:text></xsl:template>
+<!--  <xsl:template match ="tei:lem/text()|tei:rdg/text()"><xsl:choose><xsl:when test="normalize-space(.) = ''"><xsl:text>[ ]</xsl:text></xsl:when><xsl:otherwise><xsl:value-of select="." /></xsl:otherwise></xsl:choose></xsl:template> -->
+  <xsl:template match="tei:lem[not(node())]"><xsl:text>[ ]</xsl:text></xsl:template>
+  <xsl:template match="tei:rdg[not(node())]"><xsl:text>[ ]</xsl:text><xsl:apply-templates select="@wit" /></xsl:template>
   
   <!-- The next template features both the rdg, and outputs a sigilum. -->
   <xsl:template match="tei:rdg"><xsl:apply-templates /><xsl:text> </xsl:text> <xsl:apply-templates select="@wit" /></xsl:template>
@@ -293,11 +317,13 @@
     <xsl:template name="siglum">
       <xsl:param name="witness" />
       <xsl:variable name="sigWit"><xsl:value-of select="$witnessPath/tei:witness[@xml:id=substring-after($witness,'#')]/tei:biblStruct/tei:monogr/tei:title" /></xsl:variable>
-      <xsl:if test="contains($sigWit, 'Liberator')"><xsl:value-of>\emph{Lib.}</xsl:value-of></xsl:if>
-      <xsl:if test="contains($sigWit,'SINH')"><xsl:value-of>\emph{Spr.}</xsl:value-of></xsl:if>
+      <xsl:if test="contains($sigWit,'Seven Arts')"><xsl:value-of>\emph{Sev.}</xsl:value-of></xsl:if>
+      <xsl:if test="contains($sigWit,'Spring')"><xsl:value-of>\emph{Spr.}</xsl:value-of></xsl:if>
+      <xsl:if test="contains($sigWit,'Liberator')"><xsl:value-of>\emph{Lib.}</xsl:value-of></xsl:if>
       <xsl:if test="contains($sigWit,'Crusader')"><xsl:value-of>\emph{Cru.}</xsl:value-of></xsl:if>
       <xsl:if test="contains($sigWit,'Messenger')"><xsl:value-of>\emph{Mes.}</xsl:value-of></xsl:if>
       <xsl:if test="contains($sigWit,'Cambridge')"><xsl:value-of>\emph{Cam.}</xsl:value-of></xsl:if>
+
     </xsl:template>  
   
   <!--  <xsl:template match="tei:app//text()"><xsl:value-of select="normalize-space(.)" /></xsl:template> -->
@@ -539,7 +565,7 @@
 
   <xsl:template match="tei:quote/tei:lg" priority="9">
     <xsl:if test="tei:head">
-      <xsl:call-template name="titleblock" />
+      <xsl:apply-templates select="tei:head" />
     </xsl:if>
 
     <xsl:choose>
