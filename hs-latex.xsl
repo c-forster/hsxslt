@@ -459,8 +459,8 @@
     <xsl:apply-templates select="tei:author" />
     <xsl:apply-templates select="tei:title" /><xsl:text> </xsl:text>
     <xsl:apply-templates select="tei:biblScope[@unit='vol']" />
-     <xsl:apply-templates select="tei:biblScope[@unit='no']" />
-    <xsl:apply-templates select="tei:biblScope" />
+    <xsl:apply-templates select="tei:biblScope[@unit='no']" />
+<!--    <xsl:apply-templates select="tei:biblScope" /> -->
     <xsl:apply-templates select="tei:date" />: <xsl:apply-templates select="tei:biblScope[@unit='pg']" />
     \end{mlacitation}
   </xsl:template>
@@ -508,18 +508,12 @@
   <xsl:template match="tei:p/tei:note">\footnote{<xsl:apply-templates /></xsl:template>
 
   <!-- Template for quoted material, including poems, particularly in reviews. -->
-  <xsl:template match="tei:quote">
-    \begin{quotation}
+  <xsl:template match="tei:quote">\begin{quotation}
     <!-- We need to beginnumbering if there are any lg's here. -->
-    <xsl:if test="tei:lg">
-      \beginnumbering
-    </xsl:if>
+    <xsl:if test="tei:lg">\beginnumbering</xsl:if>
     <xsl:apply-templates />
-    <xsl:if test="tei:lg">
-      \endnumbering
-    </xsl:if>
-    \end{quotation}
-  </xsl:template>
+    <xsl:if test="tei:lg">\endnumbering</xsl:if>
+    \end{quotation}</xsl:template>
 
 
   <xsl:template match="tei:ptr">
@@ -597,9 +591,11 @@
     <xsl:value-of select="replace(
 			  replace(
 			  replace(
+			  replace(
 			  replace(., 'Dr. ','Dr.\\ ')
 			  , 'Mrs. ','Mrs.\\ ')
 			  , 'Mr. ','Mr.\\ ')
-			  , '&amp;', '\\&amp;')" />
+			  , '&amp;', '\\&amp;')
+			  , '\$', '\\\$')" />
   </xsl:template>
 </xsl:stylesheet>
