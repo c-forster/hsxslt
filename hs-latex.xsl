@@ -505,7 +505,7 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="tei:p/tei:note">\footnote{<xsl:apply-templates /></xsl:template>
+  <xsl:template match="tei:p/tei:note">\footnote{<xsl:apply-templates />}</xsl:template>
 
   <!-- Template for quoted material, including poems, particularly in reviews. -->
   <xsl:template match="tei:quote">\begin{quotation}
