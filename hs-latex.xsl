@@ -263,10 +263,11 @@
 
   <!-- Poem title for poems not within "Harlem Shadows. " -->
   <xsl:template match="tei:lg[@type='poem']/tei:head">
-    {\LARGE \noindent \bfseries <xsl:apply-templates /> \par}
+    {{\LARGE \noindent \bfseries <xsl:apply-templates /> \par}
+    \vspace{0.5em}
     {\Large <xsl:for-each select="../../tei:head/tei:bibl/tei:author">
     <xsl:for-each select="tei:persName/tei:forename"><xsl:value-of select="." /><xsl:text> </xsl:text></xsl:for-each><xsl:for-each select="tei:persName/tei:surname"><xsl:value-of select="." /><xsl:text> </xsl:text></xsl:for-each>
-  </xsl:for-each>}
+  </xsl:for-each>}}
   </xsl:template>
 
   <xsl:template match="tei:lg[@type='poem']/tei:head[@type='dedication']" priority="5">
@@ -579,6 +580,11 @@
   <xsl:template match="tei:div/tei:head">
     \subsection*{<xsl:apply-templates />}
   </xsl:template>
+
+  <!-- This rule overrides others and prevents titles of quoted poems
+       in supplementary material from being too big. -->
+  <xsl:template match="tei:text[@type='supplementary']//tei:quote/tei:lg[@type='poem']/tei:head |
+		       tei:text[@type='review']//tei:quote/tei:lg[@type='poem']/tei:head" priority="10">\textbf{<xsl:apply-templates />}</xsl:template>
   
   <!-- To remove superfluous whitespace in paragraphs.
        Particularly an issue with tei:pbs interrupting
