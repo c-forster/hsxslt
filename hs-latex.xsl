@@ -258,7 +258,8 @@
   <!-- Template for creating poem title --> 
   <xsl:template match="tei:text[@xml:id='hs']//tei:lg[@type='poem']/tei:head" priority="4">
   {{\LARGE \noindent \bfseries <xsl:apply-templates /> \par}
-  {\Large Claude McKay \par}}</xsl:template>
+  \vspace{0.5em}
+  {\Large \noindent Claude McKay \par}}</xsl:template>
 
   <!-- Poem title for poems not within "Harlem Shadows. " -->
   <xsl:template match="tei:lg[@type='poem']/tei:head">
