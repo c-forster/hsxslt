@@ -9,7 +9,7 @@
 <xsl:output method="text" encoding="utf-8" />
 
 <xsl:strip-space elements="*" />
-<xsl:preserve-space elements="tei:app tei:lem" /> 
+<xsl:preserve-space elements="tei:app tei:lem tei:rdg" /> 
 
 <xsl:template match="/"><xsl:apply-templates /></xsl:template>
   
@@ -74,6 +74,6 @@
 
 <xsl:template match="text()"><xsl:value-of select="normalize-space(.)" /></xsl:template>
 
-<xsl:template match="tei:l/text()"><xsl:value-of select="." /></xsl:template> 
+<xsl:template match="tei:l/text()|tei:lem/text()"><xsl:value-of select="." /></xsl:template> 
 
 </xsl:stylesheet>
