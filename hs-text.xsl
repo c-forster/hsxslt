@@ -9,7 +9,7 @@
 <xsl:output method="text" encoding="utf-8" />
 
 <xsl:strip-space elements="*" />
-<xsl:preserve-space elements="tei:app tei:lem tei:rdg" /> 
+<xsl:preserve-space elements="tei:app tei:lem tei:rdg tei:sic" /> 
 
 <xsl:template match="/"><xsl:apply-templates /></xsl:template>
   
@@ -39,6 +39,10 @@
 <xsl:result-document method="text" href="text/{$id}"><xsl:apply-templates /><xsl:text>
 </xsl:text></xsl:result-document>
 </xsl:template>
+
+<xsl:template match="tei:p"><xsl:apply-templates /><xsl:text>
+
+</xsl:text></xsl:template>
 
 <!-- Rules for handling apparatus. -->
 <xsl:template match="tei:app"><xsl:apply-templates /></xsl:template>
@@ -74,6 +78,11 @@
 
 <xsl:template match="text()"><xsl:value-of select="normalize-space(.)" /></xsl:template>
 
-<xsl:template match="tei:l/text()|tei:lem/text()"><xsl:value-of select="." /></xsl:template> 
+<xsl:template match="tei:l/text()"><xsl:value-of select="." /></xsl:template>
+
+<xsl:template match="tei:lem/text()"><xsl:choose>
+<xsl:when test="ancestor::tei:head"><xsl:value-of select="upper-case(.)" /></xsl:when>
+<xsl:otherwise><xsl:value-of select="." /></xsl:otherwise>  
+</xsl:choose></xsl:template>
 
 </xsl:stylesheet>
