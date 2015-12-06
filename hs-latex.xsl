@@ -67,18 +67,7 @@
 % We'll use columns for our notes.
 \usepackage{multicol}
 
-% For representation of poetry we use the verse package, and redefine
-% some rules.
-\usepackage{verse}
-%\renewcommand{\poemtitlefont}{\normalfont\bfseries\large\raggedright}
-\renewcommand{\poemtitlefont}{\normalfont\bfseries\large}
-
 %\setlength{\vleftmargin}{0pt}
-
-%\newcommand{\authortitle}[2]{\poemtitle{#1} #2 \par}
-%\newcommand{\authortitle}[2]{\noindent\hspace{\vleftmargin}{\poemtitlefont #1} \par \noindent\hspace{\vleftmargin}#2}
-\newcommand{\authortitle}[2]{\noindent{\poemtitlefont #1} \par \noindent#2}
-
 
 \newcommand{\prosetitlefont}{\normalfont\bfseries\large\raggedright}
     
@@ -293,7 +282,7 @@
     <xsl:apply-templates />
     <xsl:choose>
       <xsl:when test="following-sibling::tei:l">&amp;</xsl:when>
-      <xsl:otherwise>\&amp;</xsl:otherwise>
+      <xsl:otherwise>\&amp;[\vspace{\parskip}]</xsl:otherwise>
     </xsl:choose>
     <xsl:text>
     </xsl:text>
@@ -330,7 +319,8 @@
       <xsl:if test="contains($sigWit,'Crusader')"><xsl:value-of>\emph{Cru.}</xsl:value-of></xsl:if>
       <xsl:if test="contains($sigWit,'Messenger')"><xsl:value-of>\emph{Mes.}</xsl:value-of></xsl:if>
       <xsl:if test="contains($sigWit,'Cambridge')"><xsl:value-of>\emph{Cam.}</xsl:value-of></xsl:if>
-
+      <xsl:if test="contains($sigWit,'ThreeSonnets')"><xsl:value-of>\emph{Lit.}</xsl:value-of></xsl:if>
+      
     </xsl:template>  
   
   <!--  <xsl:template match="tei:app//text()"><xsl:value-of select="normalize-space(.)" /></xsl:template> -->
