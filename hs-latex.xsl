@@ -41,6 +41,9 @@
 \usepackage[hang]{footmisc}
 \setlength\footnotemargin{10pt}
 
+% To adjust quotations
+\usepackage[leftmargin=10em]{quoting}
+
 % Notes for critical apparatus
 \usepackage[parapparatus,series={A,B}]{reledmac}
 \Xarrangement[A]{twocol}
@@ -98,6 +101,7 @@
 \newenvironment{textualnote}{\sans \normalsize \setlength{\parindent}{0cm} \setlength{\parskip}{0.5em}}{\par}
 %\newenvironment{mlacitation}{\setlength{\leftskip}{0.4\textwidth} \footnotesize \par \noindent\ignorespaces\begin{hangparas}{3em}{-1}}{\end{hangparas}\par}
 \newenvironment{mlacitation}{\setlength{\leftskip}{0.4\textwidth} \footnotesize \vspace{2em} \begin{hangparas}{3em}{1}}{\end{hangparas}\par}
+\newenvironment{quotedverse}{\par \setlength{\leftskip}{5em} \noindent}{\par \vspace{1em}}
 
 % Set Margins for Single Page-Style Printouts
 
@@ -331,8 +335,7 @@
   
   <!--  <xsl:template match="tei:app//text()"><xsl:value-of select="normalize-space(.)" /></xsl:template> -->
 
-  <xsl:template name="indentation">\setstanzaindents{3,<xsl:for-each select=".//tei:l"><xsl:choose>
-  <xsl:when test="contains(@rend, 'indent')"><xsl:value-of select='substring-after(@rend, "indent")' /></xsl:when>
+  <xsl:template name="indentation">\setstanzaindents{3,<xsl:for-each select=".//tei:l"><xsl:choose><xsl:when test="contains(@rend, 'indent')"><xsl:value-of select='substring-after(@rend, "indent")' /></xsl:when>
   <xsl:otherwise><xsl:value-of select="0" separator="," /></xsl:otherwise>
   </xsl:choose><xsl:if test="position() != last()"><xsl:text>,</xsl:text></xsl:if></xsl:for-each>}</xsl:template>
   
@@ -510,15 +513,24 @@
 
   <xsl:template match="tei:p/tei:note">\footnote{<xsl:apply-templates />}</xsl:template>
 
-  <!-- Template for quoted material, including poems, particularly in reviews. -->
-  <xsl:template match="tei:quote">\begin{quotation}
-    <!-- We need to beginnumbering if there are any lg's here. -->
-    <xsl:if test="tei:lg">\beginnumbering</xsl:if>
-    <xsl:apply-templates />
-    <xsl:if test="tei:lg">\endnumbering</xsl:if>
-    \end{quotation}
-    
-    <xsl:if test="ancestor::tei:p and following-sibling::*">\noindent </xsl:if></xsl:template>
+  <!-- Template for quoted material, including poems, particularly in reviews.
+       This template uses quotation environments for longer quotations (here
+       meaning quotations that contain a block element) and just passes the former
+       through.
+  -->
+  <xsl:template match="tei:quote">
+    <xsl:choose>
+      <xsl:when test="tei:lg | tei:div | tei:p">\begin{quotedverse}
+      <!-- We need to beginnumbering if there are any lg's here. -->
+      <xsl:if test="tei:lg">\beginnumbering</xsl:if>
+      <xsl:apply-templates />
+      <xsl:if test="tei:lg">\endnumbering</xsl:if>
+      \end{quotedverse}
+      <xsl:if test="following-sibling::*">\noindent </xsl:if>
+      </xsl:when>
+      <xsl:otherwise><xsl:apply-templates /></xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 
 
   <xsl:template match="tei:ptr">
