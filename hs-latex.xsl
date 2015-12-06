@@ -20,9 +20,10 @@
 \setstocksize{11in}{8.5in}
 \settrimmedsize{\stockheight}{\stockwidth}{*}
 \settrims{0pt}{0pt}
-\setlrmargins{*}{*}{1.618}
+\settypeblocksize{9in}{7in}{*}
+\setlrmargins{*}{*}{1} % Equal Left and Right Margins 
 \setulmargins{60pt}{*}{*}
-\setheaderspaces{*}{*}{1.618}
+\setheaderspaces{\baselineskip}{*}{*}
 \checkandfixthelayout
 
 % For headers
@@ -584,7 +585,7 @@
   <!-- This rule overrides others and prevents titles of quoted poems
        in supplementary material from being too big. -->
   <xsl:template match="tei:text[@type='supplementary']//tei:quote/tei:lg[@type='poem']/tei:head |
-		       tei:text[@type='review']//tei:quote/tei:lg[@type='poem']/tei:head" priority="10">\textbf{<xsl:apply-templates />}</xsl:template>
+		       tei:text[@type='review']//tei:quote/tei:lg[@type='poem']/tei:head" priority="10">\{<xsl:apply-templates />}</xsl:template>
   
   <!-- To remove superfluous whitespace in paragraphs.
        Particularly an issue with tei:pbs interrupting
