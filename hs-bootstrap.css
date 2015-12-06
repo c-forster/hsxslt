@@ -38,6 +38,11 @@ ol {
 .textualNote ul {  padding-left: 0em; }
 .textualNote li { }
 
+#downloads ul {
+    list-style-type: circle;
+    padding-left: 2em;
+}
+
 .note ul {
     padding: 0;
 }

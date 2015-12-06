@@ -7,7 +7,6 @@
 
   <xsl:output method="html" version="5.0" indent="yes" encoding="utf-8" omit-xml-declaration="yes" />
 
-
   <xsl:key name="witnessTitles" match="//tei:witness" use="@xml:id" />
 
   <xsl:template match="tei:TEI">
@@ -26,7 +25,7 @@
 	<xsl:for-each select="/tei:TEI/tei:text/tei:group/tei:text/tei:front/tei:div[@type='contents']//tei:item">
 	  <li>
 	    <xsl:element name="a">
-	      <xsl:attribute name="href"><xsl:value-of select="concat(substring-after(tei:ref/@target,'#'),'.html')" /></xsl:attribute>
+	      <xsl:attribute name="href">/html/<xsl:value-of select="concat(substring-after(tei:ref/@target,'#'),'.html')" /></xsl:attribute>
 	      <xsl:apply-templates />
 	    </xsl:element>
 	  </li>
@@ -41,7 +40,7 @@
 	  <xsl:for-each select="tei:text">
 	    <li>
 	      <xsl:element name="a">
-		<xsl:attribute name="href"><xsl:value-of select="./@xml:id" />.html</xsl:attribute>
+		<xsl:attribute name="href">/html/<xsl:value-of select="@xml:id" />.html</xsl:attribute>
 		<xsl:apply-templates select="tei:body/tei:head/tei:title" />
 	      </xsl:element>
 	    </li>
@@ -142,7 +141,7 @@
       </xsl:choose>
     </xsl:variable>
     
-    <xsl:result-document method="html" href="harlem-shadows/{$poemid}.html">
+    <xsl:result-document method="html" href="harlem-shadows/html/{$poemid}.html">
       <!-- HTML HEADER. -->
       <html>
 	<head>
@@ -237,7 +236,7 @@
 			<xsl:if test=". = concat('#',$poemid)">
 			  <li><xsl:element name='a'>
 			    <xsl:attribute name='href'>
-			      <xsl:value-of select="concat(concat(ancestor::*[@xml:id][1]/@xml:id, '.html'), concat('#',$linkID))" />
+			      <xsl:value-of select="concat(concat('html/', ancestor::*[@xml:id][1]/@xml:id, '.html'), concat('#',$linkID))" />
 			    </xsl:attribute>
 			    <xsl:value-of select="ancestor::tei:text/tei:body/tei:head/tei:title" />
 			  </xsl:element></li>
@@ -249,9 +248,9 @@
 		<div id="downloads">
 		  <h4>Formats</h4>
 		  <ul>
-		    <li><a href="./pdf/{$poemid}.pdf">PDF</a></li>
-		    <li><a href="./text/{$poemid}.txt">Plain Text</a></li>
-		    <li><a href="./tei/{$poemid}.tei.xml">TEI Simple</a></li>
+		    <li><a href="/pdf/{$poemid}.pdf">PDF</a></li>
+		    <li><a href="/text/{$poemid}.txt">Plain Text</a></li>
+		    <li><a href="/tei/{$poemid}.tei.xml">TEI Simple</a></li>
 		  </ul>
 		  <!-- <p>For additional download options, see the <a href="downloads.html">Downloads Page</a>.</p> -->
 		</div>
@@ -443,8 +442,8 @@
 
 <!-- Introduction/Preface/Etc ;; Prose Materials -->
 <xsl:template match="tei:div[@type='introductory-prose']">
-  <xsl:variable name="id"><xsl:value-of select="@xml:id" />.html</xsl:variable>
-  <xsl:result-document method="html" href="harlem-shadows/{$id}">
+  <xsl:variable name="id"><xsl:value-of select="@xml:id" /></xsl:variable>
+  <xsl:result-document method="html" href="harlem-shadows/html/{$id}.html">
     <!-- HTML HEADER. -->
     <html>
       <head>
@@ -532,9 +531,9 @@
 <!-- Templates for secondary material: contemporary reviews. -->
 <!-- This groups supplementary material in here too. -->
 <xsl:template match="tei:text[@type='review'] | tei:text[@type='supplementary']">
-  <xsl:variable name="id"><xsl:value-of select="@xml:id" />.html</xsl:variable>
+  <xsl:variable name="id"><xsl:value-of select="@xml:id" /></xsl:variable>
 
-  <xsl:result-document method="html" href="harlem-shadows/{$id}">
+  <xsl:result-document method="html" href="harlem-shadows/html/{$id}.html">
     
     <html>
       <head>
@@ -685,7 +684,7 @@
 <xsl:template name="add-source-link">
   <xsl:if test="../@source">
     <span class='source'>
-      [<xsl:element name="a"><xsl:attribute name="id"><xsl:value-of select="generate-id()" /></xsl:attribute><xsl:attribute name="href"><xsl:value-of select="concat(substring-after(../@source,'#'),'.html')" /></xsl:attribute>source</xsl:element>]</span>
+      [<xsl:element name="a"><xsl:attribute name="id"><xsl:value-of select="generate-id()" /></xsl:attribute><xsl:attribute name="href"><xsl:value-of select="concat('html/',substring-after(../@source,'#'),'.html')" /></xsl:attribute>source</xsl:element>]</span>
   </xsl:if>
 
 </xsl:template>
@@ -815,11 +814,11 @@ to maintain in this circumstance. Really.
   <!-- Bootstrap -->
   <!-- Latest compiled and minified CSS -->
   <!-- <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" /> -->
-  <link rel="stylesheet" href="hsbs/css/bootstrap.min.css" /> 
+  <link rel="stylesheet" href="/hsbs/css/bootstrap.min.css" /> 
   <!-- Optional theme -->
   <!--  <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css" /> -->
 
-  <link rel="stylesheet" href="hs-bootstrap.css"  />
+  <link rel="stylesheet" href="/hs-bootstrap.css"  />
   
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css' />
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css' />
