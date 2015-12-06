@@ -221,7 +221,7 @@
     <xsl:call-template name="indentation" />
     
     <xsl:choose>
-      <xsl:when test="tei:head and not(../tei:lg[@type='poem'])"> \stanza[<xsl:value-of select="tei:head" />]
+      <xsl:when test="(tei:head and not(../tei:lg[@type='poem'])) or (tei:head and ancestor::tei:quote)">\stanza[<xsl:apply-templates select="tei:head" />]
       </xsl:when>
       <xsl:otherwise>
 	<xsl:text>\stanza
@@ -266,7 +266,7 @@
   \vspace{0.5em}
   {\Large \noindent Claude McKay \par}}</xsl:template>
 
-  <!-- Poem title for poems not within "Harlem Shadows. " -->
+  <!-- Poem title for poems not within "Harlem Shadows," and not quoted. -->
   <xsl:template match="tei:lg[@type='poem']/tei:head">
     {{\LARGE \noindent \bfseries <xsl:apply-templates /> \par}
     \vspace{0.5em}
@@ -575,9 +575,9 @@
   <xsl:template match="tei:cit/tei:bibl"></xsl:template>
 
   <xsl:template match="tei:quote/tei:lg" priority="9">
-    <xsl:if test="tei:head">
+<!--    <xsl:if test="tei:head">
       <xsl:apply-templates select="tei:head" />
-    </xsl:if>
+    </xsl:if> -->
 
     <xsl:choose>
       <xsl:when test="not(tei:lg)">
