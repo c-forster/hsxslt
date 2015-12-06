@@ -593,17 +593,29 @@
   <!-- To remove superfluous whitespace in paragraphs.
        Particularly an issue with tei:pbs interrupting
        the flow. -->
-  <!--  <xsl:template match="tei:p/text()">
-       <xsl:value-of select="normalize-space(.)" />
-       </xsl:template> -->
+  <xsl:template match="tei:p/text()">
+    <xsl:variable name="toreturn">
+      <xsl:call-template name="replacements"><xsl:with-param name="text" select="." /></xsl:call-template>
+    </xsl:variable>
+    <!-- Courtesy of Stack Overflow: http://stackoverflow.com/questions/16573215/xslt-remove-leading-and-trailing-whitespace-of-all-attributes
+	 a regex to remove trailing whitespace only. -->
+    <xsl:value-of select="replace($toreturn, '^\s+|\s+$', ' ')"/>
+<!--    <xsl:value-of select="normalize-space($toreturn)" /> -->
+  </xsl:template>
+
+  <xsl:template match="text()">
+    <xsl:call-template name="replacements"><xsl:with-param name="text" select="." /></xsl:call-template>
+  </xsl:template>
+  
   <!-- Template to do simple LaTeX-specific replacements for things like
        abbreviations and similar. -->
-  <xsl:template match="text()">
+  <xsl:template name="replacements">
+    <xsl:param name="text" />
     <xsl:value-of select="replace(
 			  replace(
 			  replace(
 			  replace(
-			  replace(., 'Dr. ','Dr.\\ ')
+			  replace($text, 'Dr. ','Dr.\\ ')
 			  , 'Mrs. ','Mrs.\\ ')
 			  , 'Mr. ','Mr.\\ ')
 			  , '&amp;', '\\&amp;')
