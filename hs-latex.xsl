@@ -312,7 +312,7 @@
   <xsl:template match="tei:rdg[not(node())]"><xsl:text>\textit{om.} </xsl:text><xsl:apply-templates select="@wit" /></xsl:template>
   
   <!-- The next template features both the rdg, and outputs a sigilum. -->
-  <xsl:template match="tei:rdg"><xsl:if test="../tei:lem[not(node())]">\textit{add.} </xsl:if><xsl:apply-templates /><xsl:text> </xsl:text> <xsl:apply-templates select="@wit" /></xsl:template>
+  <xsl:template match="tei:rdg"><xsl:apply-templates /><xsl:text> </xsl:text><xsl:if test="../tei:lem[not(node())]">\textit{add.}<xsl:text> </xsl:text></xsl:if><xsl:apply-templates select="@wit" /></xsl:template>
 
   <!--  <xsl:template match="tei:rdg/@wit"><xsl:for-each select="tokenize(., ' ')"><xsl:value-of select="normalize-space(replace(.,'#',''))" /> </xsl:for-each></xsl:template> -->
 
