@@ -246,7 +246,14 @@
 		    </ul>
 		  </div>
 		</xsl:if>
-
+		<div id="downloads">
+		  <h4>Formats</h4>
+		  <ul>
+		    <li>[<a href="./pdf/{$poemid}.pdf">PDF</a>]</li>
+		    <li>[<a href="./text/{$poemid}.txt">Plain Text</a>]</li>
+		    <li>[<a href="./tei/{$poemid}.tei.xml">TEI Simple</a>]</li>
+		  </ul>
+		</div>
 	      </div>
 	      
 	      <xsl:text>&#10;</xsl:text>
@@ -714,7 +721,7 @@
 <!-- or an abbreviation and an expansion -->
 <!-- it chooses the latter. --> 
 <xsl:template match="tei:choice">
-  <xsl:apply-templates select="tei:corr|tei:abbr" />
+  <xsl:apply-templates select="tei:corr|tei:reg" />
 </xsl:template>
 
 <!-- Template to silence errors. TODO [Awaiting a better solution; 

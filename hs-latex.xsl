@@ -516,7 +516,9 @@
     <xsl:if test="tei:lg">\beginnumbering</xsl:if>
     <xsl:apply-templates />
     <xsl:if test="tei:lg">\endnumbering</xsl:if>
-    \end{quotation}</xsl:template>
+    \end{quotation}
+    
+    <xsl:if test="ancestor::tei:p and following-sibling::*">\noindent </xsl:if></xsl:template>
 
 
   <xsl:template match="tei:ptr">
@@ -535,7 +537,7 @@
   <!-- or an abbreviation and an expansion -->
   <!-- it chooses the latter. --> 
   <xsl:template match="tei:choice">
-    <xsl:apply-templates select="tei:corr|tei:abbr" />
+    <xsl:apply-templates select="tei:corr|tei:reg" />
   </xsl:template>
 
   <!-- Template to silence errors. TODO [Awaiting a better solution; 
@@ -585,8 +587,9 @@
   <!-- This rule overrides others and prevents titles of quoted poems
        in supplementary material from being too big. -->
   <xsl:template match="tei:text[@type='supplementary']//tei:quote/tei:lg[@type='poem']/tei:head |
-		       tei:text[@type='review']//tei:quote/tei:lg[@type='poem']/tei:head" priority="10">\{<xsl:apply-templates />}</xsl:template>
-  
+		       tei:text[@type='review']//tei:quote/tei:lg[@type='poem']/tei:head" priority="10">\textbf{<xsl:apply-templates />}
+  </xsl:template>
+
   <!-- To remove superfluous whitespace in paragraphs.
        Particularly an issue with tei:pbs interrupting
        the flow. -->
