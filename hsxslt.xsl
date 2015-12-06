@@ -249,10 +249,11 @@
 		<div id="downloads">
 		  <h4>Formats</h4>
 		  <ul>
-		    <li>[<a href="./pdf/{$poemid}.pdf">PDF</a>]</li>
-		    <li>[<a href="./text/{$poemid}.txt">Plain Text</a>]</li>
-		    <li>[<a href="./tei/{$poemid}.tei.xml">TEI Simple</a>]</li>
+		    <li><a href="./pdf/{$poemid}.pdf">PDF</a></li>
+		    <li><a href="./text/{$poemid}.txt">Plain Text</a></li>
+		    <li><a href="./tei/{$poemid}.tei.xml">TEI Simple</a></li>
 		  </ul>
+		  <!-- <p>For additional download options, see the <a href="downloads.html">Downloads Page</a>.</p> -->
 		</div>
 	      </div>
 	      
