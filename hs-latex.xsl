@@ -298,17 +298,17 @@
   <!-- This template outputs the text content of poetic lines. -->
   <xsl:template match="tei:l/text()"><xsl:value-of select="." /></xsl:template>
 
-  <xsl:template match="tei:app">\edtext{<xsl:apply-templates select ="tei:lem" />}{\Afootnote{<xsl:apply-templates select="tei:rdg" />}}</xsl:template>
+  <xsl:template match="tei:app">\edtext{<xsl:apply-templates select ="tei:lem" />}{<xsl:if test="tei:lem[not(node())]">\lemma{<xsl:value-of select="tokenize(normalize-space(string-join(preceding::text(),'')),' ')[last()]" />}</xsl:if>\Afootnote{<xsl:apply-templates select="tei:rdg" />}}</xsl:template>
 
   <xsl:template match="tei:lem"><xsl:apply-templates /></xsl:template>
 
   <!-- The Following Two Rules handle "empty" lemmas and readings. -->
 <!--  <xsl:template match ="tei:lem/text()|tei:rdg/text()"><xsl:choose><xsl:when test="normalize-space(.) = ''"><xsl:text>[ ]</xsl:text></xsl:when><xsl:otherwise><xsl:value-of select="." /></xsl:otherwise></xsl:choose></xsl:template> -->
-  <xsl:template match="tei:lem[not(node())]"><xsl:text>[ ]</xsl:text></xsl:template>
-  <xsl:template match="tei:rdg[not(node())]"><xsl:text>[ ]</xsl:text><xsl:apply-templates select="@wit" /></xsl:template>
+  <xsl:template match="tei:lem[not(node())]"></xsl:template>
+  <xsl:template match="tei:rdg[not(node())]"><xsl:text>\textit{om.} </xsl:text><xsl:apply-templates select="@wit" /></xsl:template>
   
   <!-- The next template features both the rdg, and outputs a sigilum. -->
-  <xsl:template match="tei:rdg"><xsl:apply-templates /><xsl:text> </xsl:text> <xsl:apply-templates select="@wit" /></xsl:template>
+  <xsl:template match="tei:rdg"><xsl:if test="../tei:lem[not(node())]">\textit{add.} </xsl:if><xsl:apply-templates /><xsl:text> </xsl:text> <xsl:apply-templates select="@wit" /></xsl:template>
 
   <!--  <xsl:template match="tei:rdg/@wit"><xsl:for-each select="tokenize(., ' ')"><xsl:value-of select="normalize-space(replace(.,'#',''))" /> </xsl:for-each></xsl:template> -->
 
