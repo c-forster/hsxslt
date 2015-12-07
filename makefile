@@ -12,6 +12,17 @@ all:
 	rm text/*
 	mv temp/text/*.txt text/
 	rm -rf temp
+	# Now, do LaTeX
+	java -jar ~/SaxonHE9-5-1-6J/saxon9he.jar -ext:on harlem-shadows.tei.xml hs-latex.xsl
+	# Make Latex... but it takes forever
+	# cd latex; latekmk -f lualatex
+	# Now TEI
+	java -jar ~/SaxonHE9-5-1-6J/saxon9he.jar -ext:on harlem-shadows.tei.xml hs-tei.xsl
+	# Now copy everything
+	cp -r text harlem-shadows
+	cp -r tei harlem-shadows
+	cp -r pdf harlem-shadows
+	# Bundle ZIPs.
 
 
 
