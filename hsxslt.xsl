@@ -245,12 +245,16 @@
 		    </ul>
 		  </div>
 		</xsl:if>
+<!--		<div id="poeticForm">
+		  <h4>Form</h4>
+		  <xsl:call-template name="poeticform" />
+		</div>-->
 		<div id="downloads">
 		  <h4>Formats</h4>
 		  <ul>
 		    <li><a href="/pdf/{$poemid}.pdf">PDF</a></li>
 		    <li><a href="/text/{$poemid}.txt">Plain Text</a></li>
-		    <li><a href="/tei/{$poemid}.tei.xml">TEI Simple</a></li>
+		    <li><a href="/tei/{$poemid}.tei.xml">TEI</a></li>
 		  </ul>
 		  <!-- <p>For additional download options, see the <a href="downloads.html">Downloads Page</a>.</p> -->
 		</div>
@@ -319,6 +323,9 @@
   </xsl:element>
 </xsl:template>
 
+<!-- A note to give information/links on poetic form. -->
+<xsl:template name="poeticsNote">
+</xsl:template>
 
 <xsl:template match="tei:lg[@type='poem']/tei:lg">
   <div class="linegroup">
