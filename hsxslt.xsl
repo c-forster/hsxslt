@@ -71,7 +71,7 @@
 
   <!-- Generate landing index.html page from the teiHeader -->
   <xsl:template match="tei:teiHeader">
-    <xsl:result-document method="html" href="harlem-shadows/index.html">
+    <xsl:result-document method="html" version="5.0" href="harlem-shadows/index.html">
       <html>
 	<head>
 	  <xsl:call-template name="htmlHeader" />
@@ -141,7 +141,7 @@
       </xsl:choose>
     </xsl:variable>
     
-    <xsl:result-document method="html" href="harlem-shadows/{$poemid}.html">
+    <xsl:result-document method="html" version="5.0" href="harlem-shadows/{$poemid}.html">
       <!-- HTML HEADER. -->
       <html>
 	<head>
@@ -450,7 +450,7 @@
 <!-- Introduction/Preface/Etc ;; Prose Materials -->
 <xsl:template match="tei:div[@type='introductory-prose']">
   <xsl:variable name="id"><xsl:value-of select="@xml:id" /></xsl:variable>
-  <xsl:result-document method="html" href="harlem-shadows/{$id}.html">
+  <xsl:result-document method="html" version="5.0" href="harlem-shadows/{$id}.html">
     <!-- HTML HEADER. -->
     <html>
       <head>
@@ -540,7 +540,7 @@
 <xsl:template match="tei:text[@type='review'] | tei:text[@type='supplementary']">
   <xsl:variable name="id"><xsl:value-of select="@xml:id" /></xsl:variable>
 
-  <xsl:result-document method="html" href="harlem-shadows/{$id}.html">
+  <xsl:result-document method="html" version="5.0" href="harlem-shadows/{$id}.html">
     
     <html>
       <head>
@@ -818,6 +818,7 @@ to maintain in this circumstance. Really.
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <xsl:call-template name="dublinCore" /> 
   <!-- Bootstrap -->
   <!-- Latest compiled and minified CSS -->
   <!-- <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" /> -->
@@ -830,7 +831,43 @@ to maintain in this circumstance. Really.
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css' />
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css' />
   <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css' />
+</xsl:template>
 
+<xsl:template name="dublinCore">
+  <xsl:choose>
+    <!-- For Eastman's Introduction. -->
+    <xsl:when test="@xml:id='introduction'">
+      <xsl:element name="meta"><xsl:attribute name="name">DC.title</xsl:attribute><xsl:attribute name="content">Introduction [Harlem Shadows]</xsl:attribute></xsl:element>
+      <xsl:element name="meta"><xsl:attribute name="name">DC.creator</xsl:attribute><xsl:attribute name="content">Eastman, Max</xsl:attribute></xsl:element>
+      <xsl:element name="meta"><xsl:attribute name="name">DC.date</xsl:attribute><xsl:attribute name="content">1922</xsl:attribute></xsl:element>
+      <xsl:element name="meta"><xsl:attribute name="name">DC.identifier</xsl:attribute><xsl:attribute name="content">http://harlemshadows.org/introduction.html</xsl:attribute></xsl:element>
+    </xsl:when>
+    <!-- For McKay's Author's Word. -->
+    <xsl:when test="@xml:id='authors-word'">
+      <xsl:element name="meta"><xsl:attribute name="name">DC.title</xsl:attribute><xsl:attribute name="content">Author's Word [Harlem Shadows]</xsl:attribute></xsl:element>
+      <xsl:element name="meta"><xsl:attribute name="name">DC.creator</xsl:attribute><xsl:attribute name="content">McKay, Claude</xsl:attribute></xsl:element>
+      <xsl:element name="meta"><xsl:attribute name="name">DC.date</xsl:attribute><xsl:attribute name="content">1922</xsl:attribute></xsl:element>
+      <xsl:element name="meta"><xsl:attribute name="name">DC.identifier</xsl:attribute><xsl:attribute name="content">http://harlemshadows.org/authors-word.html</xsl:attribute></xsl:element>
+    </xsl:when>
+    <!-- For Harlem Shadows Poems. -->
+    <xsl:when test="ancestor::tei:text[@xml:id='hs']">
+      <xsl:element name="meta"><xsl:attribute name="name">DC.title</xsl:attribute>
+      <xsl:attribute name="content">
+	<xsl:value-of select="normalize-space((tei:head/text())[1])" />
+      </xsl:attribute></xsl:element>
+      <xsl:element name="meta"><xsl:attribute name="name">DC.creator</xsl:attribute><xsl:attribute name="content">McKay, Claude</xsl:attribute></xsl:element>
+      <xsl:element name="meta"><xsl:attribute name="name">DC.date</xsl:attribute><xsl:attribute name="content">1922</xsl:attribute></xsl:element>
+      <xsl:element name="meta"><xsl:attribute name="name">DC.identifier</xsl:attribute><xsl:attribute name="content">http://harlemshadows.org/<xsl:value-of select="@xml:id" />.html</xsl:attribute></xsl:element>
+    </xsl:when>
+    <!-- For Secondary Material: Reviews, Supplementary, etc. -->
+    <xsl:otherwise>
+      <xsl:element name="meta"><xsl:attribute name="name">DC.title</xsl:attribute><xsl:attribute name="content"><xsl:value-of select="tei:body/tei:head/tei:bibl/tei:title[1]/text()" /></xsl:attribute></xsl:element>
+      <xsl:element name="meta"><xsl:attribute name="name">DC.creator</xsl:attribute><xsl:attribute name="content"><xsl:value-of select="string-join(tei:body/tei:head/tei:bibl/tei:author/tei:persName/tei:surname, ' ')" />, <xsl:value-of select="string-join(tei:body/tei:head/tei:bibl/tei:author/tei:persName/tei:forename, ' ')" /></xsl:attribute></xsl:element>
+      <xsl:element name="meta"><xsl:attribute name="name">DC.date</xsl:attribute><xsl:attribute name="content"><xsl:value-of select="tei:body/tei:head/tei:bibl/tei:date/@when" /></xsl:attribute></xsl:element>
+      <xsl:element name="meta"><xsl:attribute name="name">DC.identifier</xsl:attribute><xsl:attribute name="content">http://harlemshadows.org/<xsl:value-of select="@xml:id" />.html</xsl:attribute></xsl:element>
+    </xsl:otherwise>
+  </xsl:choose>
+  <meta name="DC.publisher" content="Harlem Shadows: Digital Edition" />
 </xsl:template>
 
 <!-- Google Analytics -->
